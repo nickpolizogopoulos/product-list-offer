@@ -1,0 +1,29 @@
+
+mat-divider {
+    margin: 30px 0 !important;
+}
+
+// mat-slider {
+//     width: 300px !important;
+// }
+
+mat-form-field {
+    margin: 0 5px;
+    margin-bottom: 0 !important;
+
+    @media screen and (max-width: 767px) {
+        width: 100% !important;
+    }
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled),
+.mat-mdc-form-field-focus-overlay
+{
+    // background-color: rgba(236, 236, 236, 0.762) !important;
+    background-color: white !important;
+}
+
+
+.mdc-slider__track {
+    background-color: white !important;
+}
