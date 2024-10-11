@@ -1,16 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
 
 @use './app/utilities/styles/material-styles.scss';
 @use './app/utilities/styles/tippy.scss';
 
-
 $black: rgb(64, 64, 64);
 $blue: rgb(24, 75, 116);
-
-html,
-body {
-    height: 100%;
-}
 
 body {
     background-image: url('../public/Mac_M2_Ultra_Day.png');
@@ -19,7 +12,6 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-    // margin: 0;
 }
 
 * {
@@ -42,6 +34,7 @@ a {
     &:hover {
         text-decoration: underline;
         text-decoration-thickness: 2px;
+        text-underline-offset: 4px;
     }
 }
 
@@ -75,18 +68,11 @@ $heading-styles: (
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    // align-items: center;
 
     article {
         text-align: end;
     }
-
-    img {
-        height: 150px;
-        width: auto;
-    }
 }
-
 
 .container {
 
@@ -106,45 +92,43 @@ $heading-styles: (
     // margin-right: auto;
     // margin-left: auto;
   
-  @media (min-width: 576px) {
-      max-width: 540px;
-  }
+    @media (min-width: 576px) {
+        max-width: 540px;
+    }
   
-  @media (min-width: 768px) {
-      max-width: 720px;
-  }
-  
-  @media (min-width: 992px) {
-      max-width: 960px;
-  }
-  
-  @media (min-width: 1200px) {
-      max-width: 1140px;
-  }
-  
-  @media (min-width: 1400px) {
-      max-width: 1320px;
-  }
+    @media (min-width: 768px) {
+        max-width: 720px;
+    }
+    
+    @media (min-width: 992px) {
+        max-width: 960px;
+    }
+    
+    @media (min-width: 1200px) {
+        max-width: 1140px;
+    }
+    
+    @media (min-width: 1400px) {
+        max-width: 1320px;
+    }
 }
 
-
-
-// .mat-mdc-form-field-subscript-wrapper,
-// .mat-mdc-form-field-bottom-align
-// {
-//     display: none;
-// }
+.error-message {
+    font-style: italic;
+    font-size: 13px;
+    color: rgb(186, 26, 26);
+}
 
 .info-block {
 
     display: flex;
     flex-direction: row;
+    
+    align-items: baseline;
 
     @media screen and (max-width: 767px) {
         display: inline;
     }
-
-    align-items: center !important;
 
     .input-50 {
         width: 50%; 
@@ -209,24 +193,32 @@ $heading-styles: (
     }
 }
 
+.slider-switch {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+
+    & span {
+        user-select: none !important;
+        font-size: 18px;
+    }
+}
 //* ===========================================================================
 
-// .btn {
-//     font-size: 0.9rem;
-//     padding: 1px 10px;
-// }
-
-
-// input {
-//     font-size: 0.9rem;
-//     padding: 4px;
-//     border: 1px solid grey;
-//     border-radius: 4px;
-//     transition: all .05s linear;
-//     &:hover,
-//     &:focus {
-//         border: 1px solid transparent;
-//         box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.15);
-//         outline: none;
-//     }
-// }
+h1,
+h3 {
+    transition: all .4s;
+    span {
+        font-family: monospace;
+        font-size: 35px;
+    }
+    @media screen and (max-width: 518px) {
+        font-size: 2.2rem;
+        margin-bottom: 20px !important;
+    }
+    @media screen and (max-width: 399px) {
+        font-size: 1.8rem;
+        margin-bottom: 14px !important;
+    }
+}

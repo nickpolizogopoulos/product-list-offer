@@ -3,9 +3,9 @@ mat-divider {
     margin: 30px 0 !important;
 }
 
-// mat-slider {
-//     width: 300px !important;
-// }
+mat-slider {
+    width: 300px !important;
+}
 
 mat-form-field {
     margin: 0 5px;
@@ -17,9 +17,8 @@ mat-form-field {
 }
 
 .mdc-text-field--filled:not(.mdc-text-field--disabled),
-.mat-mdc-form-field-focus-overlay
+.mat-mdc-form-field-focus-overlay 
 {
-    // background-color: rgba(236, 236, 236, 0.762) !important;
     background-color: white !important;
 }
 
@@ -27,3 +26,10 @@ mat-form-field {
 .mdc-slider__track {
     background-color: white !important;
 }
+
+//* for the little box below the material inputs.
+// .mat-mdc-form-field-subscript-wrapper,
+// .mat-mdc-form-field-bottom-align
+// {
+//     display: none;
+// }

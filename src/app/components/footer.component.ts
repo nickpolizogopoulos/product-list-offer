@@ -8,6 +8,9 @@ import { MaterialComponents } from '../utilities/tools/material-components';
   imports: [
     MaterialComponents
   ],
+  host: {
+    'class': 'container'
+  },
   template: `
   
     An
@@ -28,9 +31,13 @@ import { MaterialComponents } from '../utilities/tools/material-components';
     }
 
     .angular {
-      color: red;
+      color: #c3002f;
+
+      &:hover {
+        color: rgb(211, 16, 156);
+      }
     }
-  
+
   `
 })
 export class FooterComponent {}

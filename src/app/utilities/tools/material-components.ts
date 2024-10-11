@@ -6,6 +6,8 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSliderModule } from '@angular/material/slider'; 
 import { MatTooltipModule } from '@angular/material/tooltip'; 
+// import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 export const MaterialComponents =
 [
@@ -15,5 +17,7 @@ export const MaterialComponents =
     MatToolbarModule,
     MatDividerModule,
     MatSliderModule,
-    MatTooltipModule
+    MatTooltipModule,
+    // MatCheckboxModule,
+    MatSlideToggleModule
 ];

@@ -15,6 +15,9 @@ type Social = {
   imports: [
     MaterialComponents
   ],
+  host: {
+    'class': 'container'
+  },
   template: `
   
     <h1>Product offer to <span>.</span>pdf</h1>
@@ -53,20 +56,7 @@ type Social = {
     }
     
     h1 {
-        transition: all .4s;
-        margin: 0 !important;
-        span {
-            font-family: monospace;
-            font-size: 35px;
-        }
-        @media screen and (max-width: 518px) {
-            font-size: 2.2rem;
-            margin-bottom: 20px !important;
-        }
-        @media screen and (max-width: 399px) {
-            font-size: 1.8rem;
-            margin-bottom: 14px !important;
-        }
+        margin: 0;
     }
 
     .Btn {
