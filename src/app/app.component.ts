@@ -31,14 +31,14 @@ import
   initialCompanyNameValue,
   initialCompanyPhoneValue,
   localStorageItemData,
-  mustContainPeriod
+  mustContainPeriod,
+  required
 } from './utilities/tools/form-tools';
 import { FooterComponent } from './components/footer.component';
 import { HeaderComponent } from './components/header.component';
 import { type ProductFormControl } from './utilities/tools/product-control';
 import { Product } from './utilities/tools/product.model';
 import { PDF } from './utilities/tools/pdf.model';
-
 
 @Component({
   selector: 'app-root',
@@ -96,25 +96,25 @@ export class AppComponent implements
   }
 
   form = new FormGroup({
-    companyName: new FormControl(initialCompanyNameValue, { validators: [Validators.required] }),
+    companyName: new FormControl(initialCompanyNameValue, required),
     logoLink: new FormControl(initialCompanyLogoLinkValue),
     logoWidth: new FormControl(initialLogoWidthValue),
-    logoInclude: new FormControl(true, { validators: [Validators.required] }),
-    companyPhone: new FormControl(initialCompanyPhoneValue, { validators: [Validators.required] }),
+    logoInclude: new FormControl(true, required),
+    companyPhone: new FormControl(initialCompanyPhoneValue, required),
     companyEmail: new FormControl(initialCompanyEmailValue, { validators: [Validators.required, mustContainPeriod] }),
-    companyLocation: new FormControl(initialCompanyLocationValue, { validators: [Validators.required] }),
+    companyLocation: new FormControl(initialCompanyLocationValue, required),
 
     customer: new FormGroup({
-      customerName: new FormControl('', { validators: [Validators.required] }),
-      customerPhone: new FormControl('', { validators: [Validators.required] }),
+      customerName: new FormControl('', required),
+      customerPhone: new FormControl('', required),
       customerEmail: new FormControl('', { validators: [ Validators.required, mustContainPeriod ] }),
     }),
       
     products: new FormArray([
       new FormGroup({
-        name: new FormControl('', { validators: [ Validators.required] }),
-        quantity: new FormControl('', { validators: [ Validators.required] }),
-        price: new FormControl(0, { validators: [ Validators.required] })
+        name: new FormControl('', required),
+        quantity: new FormControl('', required),
+        price: new FormControl(0, required)
       })
     ])
   });
@@ -216,9 +216,9 @@ export class AppComponent implements
 
   onAddProduct(): void {
     const productGroup = new FormGroup({
-      name: new FormControl('', { validators: [Validators.required] }),
-      quantity: new FormControl('', { validators: [Validators.required] }),
-      price: new FormControl(0, { validators: [Validators.required] })
+      name: new FormControl('', required),
+      quantity: new FormControl('', required),
+      price: new FormControl(0, required)
     });
     const products = this.form.controls.products;
     products.push(productGroup);

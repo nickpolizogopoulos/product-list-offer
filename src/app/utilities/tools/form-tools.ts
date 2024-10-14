@@ -1,4 +1,4 @@
-import { AbstractControl } from "@angular/forms";
+import { AbstractControl, Validators } from "@angular/forms";
 
 type ValidatorResult = { doesNotContainPeriod: true };
 
@@ -39,3 +39,5 @@ if (savedInformation) {
   initialLogoIncludeValue = loadedFormData.logoInclude;
   
 }
+
+export const required = { validators: [Validators.required] };
