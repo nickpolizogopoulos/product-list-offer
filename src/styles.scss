@@ -5,13 +5,9 @@
 $black: rgb(64, 64, 64);
 $blue: rgb(24, 75, 116);
 
-body {
-    background-image: url('../public/Mac_M2_Ultra_Day.png');
-    // background-image: url('../public/Grey_Icons.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
+%flex-row {
+    display: flex;
+    flex-direction: row;
 }
 
 * {
@@ -21,6 +17,15 @@ body {
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background-image: url('../public/Mac_M2_Ultra_Day.png');
+    // background-image: url('../public/Grey_Icons.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 p {
@@ -41,6 +46,23 @@ a {
 button {
     border-radius: 10px !important;
     font-size: 16px !important;
+}
+
+h1,
+h3 {
+    transition: all .4s;
+    span {
+        font-family: monospace;
+        font-size: 35px;
+    }
+    @media screen and (max-width: 518px) {
+        font-size: 2.2rem;
+        margin-bottom: 20px !important;
+    }
+    @media screen and (max-width: 399px) {
+        font-size: 1.8rem;
+        margin-bottom: 14px !important;
+    }
 }
 
 $heading-styles: (
@@ -64,34 +86,17 @@ $heading-styles: (
     }
 }
 
-.company-details { 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    article {
-        text-align: end;
-    }
-}
-
 .container {
-
-    border: 1px solid rgb(164, 164, 164);
-
-    box-shadow: -5px 5px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
-
     background-color: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(35px);
-    -webkit-backdrop-filter: blur(35px);
-
-
     width: 100%;
     padding: 30px 50px;
     margin: 20px auto;
-    // margin-right: auto;
-    // margin-left: auto;
-  
+    border-radius: 15px;
+    border: 1px solid rgb(164, 164, 164);
+    box-shadow: -5px 5px 16px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(35px);
+    -webkit-backdrop-filter: blur(35px);
+
     @media (min-width: 576px) {
         max-width: 540px;
     }
@@ -113,43 +118,75 @@ $heading-styles: (
     }
 }
 
-.error-message {
-    font-style: italic;
-    font-size: 13px;
-    color: rgb(186, 26, 26);
+.company-details { 
+    @extend %flex-row;
+    justify-content: space-between;
+    
+    article {
+        text-align: end;
+    }
+    
+    @media screen and (max-width: 991px) {
+        flex-direction: column;
+        gap: 30px;
+
+        article {
+            text-align: start;
+            h4 {
+                font-size: 1.5rem;
+            }
+            h6 {
+                font-size: 1.1rem;
+            }
+        }
+    }
+}
+
+.slider-switch-row {
+    @extend %flex-row;
+    align-items: center;
+    gap: 20px;
+    
+    span {
+        user-select: none !important;
+        font-size: 18px;
+    }
+
+    @media screen and (max-width: 991px) {
+        flex-direction: column;
+        gap: 30px;
+        align-items: start;
+        
+        span {
+            font-size: 14px;
+        }
+    }
 }
 
 .info-block {
-
-    display: flex;
-    flex-direction: row;
-    
+    @extend %flex-row;
     align-items: baseline;
-
-    @media screen and (max-width: 767px) {
-        display: inline;
-    }
-
+ 
     .input-50 {
         width: 50%; 
-    }
-    .input-30 {
-        //* "να πάρετε εσείς τα 33 κι εγώ να πάρω όλα τα .3 σας"
-        width: 33.3333333333333%; 
     }
     .input-25 {
         width: 25%; 
     }
-
-    @media screen and (max-width: 767px) {
-        flex-direction: column;
-    }
     
+    @media screen and (max-width: 991px) {
+        flex-direction: column;
+        display: inline;
+
+        .input-25,
+        .input-50 {
+            width: 100%;
+        }
+    }
 }
 
 .products-header {
-    display: flex;
-    flex-direction: row;
+    @extend %flex-row;
     align-items: center;
     button {
         margin: 0 0 20px 20px;
@@ -157,6 +194,7 @@ $heading-styles: (
 }
 
 .icon-btn {
+    @extend %flex-row;
     cursor: pointer;
     height: 50px;
     width: 50px;
@@ -164,15 +202,15 @@ $heading-styles: (
     border: none;
     border-radius: 10px;
     margin: 0 20px 0 0;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     transition: all .1s ease-in-out;
+
     &:hover {
         box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
         background-color: rgba(255, 255, 255, 0.7);
     }
+
     &:active {
         background-color: rgb(231, 231, 231) !important;
     }
@@ -183,7 +221,7 @@ $heading-styles: (
             color: rgb(8, 192, 8);
         }
     }
-    
+
     &.delete {
         margin: 0 0 20px 10px;
         color: rgb(206, 0, 0);
@@ -192,46 +230,6 @@ $heading-styles: (
         }
     }
 }
-
-.slider-switch {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-
-    & span {
-        user-select: none !important;
-        font-size: 18px;
-    }
-}
-//* ===========================================================================
-
-h1,
-h3 {
-    transition: all .4s;
-    span {
-        font-family: monospace;
-        font-size: 35px;
-    }
-    @media screen and (max-width: 518px) {
-        font-size: 2.2rem;
-        margin-bottom: 20px !important;
-    }
-    @media screen and (max-width: 399px) {
-        font-size: 1.8rem;
-        margin-bottom: 14px !important;
-    }
-}
-
-
-
-.form-error-message {
-    font-style: italic;
-    color: rgb(186, 26, 26);
-    margin: 10px 0;
-    user-select: none;
-}
-
 
 //* Removing the increment/decrement buttons in type number inputs ====================
 //* Chrome, Safari, Edge, Opera
@@ -245,4 +243,19 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
     appearance: textfield;
+}
+
+.form-error-message,
+.error-message {
+    font-style: italic;
+    color: rgb(186, 26, 26);
+    user-select: none;
+}
+
+.form-error-message {
+    margin: 10px 0;
+}
+
+.error-message {
+    font-size: 13px;
 }

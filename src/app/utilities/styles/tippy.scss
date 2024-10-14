@@ -1,2 +1,18 @@
 
+.tippy-box[data-theme~='btntip'] {
+    background-color: white;
+    color: inherit;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin-left: 20px;
 
+    @media (576px >= width) {
+        display: none;
+    }
+}
+
+.tippy-box[data-theme~='btntip']
+.tippy-content {
+    padding: 9px 15px;
+    font-size: 15px;
+}

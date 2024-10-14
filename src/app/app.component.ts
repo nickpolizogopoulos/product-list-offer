@@ -1,10 +1,13 @@
 import {
+  AfterViewInit,
   Component,
   computed,
   DestroyRef,
+  ElementRef,
   inject,
   OnInit,
-  signal
+  signal,
+  viewChild
 } from '@angular/core';
 import {
   AbstractControl,
@@ -15,6 +18,8 @@ import {
   Validators
 } from '@angular/forms';
 import { debounceTime } from 'rxjs';
+
+import tippy from 'tippy.js';
 
 import { MaterialComponents } from './utilities/tools/material-components';
 import 
@@ -30,9 +35,10 @@ import
 } from './utilities/tools/form-tools';
 import { FooterComponent } from './components/footer.component';
 import { HeaderComponent } from './components/header.component';
-import { ProductFormControl } from './utilities/tools/product-control';
+import { type ProductFormControl } from './utilities/tools/product-control';
 import { Product } from './utilities/tools/product.model';
 import { PDF } from './utilities/tools/pdf.model';
+
 
 @Component({
   selector: 'app-root',
@@ -46,9 +52,26 @@ import { PDF } from './utilities/tools/pdf.model';
   // template: ``,
   templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements 
+  OnInit,
+  AfterViewInit 
+{
 
   private destroyRef = inject(DestroyRef);
+  private addtip = viewChild.required<ElementRef>('addtip');
+
+  ngAfterViewInit():void {  
+    tippy(
+        this.addtip().nativeElement,
+        {
+            content: 'Add new product row',
+            placement: 'right',
+            theme: 'btntip',
+            duration: [400, 50],
+
+        }
+    );
+  }
 
   ngOnInit(): void {
     const subscription = this.form.valueChanges
@@ -69,36 +92,38 @@ export class AppComponent implements OnInit {
           );
         }
     });
-    //* optional - component does not dismount.
     this.destroyRef.onDestroy(() => subscription.unsubscribe() );
   }
 
   form = new FormGroup({
-    companyName: new FormControl(initialCompanyNameValue, { validators: [Validators.required]}),
+    companyName: new FormControl(initialCompanyNameValue, { validators: [Validators.required] }),
     logoLink: new FormControl(initialCompanyLogoLinkValue),
     logoWidth: new FormControl(initialLogoWidthValue),
-    logoInclude: new FormControl(true, { validators: [Validators.required]}),
-    companyPhone: new FormControl(initialCompanyPhoneValue, { validators: [Validators.required]}),
-    companyEmail: new FormControl(initialCompanyEmailValue, { validators: [Validators.required, mustContainPeriod]}),
-    companyLocation: new FormControl(initialCompanyLocationValue, { validators: [Validators.required]}),
+    logoInclude: new FormControl(true, { validators: [Validators.required] }),
+    companyPhone: new FormControl(initialCompanyPhoneValue, { validators: [Validators.required] }),
+    companyEmail: new FormControl(initialCompanyEmailValue, { validators: [Validators.required, mustContainPeriod] }),
+    companyLocation: new FormControl(initialCompanyLocationValue, { validators: [Validators.required] }),
 
-    customerName: new FormControl('', { validators: [Validators.required]}),
-    customerPhone: new FormControl('', { validators: [Validators.required]}),
-    customerEmail: new FormControl('', { validators: [Validators.required, mustContainPeriod]}),
-
+    customer: new FormGroup({
+      customerName: new FormControl('', { validators: [Validators.required] }),
+      customerPhone: new FormControl('', { validators: [Validators.required] }),
+      customerEmail: new FormControl('', { validators: [ Validators.required, mustContainPeriod ] }),
+    }),
+      
     products: new FormArray([
       new FormGroup({
-        name: new FormControl('', { validators: [ Validators.required]}),
-        quantity: new FormControl('', { validators: [ Validators.required]}),
-        price: new FormControl(0, { validators: [ Validators.required]})
+        name: new FormControl('', { validators: [ Validators.required] }),
+        quantity: new FormControl('', { validators: [ Validators.required] }),
+        price: new FormControl(0, { validators: [ Validators.required] })
       })
     ])
   });
   
   logo = this.form.controls.logoLink.value!;
   logoWidthSignal = signal<number>(this.form.controls.logoWidth.value!);
+  logoVisibility = signal<boolean>(false);
   
-  onSliderChange(event: any) {
+  onSliderChange( event: any ) {
     const userWidth = event.target.value;
     this.logoWidthSignal.set(userWidth);
   }
@@ -109,8 +134,6 @@ export class AppComponent implements OnInit {
       this.logo = inputElement.value;
   }
 
-  logoVisibility = signal<boolean>(false);
-
   toggleLogoVisibility() {
     if (this.logoVisibility())
       this.form.controls.logoLink.enable();
@@ -119,7 +142,6 @@ export class AppComponent implements OnInit {
 
     this.logoVisibility.update(state => !state);
   }
-
 
   get allQtyOptions(): string[] {
     return [...this.qtyOptions()];
@@ -162,20 +184,20 @@ export class AppComponent implements OnInit {
   //* CUSTOMER CHECKS
   get customerNameIsInvalid(): boolean {
     return (
-      this.form.controls.customerName.invalid &&
-      this.form.controls.customerName.touched
+      this.form.controls.customer.controls.customerName.invalid &&
+      this.form.controls.customer.controls.customerName.touched
     );
   }
   get customerPhoneIsInvalid(): boolean {
     return (
-      this.form.controls.customerPhone.invalid &&
-      this.form.controls.customerPhone.touched
+      this.form.controls.customer.controls.customerPhone.invalid &&
+      this.form.controls.customer.controls.customerPhone.touched
     );
   }
   get customerEmailIsInvalid(): boolean {
     return (
-      this.form.controls.customerEmail.invalid &&
-      this.form.controls.customerEmail.touched
+      this.form.controls.customer.controls.customerEmail.invalid &&
+      this.form.controls.customer.controls.customerEmail.touched
     );
   }
   
@@ -194,19 +216,18 @@ export class AppComponent implements OnInit {
 
   onAddProduct(): void {
     const productGroup = new FormGroup({
-      name: new FormControl('', { validators: [Validators.required]}),
-      quantity: new FormControl('', { validators: [Validators.required]}),
-      price: new FormControl(0, { validators: [Validators.required]})
+      name: new FormControl('', { validators: [Validators.required] }),
+      quantity: new FormControl('', { validators: [Validators.required] }),
+      price: new FormControl(0, { validators: [Validators.required] })
     });
     const products = this.form.controls.products;
     products.push(productGroup);
   }
 
-  onDeleteProduct(index: number): void {
+  onDeleteProduct( index: number ): void {
     const products = this.form.controls.products as FormArray;
     products.removeAt(index);
   }
-
 
   onSubmit(): void {
 
@@ -222,9 +243,9 @@ export class AppComponent implements OnInit {
     const companyPhone = this.form.controls.companyPhone.value!;
     const companyEmail = this.form.controls.companyEmail.value!;
     const companyLocation = this.form.controls.companyLocation.value!;
-    const customerName = this.form.controls.customerName.value!;
-    const customerPhone = this.form.controls.customerPhone.value!;
-    const customerEmail = this.form.controls.customerEmail.value!;
+    const customerName = this.form.controls.customer.controls.customerName.value!;
+    const customerPhone = this.form.controls.customer.controls.customerPhone.value!;
+    const customerEmail = this.form.controls.customer.controls.customerEmail.value!;
 
     const products = (): Product[] => {
       const products: Product[] = [];
@@ -239,9 +260,7 @@ export class AppComponent implements OnInit {
             product.price
           )
         );
-
       });
-    
       return products;
     };
 
@@ -252,7 +271,6 @@ export class AppComponent implements OnInit {
         const product = (productGroup as FormGroup).value;
         total += product.price;
       });
-
       return total;
     };
 

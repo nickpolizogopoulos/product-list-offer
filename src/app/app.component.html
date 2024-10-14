@@ -52,7 +52,7 @@
             </article>
         </section>
         @if (logo) {
-            <section class="slider-switch">
+            <section class="slider-switch-row">
                 <mat-slider min="100" max="400" (input)="onSliderChange($event)" [disabled]="logoVisibility()">
                     <input matSliderThumb [value]="logoWidthSignal()" formControlName="logoWidth">
                 </mat-slider>
@@ -72,7 +72,7 @@
     </section>
     <section class="container">
         <h3>Customer Information</h3>
-        <section class="info-block">
+        <section class="info-block" formGroupName="customer">
             <mat-form-field class="input-50">
                 <mat-label>Name</mat-label>
                 <input matInput formControlName="customerName">
@@ -99,7 +99,7 @@
     <section class="container" formArrayName="products">
         <section class="products-header">
             <h3>Product List</h3>
-            <button (click)="onAddProduct()" type="button" class="icon-btn add">
+            <button #addtip (click)="onAddProduct()" type="button" class="icon-btn add">
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
@@ -117,9 +117,9 @@
                 </mat-form-field>
                 <mat-form-field class="input-25">
                     <mat-label>Quantity</mat-label>
-                    <mat-select formControlName="quantity">
+                    <mat-select formControlName="quantity" type="number">
                         @for ( option of allQtyOptions; track $index ) {
-                            <mat-option value="option">{{ option }}</mat-option>
+                            <mat-option [value]="option">{{ option }}</mat-option>
                         }
                     </mat-select>
                     @if (product.controls.quantity.invalid && product.controls.quantity.touched) {
