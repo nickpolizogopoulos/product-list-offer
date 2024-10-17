@@ -3,10 +3,13 @@ import {
   Component,
   computed,
   DestroyRef,
+  DoCheck,
   ElementRef,
   inject,
+  OnChanges,
   OnInit,
   signal,
+  SimpleChanges,
   viewChild
 } from '@angular/core';
 import {
@@ -39,6 +42,7 @@ import { HeaderComponent } from './components/header.component';
 import { type ProductFormControl } from './utilities/tools/product-control';
 import { Product } from './utilities/tools/product.model';
 import { PDF } from './utilities/tools/pdf.model';
+import { PdfService } from './pdf.service';
 
 @Component({
   selector: 'app-root',
@@ -54,12 +58,14 @@ import { PDF } from './utilities/tools/pdf.model';
 })
 export class AppComponent implements 
   OnInit,
-  AfterViewInit 
+  AfterViewInit,
+  DoCheck
 {
 
   private destroyRef = inject(DestroyRef);
+  private pdfService = inject(PdfService);
   private addtip = viewChild.required<ElementRef>('addtip');
-
+  
   ngAfterViewInit():void {  
     tippy(
         this.addtip().nativeElement,
@@ -68,8 +74,15 @@ export class AppComponent implements
             placement: 'right',
             theme: 'btntip',
             duration: [400, 50],
-
         }
+    );
+  }
+  
+  ngDoCheck() {
+    this.pdfService.fetchLogo(
+      this.form.controls.logoLink.value!,
+      //* dividing by 5 -temporarily.
+      this.form.controls.logoWidth.value! / 5,
     );
   }
 
@@ -105,16 +118,16 @@ export class AppComponent implements
     companyLocation: new FormControl(initialCompanyLocationValue, required),
 
     customer: new FormGroup({
-      customerName: new FormControl('', required),
-      customerPhone: new FormControl('', required),
-      customerEmail: new FormControl('', { validators: [ Validators.required, mustContainPeriod ] }),
+      customerName: new FormControl('Customer Name', required),
+      customerPhone: new FormControl('2610 222 223', required),
+      customerEmail: new FormControl('email@email.com', { validators: [ Validators.required, mustContainPeriod ] }),
     }),
       
     products: new FormArray([
       new FormGroup({
-        name: new FormControl('', required),
-        quantity: new FormControl('', required),
-        price: new FormControl(0, required)
+        name: new FormControl('Product #1', required),
+        quantity: new FormControl('10', required),
+        price: new FormControl(100, required)
       })
     ])
   });
@@ -239,7 +252,7 @@ export class AppComponent implements
     const companyName = this.form.controls.companyName.value!;
     const logoLink = this.form.controls.logoLink.value!;
     const logoWidth = this.form.controls.logoWidth.value!;
-    const logoInclude = this.form.controls.logoInclude.value!;
+    const logoIncluded = this.form.controls.logoInclude.value!;
     const companyPhone = this.form.controls.companyPhone.value!;
     const companyEmail = this.form.controls.companyEmail.value!;
     const companyLocation = this.form.controls.companyLocation.value!;
@@ -278,7 +291,7 @@ export class AppComponent implements
       companyName,
       logoLink,
       logoWidth,
-      logoInclude,
+      logoIncluded,
       companyPhone,
       companyEmail,
       companyLocation,
@@ -289,8 +302,8 @@ export class AppComponent implements
       subtotal()
     );
 
-    console.log(pdf);
-
+    // console.log(pdf);
+    this.pdfService.generatePDF(pdf);
   }
 
 }

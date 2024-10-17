@@ -6,7 +6,7 @@ export class PDF {
         public companyName: string,
         public logoLink: string,
         public logoWidth: number,
-        public logoInclude: boolean,
+        public logoIncluded: boolean,
         public companyPhone: string,
         public companyEmail: string,
         public companyLocation: string,
