@@ -1,9 +1,12 @@
-import { Injectable, signal } from '@angular/core';
+import {
+    Injectable,
+    signal
+} from '@angular/core';
 
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { PDF } from './utilities/tools/pdf.model';
-import { Product } from './utilities/tools/product.model';
+
+import { PDF } from './pdf.model';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +17,7 @@ export class PdfService {
     private day = this.date.getDate();
     private month = this.date.getMonth() + 1;
     private year = this.date.getFullYear();
-    private todaysDate = this.day + '-' + this.month + '-' + this.year;
+    private todaysDate = `${this.day} - ${this.month} - ${this.year}`;
 
     private doc = new jsPDF();
     private pdfWidth = this.doc.internal.pageSize.getWidth();

@@ -1,9 +1,6 @@
-
-@use './app/utilities/styles/material-styles.scss';
-@use './app/utilities/styles/tippy.scss';
-
-$black: rgb(64, 64, 64);
-$blue: rgb(24, 75, 116);
+@import './app/utilities/styles/material-styles.scss';
+@import './app/utilities/styles/tippy.scss';
+@import './app/utilities/styles/variables.scss';
 
 %flex-row {
     display: flex;
@@ -224,7 +221,8 @@ $heading-styles: (
 
     &.delete {
         margin: 0 0 20px 10px;
-        color: rgb(206, 0, 0);
+        // color: $delete-red;
+        color: $error-red;
         &:hover {
             color: red;
         }
@@ -248,7 +246,7 @@ input[type=number] {
 .form-error-message,
 .error-message {
     font-style: italic;
-    color: rgb(186, 26, 26);
+    color: $error-red;
     user-select: none;
 }
 

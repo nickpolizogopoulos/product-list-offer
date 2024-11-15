@@ -14,7 +14,7 @@ export const mustContainPeriod = (control: AbstractControl): ValidatorResult | n
     );
 };
 
-export const localStorageItemData: string = 'product-offer-to-pdf-item';
+export const localStorageItemData: string = 'product-offer-to-pdf';
  
 //* WONT WORK IN SSR
 export let initialCompanyNameValue: string = '';

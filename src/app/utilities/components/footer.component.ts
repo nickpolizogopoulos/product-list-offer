@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
 
-import { MaterialComponents } from '../utilities/tools/material-components';
-
 @Component({
   selector: 'footer[appFooter]',
   standalone: true,
-  imports: [
-    MaterialComponents
-  ],
   host: {
     'class': 'container'
   },

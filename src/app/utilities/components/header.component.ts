@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
-
-import { MaterialComponents } from '../utilities/tools/material-components';
+import {
+    Component,
+    signal
+} from '@angular/core';
 
 type Social = {
     name:string;
@@ -12,9 +13,6 @@ type Social = {
 @Component({
   selector: 'header[appHeader]',
   standalone: true,
-  imports: [
-    MaterialComponents
-  ],
   host: {
     'class': 'container'
   },
