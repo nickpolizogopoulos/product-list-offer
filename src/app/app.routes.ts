@@ -1,7 +1,15 @@
-import { Routes } from '@angular/router';
+import {
+    ExtraOptions,
+    Routes
+} from '@angular/router';
 
 import { AboutComponent } from './pages/about.component';
 import { HomeComponent } from './pages/home.component';
+
+export const extraOptions: ExtraOptions = {
+    scrollPositionRestoration: 'enabled',
+    anchorScrolling:'enabled'
+  };
 
 export const routes: Routes = [
     {
@@ -14,6 +22,6 @@ export const routes: Routes = [
     },
     {
         path: '**',
-        redirectTo: 'about'
+        redirectTo: ''
     }
 ];

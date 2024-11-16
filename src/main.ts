@@ -1,19 +1,30 @@
-import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {
+  provideRouter,
+  withInMemoryScrolling
+} from '@angular/router';
 
 import { AppComponent } from './app/app.component';
-import { provideRouter } from '@angular/router';
-import { routes } from './app/app.routes';
+import {
+  extraOptions,
+  routes
+} from './app/app.routes';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideExperimentalZonelessChangeDetection(),
+    provideRouter(
+      routes, 
+      withInMemoryScrolling(extraOptions)
+    ),
+    provideAnimationsAsync()
+  ]
+};
 
 bootstrapApplication(
   AppComponent,
-  {
-    providers: [
-      provideExperimentalZonelessChangeDetection(),
-      provideRouter(routes),
-      provideAnimationsAsync()
-    ]
-  }
+  appConfig
 )
 .catch( error => console.error(error) );

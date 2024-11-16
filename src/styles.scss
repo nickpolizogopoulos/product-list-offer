@@ -14,6 +14,7 @@
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    user-select: none;
 }
 
 body {
@@ -26,8 +27,7 @@ body {
 }
 
 p {
-    margin: 0;
-    letter-spacing: -.03rem;
+    margin: .7rem 0;
 }
 
 a {
