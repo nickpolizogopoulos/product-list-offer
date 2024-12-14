@@ -9,7 +9,9 @@ import { Component } from '@angular/core';
   template: `
   
     An
-    <a class="angular" href="https://angular.dev/" target="_blank">Angular</a>
+    <a class="angular" href="https://angular.dev/" target="_blank">
+      Angular
+    </a>
     Application by 
     <a href="https://nick-polizogopoulos.web.app/" class="nodecor" target="_blank">
       Nick Polizogopoulos
@@ -17,6 +19,8 @@ import { Component } from '@angular/core';
   
   `,
   styles: `
+
+    @use '../styles/variables.scss' as *;
   
     :host {
       user-select: none;
@@ -24,11 +28,8 @@ import { Component } from '@angular/core';
     }
 
     .angular {
-      color: #c3002f;
-
-      &:hover {
-        color: rgb(211, 16, 156);
-      }
+      @extend %angular;
+      text-decoration: none;
     }
 
   `

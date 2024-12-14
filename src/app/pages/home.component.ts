@@ -2,15 +2,12 @@ import {
   Component,
   OnInit,
   AfterViewInit,
-  DoCheck,
   ElementRef,
   DestroyRef,
   inject,
-  signal,
   computed,
   viewChild
 } from "@angular/core";
-
 import {
   ReactiveFormsModule,
   FormGroup,
@@ -19,15 +16,14 @@ import {
   FormArray,
   Validators
 } from "@angular/forms";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 import { debounceTime } from "rxjs";
-import tippy from "tippy.js";
 
 import {
   localStorageItemData,
   initialCompanyNameValue,
-  initialCompanyLogoLinkValue,
-  initialLogoWidthValue,
+  initialCompanySubtitleValue,
   initialCompanyPhoneValue,
   initialCompanyEmailValue,
   mustContainPeriod,
@@ -40,6 +36,7 @@ import { Product } from "../utilities/tools/product.model";
 import { PdfService } from "../utilities/tools/pdf.service";
 import { ProductFormControl } from "../utilities/tools/product-control";
 import { MaterialComponents } from "../utilities/tools/material-components";
+import tippy from "tippy.js";
 
 @Component({
     selector: 'app-home',
@@ -51,106 +48,95 @@ import { MaterialComponents } from "../utilities/tools/material-components";
     template: `
     
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+            <!--//! ================== COMPANY INFORMATION -->
             <section class="container">
                 <h3>Company Information</h3>
                 <section class="info-block">
                     <mat-form-field class="input-50">
-                        <mat-label>Company Name</mat-label>
-                        <input matInput formControlName="companyName">
-                        @if (companyNameIsInvalid) {
-                            <span class="error-message">Please, enter your company name</span>
-                        }
+                      <mat-label>Company Name</mat-label>
+                      <input matInput formControlName="companyName">
                     </mat-form-field>
+                    <!-- @if (companyNameIsInvalid) {
+                      <span class="error-message">Please, enter your company name</span>
+                    } -->
                     <mat-form-field class="input-50">
-                    <mat-label>Logo link</mat-label>
-                    <input matInput formControlName="logoLink" [disabled]="logoVisibility()" [value]="logo" (input)="onLogoChange($event)">
+                      <mat-label>Company Subtitle (optional)</mat-label>
+                      <input matInput formControlName="companySubtitle">
                     </mat-form-field>
                 </section>
                 <section class="info-block">
                     <mat-form-field class="input-25">
                         <mat-label>Phone</mat-label>
                         <input matInput formControlName="companyPhone">
-                        @if (companyPhoneIsInvalid) {
+                        <!-- @if (companyPhoneIsInvalid) {
                             <span class="error-message">Please, enter a phone number</span>
-                        }
+                        } -->
                     </mat-form-field>
                     <mat-form-field class="input-25">
                         <mat-label>Email</mat-label>
                         <input matInput formControlName="companyEmail" email>
-                        @if (companyEmailIsInvalid) {
+                        <!-- @if (companyEmailIsInvalid) {
                             <span class="error-message">Please, enter a valid email</span>
-                        }
+                        } -->
                     </mat-form-field>
                     <mat-form-field class="input-50">
                         <mat-label>Location</mat-label>
                         <input matInput formControlName="companyLocation">
-                        @if (companyLocationIsInvalid) {
+                        <!-- @if (companyLocationIsInvalid) {
                             <span class="error-message">Please, enter your company location</span>
-                        }
+                        } -->
                     </mat-form-field>
                 </section>
-                <section class="company-details">
-                    <div>
-                        @if (logo && !logoVisibility()) {
-                            <img [src]="logo" [style.width.px]="logoWidthSignal()" style="height: auto;">
-                        }
-                    </div>
+                <section class="company-details information-headings">
                     <article>
                         <h4>{{ form.controls.companyName.value }}</h4>
+                        <h5>{{ form.controls.companySubtitle.value }}</h5>
                         <h6>{{ form.controls.companyPhone.value }}</h6>
                         <h6>{{ form.controls.companyEmail.value }}</h6>
                         <h6>{{ form.controls.companyLocation.value }}</h6>
                     </article>
+                    <article>
+                        <h4>{{ form.controls.customer.controls.customerName.value }}</h4>
+                        <h6>{{ form.controls.customer.controls.customerPhone.value }}</h6>
+                        <h6>{{ form.controls.customer.controls.customerEmail.value }}</h6>
+                    </article>
                 </section>
-                @if (logo) {
-                    <section class="slider-switch-row">
-                        <mat-slider min="100" max="400" (input)="onSliderChange($event)" [disabled]="logoVisibility()">
-                            <input matSliderThumb [value]="logoWidthSignal()" formControlName="logoWidth">
-                        </mat-slider>
-                        <span 
-                            [style.text-decoration]="logoVisibility() ? 'line-through' : ''"
-                            [style.color]="logoVisibility() ? 'grey' : 'inherit'"
-                        >
-                            {{ logoWidthSignal() }}px
-                        </span>
-                        <mat-slide-toggle (click)="toggleLogoVisibility()" formControlName="logoInclude">
-                            <span style="margin-left: 10px;">
-                                {{ !logoVisibility() ? 'Exclude the logo from the pdf' : 'Include the logo in the pdf'}}
-                            </span>
-                        </mat-slide-toggle>
-                    </section>
-                }
             </section>
+
+            <!--//! ================== CUSTOMER INFORMATION -->
             <section class="container">
-                <h3>Customer Information</h3>
+                <h3>Client Information</h3>
                 <section class="info-block" formGroupName="customer">
                     <mat-form-field class="input-50">
                         <mat-label>Name</mat-label>
                         <input matInput formControlName="customerName">
-                        @if (customerNameIsInvalid) {
+                        <!-- @if (customerNameIsInvalid) {
                             <span class="error-message">Please, enter your customer's name</span>
-                        }
+                        } -->
                     </mat-form-field>
                     <mat-form-field class="input-25">
                         <mat-label>Phone</mat-label>
                         <input matInput formControlName="customerPhone">
-                        @if (customerPhoneIsInvalid) {
+                        <!-- @if (customerPhoneIsInvalid) {
                             <span class="error-message">Please, enter a phone number</span>
-                        }
+                        } -->
                     </mat-form-field>
                     <mat-form-field class="input-25">
                         <mat-label>Email</mat-label>
                         <input matInput formControlName="customerEmail">
-                        @if (customerEmailIsInvalid) {
+                        <!-- @if (customerEmailIsInvalid) {
                             <span class="error-message">Please, enter a valid email</span>
-                        }
+                        } -->
                     </mat-form-field>
-                    </section>
+                </section>
             </section>
+            
+            <!--//! ================== PRODUCT LIST -->
             <section class="container" formArrayName="products">
                 <section class="products-header">
                     <h3>Product List</h3>
-                    <button #addtip (click)="onAddProduct()" type="button" class="icon-btn add">
+                    <button #addProductTooltip (click)="onAddProduct()" type="button" class="icon-btn add">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                             <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
@@ -162,9 +148,9 @@ import { MaterialComponents } from "../utilities/tools/material-components";
                         <mat-form-field class="input-50">
                             <mat-label>Product name</mat-label>
                             <input matInput formControlName="name">
-                            @if (product.controls.name.invalid && product.controls.name.touched) {
+                            <!-- @if (product.controls.name.invalid && product.controls.name.touched) {
                                 <span class="error-message">Please, enter a product or delete the product if not needed.</span>
-                            }
+                            } -->
                         </mat-form-field>
                         <mat-form-field class="input-25">
                             <mat-label>Quantity</mat-label>
@@ -173,16 +159,16 @@ import { MaterialComponents } from "../utilities/tools/material-components";
                                     <mat-option [value]="option">{{ option }}</mat-option>
                                 }
                             </mat-select>
-                            @if (product.controls.quantity.invalid && product.controls.quantity.touched) {
+                            <!-- @if (product.controls.quantity.invalid && product.controls.quantity.touched) {
                                 <span class="error-message">Please, add quantity.</span>
-                            }
+                            } -->
                         </mat-form-field>
                         <mat-form-field class="input-25">
                             <mat-label>Total Price €</mat-label>
                             <input matInput formControlName="price" type="number">
-                            @if (product.controls.price.invalid && product.controls.price.touched) {
+                            <!-- @if (product.controls.price.invalid && product.controls.price.touched) {
                                 <span class="error-message">Please, add product price.</span>
-                            }
+                            } -->
                         </mat-form-field>
                         <button (click)="onDeleteProduct($index)" type="button" class="icon-btn delete">
                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16">
@@ -202,20 +188,20 @@ import { MaterialComponents } from "../utilities/tools/material-components";
     
     `
 })
-export class HomeComponent
-implements 
-OnInit,
-AfterViewInit,
-DoCheck
-{
+export class HomeComponent implements OnInit, AfterViewInit {
 
   private destroyRef = inject(DestroyRef);
+
   private pdfService = inject(PdfService);
-  private addtip = viewChild.required<ElementRef>('addtip');
+  private addProductTooltip = viewChild.required<ElementRef>('addProductTooltip');
 
   ngAfterViewInit():void {
+    this.initialiseTippy();
+  }
+  
+  initialiseTippy(): void {
     tippy(
-        this.addtip().nativeElement,
+        this.addProductTooltip().nativeElement,
         {
             content: 'Add new product row',
             placement: 'right',
@@ -225,83 +211,54 @@ DoCheck
     );
   }
 
-  ngDoCheck() {
-    this.pdfService.fetchLogo(
-      this.form.controls.logoLink.value!,
-      //* dividing by 5 -temporarily.
-      this.form.controls.logoWidth.value! / 5,
-    );
-  }
-
   ngOnInit(): void {
-    const subscription = this.form.valueChanges
-      .pipe( debounceTime(400) )
+    this.form.valueChanges
+      .pipe(
+        debounceTime(400),
+        takeUntilDestroyed(this.destroyRef)
+      )
       .subscribe({
         next: value => {
           window.localStorage.setItem(
             localStorageItemData,
             JSON.stringify({
               name: value.companyName,
-              logo: value.logoLink,
+              subtitle: value.companySubtitle,
               phone: value.companyPhone,
               email: value.companyEmail,
               location: value.companyLocation,
-              logoWidth: value.logoWidth,
-              logoInclude: value.logoInclude
             })
           );
         }
-    });
-    this.destroyRef.onDestroy(() => subscription.unsubscribe() );
+      });
   }
 
   form = new FormGroup({
     companyName: new FormControl(initialCompanyNameValue, required),
-    logoLink: new FormControl(initialCompanyLogoLinkValue),
-    logoWidth: new FormControl(initialLogoWidthValue),
-    logoInclude: new FormControl(true, required),
+    companySubtitle: new FormControl(initialCompanySubtitleValue),
     companyPhone: new FormControl(initialCompanyPhoneValue, required),
     companyEmail: new FormControl(initialCompanyEmailValue, { validators: [Validators.required, mustContainPeriod] }),
     companyLocation: new FormControl(initialCompanyLocationValue, required),
 
     customer: new FormGroup({
-      customerName: new FormControl('Customer Name', required),
-      customerPhone: new FormControl('2610 222 223', required),
-      customerEmail: new FormControl('email@email.com', { validators: [ Validators.required, mustContainPeriod ] }),
+      customerName: new FormControl('', required),
+      customerPhone: new FormControl('', required),
+      customerEmail: new FormControl('', { validators: [ Validators.required, mustContainPeriod ] }),
     }),
-      
+    
     products: new FormArray([
       new FormGroup({
         name: new FormControl('Product #1', required),
         quantity: new FormControl('10', required),
         price: new FormControl(100, required)
+      }),
+      new FormGroup({
+        name: new FormControl('Product #2', required),
+        quantity: new FormControl('5', required),
+        price: new FormControl(80, required)
       })
     ])
   });
-
-  logo = this.form.controls.logoLink.value!;
-  logoWidthSignal = signal<number>(this.form.controls.logoWidth.value!);
-  logoVisibility = signal<boolean>(false);
-
-  onSliderChange( event: any ) {
-    const userWidth = event.target.value;
-    this.logoWidthSignal.set(userWidth);
-  }
-
-  onLogoChange( event: Event ): void {
-    const inputElement = event.target as HTMLInputElement | null;
-    if (inputElement)
-      this.logo = inputElement.value;
-  }
-
-  toggleLogoVisibility() {
-    if (this.logoVisibility())
-      this.form.controls.logoLink.enable();
-    else
-      this.form.controls.logoLink.disable();
-
-    this.logoVisibility.update(state => !state);
-  }
 
   get allQtyOptions(): string[] {
     return [...this.qtyOptions()];
@@ -309,31 +266,35 @@ DoCheck
 
   private qtyOptions = computed(() => {
     const options: string[] = [];
-    for (let i = 1; i <= 50; i++) {
+
+    for (let i = 1; i <= 50; i++)
       options.push(i.toString());
-    }
+
     return options;
   });
 
   //* COMPANY CHECKS
   get companyNameIsInvalid(): boolean {
     return (
-      this.form.controls.companyName.invalid &&
+      this.form.controls.companyName.invalid ||
       this.form.controls.companyName.touched
     );
   }
+
   get companyPhoneIsInvalid(): boolean {
     return (
       this.form.controls.companyPhone.invalid &&
       this.form.controls.companyPhone.touched
     );
   }
+
   get companyEmailIsInvalid(): boolean {
     return (
       this.form.controls.companyEmail.invalid &&
       this.form.controls.companyEmail.touched
     );
   }
+
   get companyLocationIsInvalid(): boolean {
     return (
       this.form.controls.companyLocation.invalid &&
@@ -348,12 +309,14 @@ DoCheck
       this.form.controls.customer.controls.customerName.touched
     );
   }
+
   get customerPhoneIsInvalid(): boolean {
     return (
       this.form.controls.customer.controls.customerPhone.invalid &&
       this.form.controls.customer.controls.customerPhone.touched
     );
   }
+
   get customerEmailIsInvalid(): boolean {
     return (
       this.form.controls.customer.controls.customerEmail.invalid &&
@@ -397,9 +360,7 @@ DoCheck
     }
 
     const companyName = this.form.controls.companyName.value!;
-    const logoLink = this.form.controls.logoLink.value!;
-    const logoWidth = this.form.controls.logoWidth.value!;
-    const logoIncluded = this.form.controls.logoInclude.value!;
+    const companySubtitle = this.form.controls.companySubtitle.value!;
     const companyPhone = this.form.controls.companyPhone.value!;
     const companyEmail = this.form.controls.companyEmail.value!;
     const companyLocation = this.form.controls.companyLocation.value!;
@@ -436,9 +397,7 @@ DoCheck
 
     const pdf = new PDF(
       companyName,
-      logoLink,
-      logoWidth,
-      logoIncluded,
+      companySubtitle,
       companyPhone,
       companyEmail,
       companyLocation,
@@ -449,7 +408,6 @@ DoCheck
       subtotal()
     );
 
-    // console.log(pdf);
     this.pdfService.generatePDF(pdf);
   }
 

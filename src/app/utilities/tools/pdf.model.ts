@@ -1,12 +1,10 @@
-import { Product } from "./product.model";
+import { type Product } from "./product.model";
 
 export class PDF {
 
     constructor (
         public companyName: string,
-        public logoLink: string,
-        public logoWidth: number,
-        public logoIncluded: boolean,
+        public companySubtitle: string,
         public companyPhone: string,
         public companyEmail: string,
         public companyLocation: string,

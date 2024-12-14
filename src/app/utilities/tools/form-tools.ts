@@ -18,25 +18,23 @@ export const localStorageItemData: string = 'product-offer-to-pdf';
  
 //* WONT WORK IN SSR
 export let initialCompanyNameValue: string = '';
+export let initialCompanySubtitleValue: string = '';
 export let initialCompanyLogoLinkValue: string = '';
 export let initialCompanyPhoneValue: string = '';
 export let initialCompanyEmailValue: string = '';
 export let initialCompanyLocationValue: string = '';
-export let initialLogoWidthValue: number = 140;
-export let initialLogoIncludeValue: boolean = initialCompanyLogoLinkValue ? true : false;
 
 const savedInformation = window.localStorage.getItem(localStorageItemData);
 
 if (savedInformation) {
   const loadedFormData = JSON.parse(savedInformation);
   
-  initialCompanyNameValue = loadedFormData.name
+  initialCompanyNameValue = loadedFormData.name;
+  initialCompanySubtitleValue = loadedFormData.subtitle;
   initialCompanyLogoLinkValue = loadedFormData.logo;
   initialCompanyPhoneValue = loadedFormData.phone;
   initialCompanyEmailValue = loadedFormData.email;
   initialCompanyLocationValue = loadedFormData.location;
-  initialLogoWidthValue = loadedFormData.logoWidth;
-  initialLogoIncludeValue = loadedFormData.logoInclude;
   
 }
 

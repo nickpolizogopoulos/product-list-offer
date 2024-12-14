@@ -1,3 +1,16 @@
 $black: rgb(64, 64, 64);
 $blue: rgb(24, 75, 116);
 $error-red: rgb(186, 26, 26);
+
+$transition: all .1s linear;
+
+%angular {
+    color: #E91067;
+    &:hover {
+        background: linear-gradient(to right, #E91067 0%, #B640FA 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-decoration-color: linear-gradient(to right, #E91067 0%, #B640FA 100%);
+    }
+}

@@ -1,12 +1,9 @@
-import {
-    Injectable,
-    signal
-} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
-import { PDF } from './pdf.model';
+import { type PDF } from './pdf.model';
 
 @Injectable({
     providedIn: 'root'
@@ -17,52 +14,53 @@ export class PdfService {
     private day = this.date.getDate();
     private month = this.date.getMonth() + 1;
     private year = this.date.getFullYear();
-    private todaysDate = `${this.day} - ${this.month} - ${this.year}`;
+    private todaysDate = `${this.day}-${this.month}-${this.year}`;
 
     private doc = new jsPDF();
     private pdfWidth = this.doc.internal.pageSize.getWidth();
     private pdfHeight = this.doc.internal.pageSize.getHeight();
 
-    private logoLink = signal<string>('');
+    // private logoLink = signal<string>('');
 
-    fetchLogo( logoLink: string, logoWidth: number ) {
-        this.addImageToPdf(logoLink, 10, 10, logoWidth, 100);
-        this.logoLink.set(logoLink);
-        console.log(this.logoLink());
-    }
+    // fetchLogo( logoLink: string, logoWidth: number ) {
+    //     this.addImageToPdf(logoLink, 10, 10, logoWidth, 100);
+    //     this.logoLink.set(logoLink);
+    //     console.log(this.logoLink());
+    // }
 
-    private async addImageToPdf(url: string, x: number, y: number, width: number, height: number): Promise<void> {
+    // private async addImageToPdf(url: string, x: number, y: number, width: number, height: number): Promise<void> {
 
-        //* Using Public CORS proxy to fetch the image.
-        const proxyUrl = 'https://corsproxy.io/?';
-        const imageUrl = proxyUrl + url;
+    //     //* Using Public CORS proxy to fetch the image.
+    //     const proxyUrl = 'https://corsproxy.io/?';
+    //     const imageUrl = proxyUrl + url;
 
-        try {
-            const response = await fetch(imageUrl);
-            const blob = await response.blob();
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const base64data = reader.result as string;
-                this.doc.addImage(base64data, 'JPEG', x, y, width, height);
-            };
-        reader.readAsDataURL(blob);
-        }
-        catch (error) {
-            throw new Error('Error loading image: ' + error);
-        }
-    }
+    //     try {
+    //         const response = await fetch(imageUrl);
+    //         const blob = await response.blob();
+    //         const reader = new FileReader();
+    //         reader.onloadend = () => {
+    //             const base64data = reader.result as string;
+    //             this.doc.addImage(base64data, 'JPEG', x, y, width, height);
+    //         };
+    //     reader.readAsDataURL(blob);
+    //     }
+    //     catch (error) {
+    //         throw new Error('Error loading image: ' + error);
+    //     }
+    // }
 
     //* GENERATE ==========================================================================================
     generatePDF( pdf: PDF ): void {
 
         this.doc.setFont('helvetica', 'normal');
 
-        const textWidth = ( text: string ) => {
+        const textWidth = ( text: string ): number => {
             return this.doc.getTextDimensions(text).w;
         }
     
         //* COMPANY INFORMATION ==========================================================
         this.doc.text(pdf.companyName, this.pdfWidth - textWidth(pdf.companyName) - 10, 10);
+        //TODO put the company subtitle
         this.doc.setFontSize(10);
         this.doc.text(pdf.companyPhone, this.pdfWidth - textWidth(pdf.companyPhone) - 10, 17);
         this.doc.text(pdf.companyEmail, this.pdfWidth - textWidth(pdf.companyEmail) - 10, 23);
@@ -77,11 +75,6 @@ export class PdfService {
         //* FIRST HORIZONTAL LINE ========================================================
         const line1Top = 40;
         this.doc.line(x1, line1Top, x2, line1Top);
-        
-        //* LOGO
-        // if (pdf.logoIncluded) {
-        //     this.addImageToPdf(pdf.logoLink, 10, 10, 80, 80);
-        // }
         
         //* CUSTOMER INFORMATION =========================================================
         this.doc.setFontSize(16);
@@ -149,9 +142,7 @@ export class PdfService {
 
         //* PDF SAVE =====================================================================
         const name = pdf.customerName.replace(/\s+/g, '-').toLowerCase();
-        this.doc.save('offer-' + name + '-' + this.todaysDate + '.pdf');
+        this.doc.save('offer-to-' + name + '-' + this.todaysDate + '.pdf');
     }
 
-
 }
-
