@@ -33,7 +33,7 @@ type Feature = {
             </p>
 
             <h5>Key features include:</h5>
-            <ul>
+            <ul class="features">
                 @for (feature of allKeyFeatures; track $index) {
                     <li>
                         <strong [innerHTML]="feature.name"></strong>
@@ -83,7 +83,7 @@ type Feature = {
             }
         }
         
-        ul {
+        .features {
             padding-left: 0;
             list-style-position: inside;
             list-style-type: circle;

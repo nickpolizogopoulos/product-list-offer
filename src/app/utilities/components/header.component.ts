@@ -19,45 +19,50 @@ type Social = {
   },
   template: `
   
-    <h1 routerLink="">Product offer to <span>.</span>pdf</h1>
-    <div>
-        
-        <a class="Btn" routerLink="about">
-            <span class="svgContainer">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-info-lg" viewBox="0 0 16 16">
-                    <path d="m9.708 6.075-3.024.379-.108.502.595.108c.387.093.464.232.38.619l-.975 4.577c-.255 1.183.14 1.74 1.067 1.74.72 0 1.554-.332 1.933-.789l.116-.549c-.263.232-.65.325-.905.325-.363 0-.494-.255-.402-.704zm.091-2.755a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0"/>
-                </svg>
-            </span>
-            <span class="BG"></span>
-        </a>
+    <h1 routerLink="/">Product offer to <span>.</span>pdf</h1>
 
-        @for (icon of allSocial; track $index) {
-            <a class="Btn" href="{{ icon.link }}" target="_blank">
+    <ul>
+        <li routerLink="about">
+            <a class="Btn">
                 <span class="svgContainer">
-                    <svg 
-                        [attr.viewBox]="icon.viewBox"
-                        [attr.fill]="'white'"
-                    >
-                        <path attr.d="{{ icon.path }}"></path>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-info-lg" viewBox="0 0 16 16">
+                        <path d="m9.708 6.075-3.024.379-.108.502.595.108c.387.093.464.232.38.619l-.975 4.577c-.255 1.183.14 1.74 1.067 1.74.72 0 1.554-.332 1.933-.789l.116-.549c-.263.232-.65.325-.905.325-.363 0-.494-.255-.402-.704zm.091-2.755a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0"/>
                     </svg>
                 </span>
                 <span class="BG"></span>
             </a>
+        </li>
+
+        @for (icon of allSocial; track $index) {
+            <li>
+                <a class="Btn" href="{{ icon.link }}" target="_blank">
+                    <span class="svgContainer">
+                        <svg 
+                            [attr.viewBox]="icon.viewBox"
+                            [attr.fill]="'white'"
+                        >
+                            <path attr.d="{{ icon.path }}"></path>
+                        </svg>
+                    </span>
+                    <span class="BG"></span>
+                </a>
+            </li>
         }
 
-    </div>
+    </ul>
   
   `,
   styles: `
-  
+
+    @use '../../../styles.scss' as *;
+
     :host,
-    div {
-        display: flex;
-        flex-direction: row;
+    ul {
+        @extend .flex-row;
         align-items: center;
         justify-content: center;
     }
-    
+  
     :host {
         height: 110px;
         justify-content: space-between;
@@ -65,6 +70,17 @@ type Social = {
         @media screen and (max-width: 991px) {
             height: auto;
             flex-direction: column;
+            padding-bottom: 1rem;
+        }
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        gap: 2rem;
+        
+        @media screen and (max-width: 399px) {
+            gap: 1rem;
         }
     }
     
@@ -84,7 +100,6 @@ type Social = {
     }
 
     .Btn {
-        margin-right: 20px;
         width: 40px;
         height: 40px;
         display: flex;
@@ -163,7 +178,7 @@ export class HeaderComponent {
         return [...this.social];
     }
 
-    social: Social[] = [
+    private social: Social[] = [
         {
             name: 'Website',
             link: 'https://nick-polizogopoulos.web.app/',

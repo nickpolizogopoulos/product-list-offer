@@ -5,8 +5,7 @@
 
 * {
     font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol";
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -14,8 +13,8 @@
 }
 
 body {
-    background-image: url('../public/Mac_M2_Ultra_Day.png');
-    // background-image: url('../public/Grey_Icons.png');
+    background-image: url('/Mac_M2_Ultra_Day.png');
+    // background-image: url('/Grey_Icons.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -99,9 +98,9 @@ $heading-styles: (
 
 .container {
     transition: $transition;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.6);
     width: 100%;
-    padding: 30px 50px;
+    padding: 30px 40px;
     margin: 20px auto;
     border-radius: 15px;
     border: 1px solid rgb(183, 183, 183);
