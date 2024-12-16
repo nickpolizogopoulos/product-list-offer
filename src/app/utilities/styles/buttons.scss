@@ -1,8 +1,14 @@
 @use '../styles/variables.scss' as *;
 
+button {
+    border-radius: 10px !important;
+    font-size: 15px !important;
+}
+
 .icon-btn {
     display: flex;
     flex-direction: row;
+    
     cursor: pointer;
     height: 50px;
     width: 50px;

@@ -35,22 +35,19 @@ a {
     }
 }
 
-button {
-    border-radius: 10px !important;
-    font-size: 15px !important;
-}
-
 h1,
 h3 {
-    transition: all .4s;
+    transition: $transition;
     span {
         font-family: monospace;
         font-size: 35px;
     }
+
     @media screen and (max-width: 518px) {
         font-size: 2.2rem;
         margin-bottom: 20px !important;
     }
+    
     @media screen and (max-width: 399px) {
         font-size: 1.8rem;
         margin-bottom: 14px !important;
@@ -111,7 +108,7 @@ $heading-styles: (
     @media screen and (max-width: 518px) {
         padding: 30px 30px;
     }
-    
+
     @media (min-width: 1200px) {
         max-width: 1140px;
     }
@@ -121,8 +118,7 @@ $heading-styles: (
     }
 }
 
-
-//* TO REFACTOR
+//TODO - TO REFACTOR =========================
 .company-details { 
     @extend .flex-row;
     justify-content: space-between;
@@ -149,33 +145,6 @@ $heading-styles: (
     }
 }
 
-.mobile-add-product {
-    @media screen and (min-width: 992px) {
-        display: none;
-    }
-}
-
-.slider-switch-row {
-    @extend .flex-row;
-    align-items: center;
-    gap: 20px;
-    
-    span {
-        user-select: none !important;
-        font-size: 18px;
-    }
-
-    @media screen and (max-width: 991px) {
-        flex-direction: column;
-        gap: 30px;
-        align-items: start;
-        
-        span {
-            font-size: 14px;
-        }
-    }
-}
-
 .info-block {
     @extend .flex-row;
     gap: 10px;
@@ -195,6 +164,14 @@ $heading-styles: (
 
     .input-25 {
         width: 25%; 
+    }
+
+    h5 {
+        font-size: 1.5rem;
+        min-width: 2.5rem;
+        span {
+            font-family: monospace;
+        }
     }
     
     @media screen and (max-width: 991px) {
@@ -221,24 +198,21 @@ $heading-styles: (
     }
 }
 
+.products-header-mobile {
+    @extend .products-header;
+    gap: 10px;
+    
+    button {
+        margin: 0 0 18px 0 !important;
+    }
+
+    @media screen and (min-width: 992px) {
+        display: none !important;
+    }
+}
+
 .submit-section {
     margin: 30px 0 0;
-}
-
-
-
-//* Removing the increment/decrement buttons in type number inputs ====================
-//* Chrome, Safari, Edge, Opera
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-//* Firefox
-input[type=number] {
-    -moz-appearance: textfield;
-    appearance: textfield;
 }
 
 .form-error-message,

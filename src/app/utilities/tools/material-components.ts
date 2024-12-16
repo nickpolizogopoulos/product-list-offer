@@ -6,6 +6,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSliderModule } from '@angular/material/slider'; 
 import { MatTooltipModule } from '@angular/material/tooltip'; 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatRadioModule} from '@angular/material/radio';
 
 export const MaterialComponents =
 [
@@ -16,5 +17,6 @@ export const MaterialComponents =
     MatDividerModule,
     MatSliderModule,
     MatTooltipModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatRadioModule
 ];

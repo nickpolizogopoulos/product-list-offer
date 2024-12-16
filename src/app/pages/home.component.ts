@@ -1,12 +1,10 @@
 import {
   Component,
   OnInit,
-  AfterViewInit,
-  ElementRef,
   DestroyRef,
   inject,
-  computed,
-  viewChild
+  signal,
+  effect
 } from "@angular/core";
 import {
   ReactiveFormsModule,
@@ -151,10 +149,11 @@ import { AddRemoveButton } from "../utilities/components/add-remove-button.compo
             <section class="container" formArrayName="products">
                 <section class="products-header">
                     <h3>Product List</h3>
-                    <button #addProductTooltip AddRemove type="button" buttonType="add" (click)="onAddProduct()"></button>
+                    <app-add-remove-button buttonType="add" (click)="onAddProduct()" />
                 </section>
                 @for (product of allProducts; track product) {
                     <section class="info-block" [formGroupName]="$index">
+                        <h5>{{ $index + 1 }}<span>.</span></h5>
                         <div class="input-50">
                             <mat-form-field>
                                 <mat-label>Product name</mat-label>
@@ -168,7 +167,7 @@ import { AddRemoveButton } from "../utilities/components/add-remove-button.compo
                             <mat-form-field>
                                 <mat-label>Quantity</mat-label>
                                 <mat-select formControlName="quantity" type="number">
-                                    @for ( option of allQtyOptions; track $index ) {
+                                    @for ( option of qtyOptions; track $index ) {
                                         <mat-option [value]="option">{{ option }}</mat-option>
                                     }
                                 </mat-select>
@@ -179,23 +178,28 @@ import { AddRemoveButton } from "../utilities/components/add-remove-button.compo
                         </div>
                         <div class="input-25">
                             <mat-form-field>
-                                <mat-label>Total Price €</mat-label>
+                                <mat-label>Unit Price €</mat-label>
                                 <input matInput formControlName="price" type="number">
                             </mat-form-field>
                             @if (product.controls.price.invalid && product.controls.price.touched) {
                                 <span class="error-message">Please, add product price.</span>
                             }
                         </div>
-                        <button AddRemove buttonType="delete" type="button" (click)="onDeleteProduct($index)"></button>
+                        <app-add-remove-button buttonType="delete" (click)="onDeleteProduct($index)" />
                         <mat-divider />
                     </section>
                 }
 
-                <section class="mobile-add-product">
+                <section class="products-header products-header-mobile">
                   <h5>Add Product</h5>
-                  <button AddRemove buttonType="add" type="button" (click)="onAddProduct()"></button>
+                  <app-add-remove-button buttonType="add" (click)="onAddProduct()" />
                 </section>
 
+                <mat-radio-group [value]="selectedRadioOption()" (change)="onOptionChange($event.value)" aria-label="Select an option">
+                  <mat-radio-button color="primary" value="1">Normal Print (coloured table)</mat-radio-button>
+                  <mat-radio-button color="primary" value="2">Remove colours (saves ink)</mat-radio-button>
+                </mat-radio-group>
+                
                 <section class="submit-section">
                     @if (formIsInvalid) {
                         <p class="form-error-message">Please make sure all fields are filled correctly!</p>
@@ -208,33 +212,24 @@ import { AddRemoveButton } from "../utilities/components/add-remove-button.compo
     
     `
 })
-export class HomeComponent 
-implements 
-  OnInit,
-  AfterViewInit 
-{
+export class HomeComponent implements OnInit {
 
   private destroyRef = inject(DestroyRef);
-
   private pdfService = inject(PdfService);
-  private addProductTooltip = viewChild.required<ElementRef>('addProductTooltip');
-
-  ngAfterViewInit():void {
-    this.initialiseTippy();
-  }
   
-  initialiseTippy(): void {
-    tippy(
-        this.addProductTooltip().nativeElement,
-        {
-            content: 'Add new product row',
-            placement: 'right',
-            theme: 'btntip',
-            duration: [400, 50],
-        }
+  selectedRadioOption = signal('1');
+
+  onOptionChange(value: string) {
+    this.selectedRadioOption.set(value);
+  }
+
+  constructor() {
+    effect(
+      () => this.pdfService.setPrintOption( this.selectedRadioOption() ),
+      { allowSignalWrites: true }
     );
   }
-
+  
   ngOnInit(): void {
     this.form.valueChanges
       .pipe(
@@ -266,9 +261,9 @@ implements
     companyLocation: new FormControl(initialCompanyLocationValue, required),
 
     customer: new FormGroup({
-      customerName: new FormControl('', required),
-      customerPhone: new FormControl('', required),
-      customerEmail: new FormControl('', { validators: [ Validators.required, mustContainPeriod ] }),
+      customerName: new FormControl('My Client', required),
+      customerPhone: new FormControl('0000 000 000', required),
+      customerEmail: new FormControl('client@client.com', { validators: [ Validators.required, mustContainPeriod ] }),
     }),
     
     products: new FormArray([
@@ -285,18 +280,14 @@ implements
     ])
   });
 
-  get allQtyOptions(): string[] {
-    return [...this.qtyOptions()];
-  }
-
-  private qtyOptions = computed(() => {
+  get qtyOptions(): string[] {
     const options: string[] = [];
 
     for (let i = 1; i <= 50; i++)
       options.push(i.toString());
 
     return options;
-  });
+  }
 
   //* COMPANY CHECKS
   get companyNameIsInvalid(): boolean {
@@ -410,15 +401,27 @@ implements
       return products;
     };
 
-    const subtotal = (): number => {
-      let total = 0;
+    const productArray = this.form.controls.products.controls;
 
-      this.form.controls.products.controls.forEach((productGroup: AbstractControl) => {
+    const subtotal = (): number => {
+      let totalPrice = 0;
+
+      productArray.forEach((productGroup: AbstractControl) => {
         const product = (productGroup as FormGroup).value;
-        total += product.price;
+        totalPrice += product.price * product.quantity;
       });
-      return total;
+      return totalPrice;
     };
+
+    const productsQuantity = (): number => {
+      let totalProductQuantity = 0;
+
+      productArray.forEach((productGroup: AbstractControl) => {
+        const product = (productGroup as FormGroup).value;
+        totalProductQuantity += +product.quantity;
+      });
+      return totalProductQuantity;
+    }
 
     const pdf = new PDF(
       companyName,
@@ -430,6 +433,7 @@ implements
       customerPhone,
       customerEmail,
       products(),
+      productsQuantity(),
       subtotal()
     );
 
