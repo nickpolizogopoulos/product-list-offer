@@ -3,6 +3,7 @@ import { RouterOutlet } from "@angular/router";
 
 import { FooterComponent } from "./utilities/components/footer.component";
 import { HeaderComponent } from "./utilities/components/header.component";
+import { BackToTopComponent } from "./utilities/components/back-to-top.component";
 
 @Component({
   selector: 'app-root',
@@ -10,10 +11,12 @@ import { HeaderComponent } from "./utilities/components/header.component";
   imports: [
     HeaderComponent,
     RouterOutlet,
-    FooterComponent
+    FooterComponent,
+    BackToTopComponent
   ],
   template: `
   
+    <app-back-to-top />
     <header appHeader></header>
     <router-outlet />
     <footer appFooter></footer>

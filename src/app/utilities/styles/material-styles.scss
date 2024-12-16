@@ -3,9 +3,9 @@ mat-divider {
 }
 
 mat-form-field {
-    margin: 0 5px;
+    margin: 0 0px;
     margin-bottom: 0 !important;
-    max-height: 75px;
+    max-height: 55px !important;
 }
 
 .mdc-text-field--filled:not(.mdc-text-field--disabled),
@@ -18,4 +18,9 @@ mat-form-field {
 .mat-mdc-form-field-required-marker {
     color: red;
     font-size: 18px;
+}
+
+//* Small box below mat-form-field input.
+.mat-mdc-form-field-subscript-wrapper {
+    display: none;
 }

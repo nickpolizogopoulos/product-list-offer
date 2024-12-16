@@ -149,6 +149,12 @@ $heading-styles: (
     }
 }
 
+.mobile-add-product {
+    @media screen and (min-width: 992px) {
+        display: none;
+    }
+}
+
 .slider-switch-row {
     @extend .flex-row;
     align-items: center;
@@ -172,11 +178,21 @@ $heading-styles: (
 
 .info-block {
     @extend .flex-row;
+    gap: 10px;
     align-items: baseline;
- 
+    
+    .input-50,
+    .input-25 {
+        display: flex;
+        flex-direction: column;
+        height: 90px;
+        gap: 4px;
+    }
+
     .input-50 {
         width: 50%; 
     }
+
     .input-25 {
         width: 25%; 
     }
@@ -195,9 +211,18 @@ $heading-styles: (
 .products-header {
     @extend .flex-row;
     align-items: center;
+    gap: 20px;
+
     button {
-        margin: 0 0 20px 20px;
+        margin: 0 0 15px 0;
+        @media screen and (max-width: 400px) {
+            margin: 0 0 10px 0;
+        }
     }
+}
+
+.submit-section {
+    margin: 30px 0 0;
 }
 
 

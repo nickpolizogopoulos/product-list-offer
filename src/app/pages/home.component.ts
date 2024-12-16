@@ -37,56 +37,67 @@ import { PdfService } from "../utilities/tools/pdf.service";
 import { ProductFormControl } from "../utilities/tools/product-control";
 import { MaterialComponents } from "../utilities/tools/material-components";
 import tippy from "tippy.js";
+import { AddRemoveButton } from "../utilities/components/add-remove-button.component";
 
 @Component({
     selector: 'app-home',
     standalone: true,
     imports: [
         ReactiveFormsModule,
+        AddRemoveButton,
         MaterialComponents
     ],
     template: `
     
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-            <!--//! ================== COMPANY INFORMATION -->
             <section class="container">
                 <h3>Company Information</h3>
                 <section class="info-block">
-                    <mat-form-field class="input-50">
-                      <mat-label>Company Name</mat-label>
-                      <input matInput formControlName="companyName">
-                    </mat-form-field>
-                    <!-- @if (companyNameIsInvalid) {
-                      <span class="error-message">Please, enter your company name</span>
-                    } -->
-                    <mat-form-field class="input-50">
-                      <mat-label>Company Subtitle (optional)</mat-label>
-                      <input matInput formControlName="companySubtitle">
-                    </mat-form-field>
+                    <div class="input-50">
+                        <mat-form-field>
+                            <mat-label>Company Name</mat-label>
+                            <input matInput formControlName="companyName">
+                        </mat-form-field>
+                        @if (companyNameIsInvalid) {
+                            <span class="error-message">Please, enter your company name</span>
+                        }
+                    </div>
+                    <div class="input-50">
+                        <mat-form-field>
+                            <mat-label>Company Subtitle (optional)</mat-label>
+                            <input matInput formControlName="companySubtitle">
+                        </mat-form-field>
+                    </div>
                 </section>
                 <section class="info-block">
-                    <mat-form-field class="input-25">
-                        <mat-label>Phone</mat-label>
-                        <input matInput formControlName="companyPhone">
-                        <!-- @if (companyPhoneIsInvalid) {
+                    <div class="input-25">
+                        <mat-form-field>
+                            <mat-label>Phone</mat-label>
+                            <input matInput formControlName="companyPhone">
+                        </mat-form-field>
+                        @if (companyPhoneIsInvalid) {
                             <span class="error-message">Please, enter a phone number</span>
-                        } -->
-                    </mat-form-field>
-                    <mat-form-field class="input-25">
-                        <mat-label>Email</mat-label>
-                        <input matInput formControlName="companyEmail" email>
-                        <!-- @if (companyEmailIsInvalid) {
+                        }
+                    </div>
+                    <div class="input-25">
+                        <mat-form-field>
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="companyEmail" email>
+                        </mat-form-field>
+                        @if (companyEmailIsInvalid) {
                             <span class="error-message">Please, enter a valid email</span>
-                        } -->
-                    </mat-form-field>
-                    <mat-form-field class="input-50">
-                        <mat-label>Location</mat-label>
-                        <input matInput formControlName="companyLocation">
-                        <!-- @if (companyLocationIsInvalid) {
+                        }
+                    </div>
+                    <div class="input-50">
+                        <mat-form-field>
+                            <mat-label>Location</mat-label>
+                            <input matInput formControlName="companyLocation">
+                        </mat-form-field>
+                        @if (companyLocationIsInvalid) {
                             <span class="error-message">Please, enter your company location</span>
-                        } -->
-                    </mat-form-field>
+                        }
+                    </div>
                 </section>
                 <section class="company-details information-headings">
                     <article>
@@ -104,91 +115,104 @@ import tippy from "tippy.js";
                 </section>
             </section>
 
-            <!--//! ================== CUSTOMER INFORMATION -->
             <section class="container">
                 <h3>Client Information</h3>
                 <section class="info-block" formGroupName="customer">
-                    <mat-form-field class="input-50">
-                        <mat-label>Name</mat-label>
-                        <input matInput formControlName="customerName">
-                        <!-- @if (customerNameIsInvalid) {
+                    <div class="input-50">
+                        <mat-form-field>
+                            <mat-label>Name</mat-label>
+                            <input matInput formControlName="customerName">
+                        </mat-form-field>
+                        @if (customerNameIsInvalid) {
                             <span class="error-message">Please, enter your customer's name</span>
-                        } -->
-                    </mat-form-field>
-                    <mat-form-field class="input-25">
-                        <mat-label>Phone</mat-label>
-                        <input matInput formControlName="customerPhone">
-                        <!-- @if (customerPhoneIsInvalid) {
+                        }
+                    </div>
+                    <div class="input-25">
+                        <mat-form-field>
+                            <mat-label>Phone</mat-label>
+                            <input matInput formControlName="customerPhone">
+                        </mat-form-field>
+                        @if (customerPhoneIsInvalid) {
                             <span class="error-message">Please, enter a phone number</span>
-                        } -->
-                    </mat-form-field>
-                    <mat-form-field class="input-25">
-                        <mat-label>Email</mat-label>
-                        <input matInput formControlName="customerEmail">
-                        <!-- @if (customerEmailIsInvalid) {
+                        }
+                    </div>
+                    <div class="input-25">
+                        <mat-form-field>
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="customerEmail">
+                        </mat-form-field>
+                        @if (customerEmailIsInvalid) {
                             <span class="error-message">Please, enter a valid email</span>
-                        } -->
-                    </mat-form-field>
+                        }
+                    </div>
                 </section>
             </section>
-            
-            <!--//! ================== PRODUCT LIST -->
+
             <section class="container" formArrayName="products">
                 <section class="products-header">
                     <h3>Product List</h3>
-                    <button #addProductTooltip (click)="onAddProduct()" type="button" class="icon-btn add">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                        </svg>
-                    </button>
+                    <button #addProductTooltip AddRemove type="button" buttonType="add" (click)="onAddProduct()"></button>
                 </section>
                 @for (product of allProducts; track product) {
                     <section class="info-block" [formGroupName]="$index">
-                        <mat-form-field class="input-50">
-                            <mat-label>Product name</mat-label>
-                            <input matInput formControlName="name">
-                            <!-- @if (product.controls.name.invalid && product.controls.name.touched) {
+                        <div class="input-50">
+                            <mat-form-field>
+                                <mat-label>Product name</mat-label>
+                                <input matInput formControlName="name">
+                            </mat-form-field>
+                            @if (product.controls.name.invalid && product.controls.name.touched) {
                                 <span class="error-message">Please, enter a product or delete the product if not needed.</span>
-                            } -->
-                        </mat-form-field>
-                        <mat-form-field class="input-25">
-                            <mat-label>Quantity</mat-label>
-                            <mat-select formControlName="quantity" type="number">
-                                @for ( option of allQtyOptions; track $index ) {
-                                    <mat-option [value]="option">{{ option }}</mat-option>
-                                }
-                            </mat-select>
-                            <!-- @if (product.controls.quantity.invalid && product.controls.quantity.touched) {
+                            }
+                        </div>
+                        <div class="input-25">
+                            <mat-form-field>
+                                <mat-label>Quantity</mat-label>
+                                <mat-select formControlName="quantity" type="number">
+                                    @for ( option of allQtyOptions; track $index ) {
+                                        <mat-option [value]="option">{{ option }}</mat-option>
+                                    }
+                                </mat-select>
+                            </mat-form-field>
+                            @if (product.controls.quantity.invalid && product.controls.quantity.touched) {
                                 <span class="error-message">Please, add quantity.</span>
-                            } -->
-                        </mat-form-field>
-                        <mat-form-field class="input-25">
-                            <mat-label>Total Price €</mat-label>
-                            <input matInput formControlName="price" type="number">
-                            <!-- @if (product.controls.price.invalid && product.controls.price.touched) {
+                            }
+                        </div>
+                        <div class="input-25">
+                            <mat-form-field>
+                                <mat-label>Total Price €</mat-label>
+                                <input matInput formControlName="price" type="number">
+                            </mat-form-field>
+                            @if (product.controls.price.invalid && product.controls.price.touched) {
                                 <span class="error-message">Please, add product price.</span>
-                            } -->
-                        </mat-form-field>
-                        <button (click)="onDeleteProduct($index)" type="button" class="icon-btn delete">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                            </svg>
-                        </button>
+                            }
+                        </div>
+                        <button AddRemove buttonType="delete" type="button" (click)="onDeleteProduct($index)"></button>
                         <mat-divider />
                     </section>
                 }
-                @if (formIsInvalid) {
-                    <p class="form-error-message">Please make sure all fields are filled correctly!</p>
-                }
-                <button mat-raised-button>Generate .pdf</button>
+
+                <section class="mobile-add-product">
+                  <h5>Add Product</h5>
+                  <button AddRemove buttonType="add" type="button" (click)="onAddProduct()"></button>
+                </section>
+
+                <section class="submit-section">
+                    @if (formIsInvalid) {
+                        <p class="form-error-message">Please make sure all fields are filled correctly!</p>
+                    }
+                    <button type="submit" mat-raised-button>Generate .pdf</button>
+                </section>
             </section>
+
         </form>
     
     `
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent 
+implements 
+  OnInit,
+  AfterViewInit 
+{
 
   private destroyRef = inject(DestroyRef);
 
@@ -233,6 +257,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       });
   }
 
+
   form = new FormGroup({
     companyName: new FormControl(initialCompanyNameValue, required),
     companySubtitle: new FormControl(initialCompanySubtitleValue),
@@ -276,7 +301,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   //* COMPANY CHECKS
   get companyNameIsInvalid(): boolean {
     return (
-      this.form.controls.companyName.invalid ||
+      this.form.controls.companyName.invalid &&
       this.form.controls.companyName.touched
     );
   }

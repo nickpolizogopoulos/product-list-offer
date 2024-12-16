@@ -74,6 +74,7 @@ type Feature = {
 
         .link {
             font-weight: 600;
+            
             &:before {
                 content: '[ '
             }
