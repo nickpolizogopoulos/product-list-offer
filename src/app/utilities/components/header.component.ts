@@ -10,6 +10,7 @@ import {
     LanguageService
 } from '../services/language.service';
 import { MaterialComponents } from '../tools/material-components';
+import { LanguageSwitchComponent } from './language-switch.component';
 
 type Social = {
     name: string;
@@ -23,6 +24,7 @@ type Social = {
     standalone: true,
     imports: [
         RouterLink,
+        LanguageSwitchComponent,
         MaterialComponents
     ],
     host: {
@@ -40,11 +42,11 @@ type Social = {
             <mat-menu #menu="matMenu">
                 <button (click)="onLanguageSelect('greek')" mat-menu-item>
                     <img src="/greek-flag.svg" alt="greek-flag">
-                    {{ selectedLanguage() === 'greek' ? 'Ελληνικά' : 'Greek' }}
+                    <app-language-switch greek="Ελληνικά" english="Greek" />
                 </button>
                 <button (click)="onLanguageSelect('english')" mat-menu-item>
                     <img src="/uk-flag.svg" alt="uk-flag">
-                    {{ selectedLanguage() === 'greek' ? 'Αγγλικά' : 'English' }}
+                    <app-language-switch greek="Αγγλικά" english="English" />
                 </button>
             </mat-menu>
 
@@ -75,7 +77,6 @@ type Social = {
                         </a>
                     </li>
                 }
-
             </ul>
         </section>
   

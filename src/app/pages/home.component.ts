@@ -40,6 +40,7 @@ import { LanguageService } from "../utilities/services/language.service";
 import { ErrorMessageComponent } from "../utilities/components/error-message.component";
 
 import { provideNativeDateAdapter } from "@angular/material/core";
+import { LanguageSwitchComponent } from "../utilities/components/language-switch.component";
 
 @Component({
     selector: 'app-home',
@@ -48,21 +49,24 @@ import { provideNativeDateAdapter } from "@angular/material/core";
       provideNativeDateAdapter()
     ],
     imports: [
-        ReactiveFormsModule,
-        ErrorMessageComponent,
-        AddRemoveButton,
-        MaterialComponents
-    ],
+    ReactiveFormsModule,
+    ErrorMessageComponent,
+    AddRemoveButton,
+    MaterialComponents,
+    LanguageSwitchComponent
+],
     template: `
     
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
             <section class="container">
-                <h3>{{ selectedLanguage() === 'greek' ? 'Πληροφορίες Εταιρείας' : 'Company Information' }}</h3>
+                <h3><app-language-switch greek="Πληροφορίες Εταιρείας" english="Company Information" /></h3>
                 <section class="info-block">
                     <div class="input-50">
                         <mat-form-field>
-                            <mat-label>{{ selectedLanguage() === 'greek' ? 'Όνομα Εταιρείας' : 'Company Name' }}</mat-label>
+                            <mat-label>
+                                <app-language-switch greek="Όνομα Εταιρείας" english="Company Name" />
+                            </mat-label>
                             <input matInput formControlName="companyName">
                         </mat-form-field>
                         @if (companyNameIsInvalid) {
@@ -75,7 +79,9 @@ import { provideNativeDateAdapter } from "@angular/material/core";
                     </div>
                     <div class="input-50">
                         <mat-form-field>
-                            <mat-label>Company Subtitle (optional)</mat-label>
+                            <mat-label>
+                                <app-language-switch greek="Υπότιτλος Εταιρείας (προαιρετικό)" english="Company Subtitle (optional)" />
+                            </mat-label>
                             <input matInput formControlName="companySubtitle">
                         </mat-form-field>
                     </div>
@@ -83,7 +89,9 @@ import { provideNativeDateAdapter } from "@angular/material/core";
                 <section class="info-block">
                     <div class="input-25">
                         <mat-form-field>
-                            <mat-label>Phone</mat-label>
+                            <mat-label>
+                                <app-language-switch greek="Τηλέφωνο" english="Phone" />
+                            </mat-label>
                             <input matInput formControlName="companyPhone">
                         </mat-form-field>
                         @if (companyPhoneIsInvalid) {
@@ -92,12 +100,13 @@ import { provideNativeDateAdapter } from "@angular/material/core";
                                 english="Please, enter a phone number."
                                 classes="error-message"
                             ></span>
-                            
                         }
                     </div>
                     <div class="input-25">
                         <mat-form-field>
-                            <mat-label>Email</mat-label>
+                            <mat-label>
+                                <app-language-switch greek="Διευθ. Ηλ. Ταχυδρομείου" english="Email" />
+                            </mat-label>
                             <input matInput formControlName="companyEmail" email>
                         </mat-form-field>
                         @if (companyEmailIsInvalid) {
@@ -110,7 +119,9 @@ import { provideNativeDateAdapter } from "@angular/material/core";
                     </div>
                     <div class="input-50">
                         <mat-form-field>
-                            <mat-label>Location</mat-label>
+                            <mat-label>
+                                <app-language-switch greek="Τοποθεσία" english="Location" />
+                            </mat-label>
                             <input matInput formControlName="companyLocation">
                         </mat-form-field>
                         @if (companyLocationIsInvalid) {
@@ -139,11 +150,13 @@ import { provideNativeDateAdapter } from "@angular/material/core";
             </section>
 
             <section class="container">
-                <h3>{{ selectedLanguage() === 'greek' ? 'Πληροφορίες Πελάτη' : 'Client Information' }}</h3>
+                <h3><app-language-switch greek="Πληροφορίες Πελάτη" english="Client Information" /></h3>
                 <section class="info-block" formGroupName="customer">
                     <div class="input-50">
                         <mat-form-field>
-                            <mat-label>Name</mat-label>
+                            <mat-label>
+                                <app-language-switch greek="Όνομα Πελάτη" english="Client Name" />
+                            </mat-label>
                             <input matInput formControlName="customerName">
                         </mat-form-field>
                         @if (customerNameIsInvalid) {
@@ -156,7 +169,9 @@ import { provideNativeDateAdapter } from "@angular/material/core";
                     </div>
                     <div class="input-25">
                         <mat-form-field>
-                            <mat-label>Phone</mat-label>
+                            <mat-label>
+                                <app-language-switch greek="Τηλέφωνο" english="Phone" />
+                            </mat-label>
                             <input matInput formControlName="customerPhone">
                         </mat-form-field>
                         @if (customerPhoneIsInvalid) {
@@ -169,7 +184,11 @@ import { provideNativeDateAdapter } from "@angular/material/core";
                     </div>
                     <div class="input-25">
                         <mat-form-field>
-                            <mat-label>Email</mat-label>
+                            <mat-label>
+                                <mat-label>
+                                    <app-language-switch greek="Διευθ. Ηλ. Ταχυδρομείου" english="Email" />
+                                </mat-label>
+                            </mat-label>
                             <input matInput formControlName="customerEmail">
                         </mat-form-field>
                         @if (customerEmailIsInvalid) {
@@ -186,19 +205,19 @@ import { provideNativeDateAdapter } from "@angular/material/core";
             <!--// TODO PUT THIS THING IN THE FORM ===================================-->
             <section class="container">
                 <section>
-                    <h3>{{ selectedLanguage() === 'greek' ? 'Ρυθμίσεις προσφοράς' : 'Offer settings' }}</h3>
+                    <h3><app-language-switch greek="Ρυθμίσεις προσφοράς" english="Offer settings" /></h3>
                     <section class="settings-block">
                         <mat-radio-group [value]="theOfferHasExpirationDate()" (change)="onExpirationChange($event.value)" aria-label="Select an option">
                             <mat-radio-button color="primary" value="permanent">
-                                {{ selectedLanguage() === 'greek' ? 'Η προσφορά είναι μόνιμη' : 'The offer is valid permanently' }}
+                                <app-language-switch greek="Η προσφορά είναι μόνιμη" english="The offer is valid permanently" />
                             </mat-radio-button>
                             <mat-radio-button color="primary" value="expires">
-                                {{ selectedLanguage() === 'greek' ? 'Έχει ημερομηνία λήξης' : 'Has an expiration date' }}
+                                <app-language-switch greek="Έχει ημερομηνία λήξης" english="Has an expiration date" />
                             </mat-radio-button>
                         </mat-radio-group>
                         <mat-form-field>
                             <mat-label>
-                                {{ selectedLanguage() === 'greek' ? 'Διαλέξτε ημερομηνία' : 'Choose a date' }}
+                                <app-language-switch greek="Διαλέξτε ημερομηνία" english="Choose a date" />
                             </mat-label>
                             <input matInput [matDatepicker]="picker" [disabled]="theOfferHasExpirationDate() === 'permanent'">
                             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -211,40 +230,28 @@ import { provideNativeDateAdapter } from "@angular/material/core";
 
                 <section class="notes-block">
                   <button (click)="onNotesSelected()" [color]="!notesEnabled() ? 'primary' : 'warn'" mat-raised-button type="button">
-                    <mat-icon>{{ !notesEnabled() ? 'add' : 'remove' }}</mat-icon>
-                    @if (!notesEnabled()) {
-                      {{
-                        selectedLanguage() === 'greek'
-                        ? 'Προσθήκη σημειώσεων'
-                        : 'Add notes'
-                      }}
-                    }
-                    @else {
-                      {{
-                        selectedLanguage() === 'greek'
-                        ? 'Κατάργηση σημειώσεων'
-                        : 'Remove notes'
-                      }}
-                    }
+                      <mat-icon>{{ !notesEnabled() ? 'add' : 'remove' }}</mat-icon>
+                      @if (!notesEnabled()) {
+                          <app-language-switch greek="Προσθήκη σημειώσεων" english="Add notes" />
+                      }
+                      @else {
+                          <app-language-switch greek="Κατάργηση σημειώσεων" english="Remove notes" />
+                      }
                   </button>
                   @if (notesEnabled()) {
-                    <mat-form-field class="example-full-width" app>
-                      <mat-label>
-                        {{
-                          selectedLanguage() === 'greek'
-                          ? 'Σημειώσεις (μέγιστο 140 χαρακτήρες)'
-                          : 'Notes (maximum 140 characters)'
-                        }}
-                      </mat-label>
-                      <textarea matInput maxlength="140" rows="2" formControlName="notes"></textarea>
-                    </mat-form-field>
+                      <mat-form-field class="example-full-width" app>
+                          <mat-label>
+                              <app-language-switch greek="Σημειώσεις (μέγιστο 140 χαρακτήρες)" english="Notes (maximum 140 characters)" />
+                          </mat-label>
+                          <textarea matInput maxlength="140" rows="2" formControlName="notes"></textarea>
+                      </mat-form-field>
                   }
                 </section>
             </section>
 
             <section class="container" formArrayName="products">
                 <section class="products-header">
-                    <h3>{{ selectedLanguage() === 'greek' ? 'Λίστα προϊόντων' : 'Product List' }}</h3>
+                    <h3><app-language-switch greek="Λίστα προϊόντων" english="Product List" /></h3>
                     <app-add-remove-button buttonType="add" (click)="onAddProduct()" />
                 </section>
                 @for (product of allProducts; track product) {
@@ -252,7 +259,9 @@ import { provideNativeDateAdapter } from "@angular/material/core";
                         <h5>{{ $index + 1 }}<span>.</span></h5>
                         <div class="input-50">
                             <mat-form-field>
-                                <mat-label>Product name</mat-label>
+                                <mat-label>
+                                    <app-language-switch greek="Τίτλος Προϊόντος" english="Product Title" />
+                                </mat-label>
                                 <input matInput formControlName="name">
                             </mat-form-field>
                             @if (product.controls.name.invalid && product.controls.name.touched) {
@@ -265,7 +274,9 @@ import { provideNativeDateAdapter } from "@angular/material/core";
                         </div>
                         <div class="input-25">
                             <mat-form-field>
-                                <mat-label>Quantity</mat-label>
+                                <mat-label>
+                                    <app-language-switch greek="Ποσότητα" english="Quantity" />
+                                </mat-label>
                                 <mat-select formControlName="quantity" type="number">
                                     @for ( option of qtyOptions; track $index ) {
                                         <mat-option [value]="option">{{ option }}</mat-option>
@@ -282,7 +293,9 @@ import { provideNativeDateAdapter } from "@angular/material/core";
                         </div>
                         <div class="input-25">
                             <mat-form-field>
-                                <mat-label>Unit Price €</mat-label>
+                                <mat-label>
+                                    <app-language-switch greek="Τιμή Μονάδας €" english="Unit Price €" />
+                                </mat-label>
                                 <input matInput formControlName="price" type="number">
                             </mat-form-field>
                             @if (product.controls.price.invalid && product.controls.price.touched) {
@@ -304,10 +317,10 @@ import { provideNativeDateAdapter } from "@angular/material/core";
 
                 <mat-radio-group [value]="selectedRadioOption()" (change)="onOptionChange($event.value)" aria-label="Select an option">
                     <mat-radio-button color="primary" value="1">
-                        {{ selectedLanguage() === 'greek' ? 'Κανονική Εκτύπωση (πίνακας με χρώμα)' : 'Normal Print (coloured table)' }}
+                        <app-language-switch greek="Κανονική Εκτύπωση (πίνακας με χρώμα)" english="Normal Print (coloured table)" />
                     </mat-radio-button>
                     <mat-radio-button color="primary" value="2">
-                        {{ selectedLanguage() === 'greek' ? 'Αφαίρεση χρωμάτων (εξοικονόμηση μελανιού)' : 'Remove colours (saves ink)' }}
+                        <app-language-switch greek="Αφαίρεση χρωμάτων (εξοικονόμηση μελανιού)" english="Remove colours (saves ink)" />
                     </mat-radio-button>
                 </mat-radio-group>
                 
@@ -321,7 +334,7 @@ import { provideNativeDateAdapter } from "@angular/material/core";
                     }
                 </section>
                 <button type="submit" mat-raised-button>
-                  {{ selectedLanguage() === 'greek' ? 'Λήψη αρχείου .pdf' : 'Download .pdf file' }}
+                    <app-language-switch greek="Λήψη αρχείου .pdf" english="Download .pdf file" />
                 </button>
             </section>
 
