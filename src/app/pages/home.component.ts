@@ -242,9 +242,9 @@ import { LanguageSwitchComponent } from "../utilities/components/language-switch
                   @if (notesEnabled()) {
                       <mat-form-field class="example-full-width" app>
                           <mat-label>
-                              <app-language-switch greek="Σημειώσεις (μέγιστο 140 χαρακτήρες)" english="Notes (maximum 140 characters)" />
+                              <app-language-switch greek="Σημειώσεις (μέγιστο 200 χαρακτήρες)" english="Notes (maximum 200 characters)" />
                           </mat-label>
-                          <textarea matInput maxlength="140" rows="2" formControlName="notes"></textarea>
+                          <textarea matInput maxlength="200" rows="2" formControlName="notes"></textarea>
                       </mat-form-field>
                   }
                 </section>

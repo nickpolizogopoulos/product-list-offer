@@ -103,6 +103,7 @@ export class PdfService {
         doc.line(x1, line2Top, x2, line2Top);
 
         //* NOTES ========================================================================
+        const wrappedText = doc.splitTextToSize(pdf.notes as string, 237);
         if (pdf.notes) {
             doc.setFontSize(10);
             if (this.isGreek())
@@ -110,7 +111,7 @@ export class PdfService {
             else
                 doc.text('Note:', 10, 83);
             doc.setFontSize(8);
-            doc.text(pdf.notes!, 10, 87);
+            doc.text(wrappedText, 10, 87);
         }
 
         const products: (string | number)[][] = pdf.products
@@ -135,7 +136,7 @@ export class PdfService {
           : ['No.', 'Product Title', 'Unit Price €', 'Quantity', 'Total Price €']
         ];
 
-        const tableStartingPosition: number = pdf.notes ? 95 : 85;
+        const tableStartingPosition: number = pdf.notes ? 98 : 85;
         
         doc.setFont('InterFont', 'normal');
         autoTable(doc, {
