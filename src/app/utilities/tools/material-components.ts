@@ -6,7 +6,11 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSliderModule } from '@angular/material/slider'; 
 import { MatTooltipModule } from '@angular/material/tooltip'; 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 export const MaterialComponents =
 [
@@ -18,5 +22,9 @@ export const MaterialComponents =
     MatSliderModule,
     MatTooltipModule,
     MatSlideToggleModule,
-    MatRadioModule
+    MatRadioModule,
+    MatMenuModule,
+    MatIconModule,
+    
+    MatDatepickerModule
 ];

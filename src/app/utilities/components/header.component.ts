@@ -1,178 +1,235 @@
-import { Component } from '@angular/core';
+import {
+    Component,
+    computed,
+    inject
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 
+import {
+    type Language,
+    LanguageService
+} from '../services/language.service';
+import { MaterialComponents } from '../tools/material-components';
+
 type Social = {
-    name:string;
-    link:string;
-    path:string;
-    viewBox:string;
+    name: string;
+    link: string;
+    path: string;
+    viewBox: string;
 };
 
 @Component({
-  selector: 'header[appHeader]',
-  standalone: true,
-  imports: [
-    RouterLink
-  ],
-  host: {
-    'class': 'container'
-  },
-  template: `
+    selector: 'header[appHeader]',
+    standalone: true,
+    imports: [
+        RouterLink,
+        MaterialComponents
+    ],
+    host: {
+        'class': 'container'
+    },
+    template: `
   
-    <h1 routerLink="/">Product offer to <span>.</span>pdf</h1>
+        <h1 routerLink="/">Product offer to <span>.</span>pdf</h1>
 
-    <ul>
-        <li routerLink="about">
-            <a class="Btn">
-                <span class="svgContainer">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-info-lg" viewBox="0 0 16 16">
-                        <path d="m9.708 6.075-3.024.379-.108.502.595.108c.387.093.464.232.38.619l-.975 4.577c-.255 1.183.14 1.74 1.067 1.74.72 0 1.554-.332 1.933-.789l.116-.549c-.263.232-.65.325-.905.325-.363 0-.494-.255-.402-.704zm.091-2.755a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0"/>
-                    </svg>
-                </span>
-                <span class="BG"></span>
-            </a>
-        </li>
+        <section>
+            <button mat-button [matMenuTriggerFor]="menu">
+                <mat-icon>public</mat-icon>
+                {{ selectedLanguage() === 'greek' ? 'Γλώσσα' : 'Language' }}
+            </button>
+            <mat-menu #menu="matMenu">
+                <button (click)="onLanguageSelect('greek')" mat-menu-item>
+                    <img src="/greek-flag.svg" alt="greek-flag">
+                    {{ selectedLanguage() === 'greek' ? 'Ελληνικά' : 'Greek' }}
+                </button>
+                <button (click)="onLanguageSelect('english')" mat-menu-item>
+                    <img src="/uk-flag.svg" alt="uk-flag">
+                    {{ selectedLanguage() === 'greek' ? 'Αγγλικά' : 'English' }}
+                </button>
+            </mat-menu>
 
-        @for (icon of allSocial; track $index) {
-            <li>
-                <a class="Btn" href="{{ icon.link }}" target="_blank">
-                    <span class="svgContainer">
-                        <svg 
-                            [attr.viewBox]="icon.viewBox"
-                            [attr.fill]="'white'"
-                        >
-                            <path attr.d="{{ icon.path }}"></path>
-                        </svg>
-                    </span>
-                    <span class="BG"></span>
-                </a>
-            </li>
-        }
+            <ul>
+                <li routerLink="about">
+                    <a class="Btn">
+                        <span class="svgContainer">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-info-lg" viewBox="0 0 16 16">
+                                <path d="m9.708 6.075-3.024.379-.108.502.595.108c.387.093.464.232.38.619l-.975 4.577c-.255 1.183.14 1.74 1.067 1.74.72 0 1.554-.332 1.933-.789l.116-.549c-.263.232-.65.325-.905.325-.363 0-.494-.255-.402-.704zm.091-2.755a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0"/>
+                            </svg>
+                        </span>
+                        <span class="BG"></span>
+                    </a>
+                </li>
 
-    </ul>
+                @for (icon of allSocial; track $index) {
+                    <li>
+                        <a class="Btn" href="{{ icon.link }}" target="_blank">
+                            <span class="svgContainer">
+                                <svg 
+                                    [attr.viewBox]="icon.viewBox"
+                                    [attr.fill]="'white'"
+                                >
+                                    <path attr.d="{{ icon.path }}"></path>
+                                </svg>
+                            </span>
+                            <span class="BG"></span>
+                        </a>
+                    </li>
+                }
+
+            </ul>
+        </section>
   
-  `,
-  styles: `
+    `,
+    styles: `
 
-    @use '../../../styles.scss' as *;
+        @use '../../../styles.scss' as *;
 
-    :host,
-    ul {
-        @extend .flex-row;
-        align-items: center;
-        justify-content: center;
-    }
-  
-    :host {
-        height: 110px;
-        justify-content: space-between;
-
-        @media screen and (max-width: 991px) {
-            height: auto;
-            flex-direction: column;
-            padding-bottom: 1rem;
+        :host,
+        ul,
+        section {
+            @extend .flex-row;
+            align-items: center;
+            justify-content: center;
         }
-    }
-
-    ul {
-        list-style-type: none;
-        padding: 0;
-        gap: 1.5rem;
-        
-        @media screen and (max-width: 399px) {
-            gap: 1rem;
-        }
-    }
     
-    h1 {
-        cursor: pointer;
-        margin: 0;
+        :host {
+            height: 110px;
+            justify-content: space-between;
 
-        @media screen and (max-width: 991px) {
-            text-align: center;
-            margin-bottom: 1rem;
-            font-size: 2.6rem;
-        }
-        
-        @media screen and (max-width: 408px) {
-            font-size: 2rem;
-        }
-    }
-
-    .Btn {
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: none;
-        background-color: transparent;
-        position: relative;
-        border-radius: 7px;
-        cursor: pointer;
-        transition: all .3s;
-        
-        @media screen and (max-width: 518px) {
-            width: 35px;
-            height: 35px;
-        }
-
-        @media screen and (max-width: 399px) {
-            width: 30px;
-            height: 30px;
-        }
-    }
-
-    .svgContainer {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: transparent;
-        backdrop-filter: blur(30px);
-        letter-spacing: 0.8px;
-        border-radius: 7px;
-        transition: all .4s;
-        border: 1px solid rgba(255, 255, 255, 0.4);
-
-        svg {
-            width: 26px;
-            height: 26px;
-            
-            @media screen and (max-width: 399px) {
-                width: 20px;
-                height: 20px;
+            @media screen and (max-width: 991px) {
+                height: auto;
+                flex-direction: column;
+                padding-bottom: 1rem;
             }
         }
-    }
 
-    .BG {
-        background-color: #4a4a4a;
-        position: absolute;
-        content: "";
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        border-radius: 7px;
-        pointer-events: none;
-        transition: all .2s;
-    }
+        section {
+            gap: 30px;
 
-    .Btn:hover .BG {
-        transform: rotate(25deg);
-        transform-origin: bottom;
-    }
+            button {
+                color: black;
+                min-width: 130px;
 
-    .Btn:hover .svgContainer {
-        background-color: rgba(195, 195, 195, 0.5);
-        backdrop-filter: blur(3px);
-    }
+                &:hover {
+                    background-color: rgba(245, 245, 245, 0.5);
+                }
+            }
+
+            @media screen and (max-width: 519px) {
+                flex-direction: column-reverse;
+                gap: 0;
+            }
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            gap: 1.5rem;
+            
+            @media screen and (max-width: 399px) {
+                gap: 1rem;
+            }
+        }
+        
+        h1 {
+            cursor: pointer;
+            margin: 0;
+
+            @media screen and (max-width: 991px) {
+                text-align: center;
+                margin-bottom: 1rem;
+                font-size: 2.6rem;
+            }
+            
+            @media screen and (max-width: 408px) {
+                font-size: 2rem;
+            }
+        }
+
+        .Btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            background-color: transparent;
+            position: relative;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: all .3s;
+            
+            @media screen and (max-width: 518px) {
+                width: 35px;
+                height: 35px;
+            }
+
+            @media screen and (max-width: 399px) {
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        .svgContainer {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            backdrop-filter: blur(30px);
+            letter-spacing: 0.8px;
+            border-radius: 7px;
+            transition: all .4s;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+
+            svg {
+                width: 26px;
+                height: 26px;
+                
+                @media screen and (max-width: 399px) {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+        }
+
+        .BG {
+            background-color: #4a4a4a;
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            border-radius: 7px;
+            pointer-events: none;
+            transition: all .2s;
+        }
+
+        .Btn:hover .BG {
+            transform: rotate(25deg);
+            transform-origin: bottom;
+        }
+
+        .Btn:hover .svgContainer {
+            background-color: rgba(195, 195, 195, 0.5);
+            backdrop-filter: blur(3px);
+        }
   
   
-  `
+    `
 })
 export class HeaderComponent {
+
+    private languageService = inject(LanguageService);
+
+    selectedLanguage = computed(() => 
+        this.languageService.selectedLanguage()
+    );
+
+    onLanguageSelect(selection: Language): void {
+        this.languageService.onChangeLanguage(selection);
+    }
 
     get allSocial(): Social[] {
         return [...this.social];

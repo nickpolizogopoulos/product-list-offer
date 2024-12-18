@@ -4,7 +4,8 @@ import {
   DestroyRef,
   inject,
   signal,
-  effect
+  effect,
+  computed
 } from "@angular/core";
 import {
   ReactiveFormsModule,
@@ -31,17 +32,24 @@ import {
 
 import { PDF } from "../utilities/tools/pdf.model";
 import { Product } from "../utilities/tools/product.model";
-import { PdfService } from "../utilities/tools/pdf.service";
+import { PdfService } from "../utilities/services/pdf.service";
 import { ProductFormControl } from "../utilities/tools/product-control";
 import { MaterialComponents } from "../utilities/tools/material-components";
-import tippy from "tippy.js";
 import { AddRemoveButton } from "../utilities/components/add-remove-button.component";
+import { LanguageService } from "../utilities/services/language.service";
+import { ErrorMessageComponent } from "../utilities/components/error-message.component";
+
+import { provideNativeDateAdapter } from "@angular/material/core";
 
 @Component({
     selector: 'app-home',
     standalone: true,
+    providers: [
+      provideNativeDateAdapter()
+    ],
     imports: [
         ReactiveFormsModule,
+        ErrorMessageComponent,
         AddRemoveButton,
         MaterialComponents
     ],
@@ -50,15 +58,19 @@ import { AddRemoveButton } from "../utilities/components/add-remove-button.compo
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
             <section class="container">
-                <h3>Company Information</h3>
+                <h3>{{ selectedLanguage() === 'greek' ? 'Πληροφορίες Εταιρείας' : 'Company Information' }}</h3>
                 <section class="info-block">
                     <div class="input-50">
                         <mat-form-field>
-                            <mat-label>Company Name</mat-label>
+                            <mat-label>{{ selectedLanguage() === 'greek' ? 'Όνομα Εταιρείας' : 'Company Name' }}</mat-label>
                             <input matInput formControlName="companyName">
                         </mat-form-field>
                         @if (companyNameIsInvalid) {
-                            <span class="error-message">Please, enter your company name</span>
+                            <span ErrorMessage 
+                                greek="Παρακαλώ, εισάγετε όνομα εταιρείας / επωνυμία."
+                                english="Please, enter your company name."
+                                classes="error-message"
+                            ></span>
                         }
                     </div>
                     <div class="input-50">
@@ -75,7 +87,12 @@ import { AddRemoveButton } from "../utilities/components/add-remove-button.compo
                             <input matInput formControlName="companyPhone">
                         </mat-form-field>
                         @if (companyPhoneIsInvalid) {
-                            <span class="error-message">Please, enter a phone number</span>
+                            <span ErrorMessage 
+                                greek="Παρακαλώ, εισάγετε αριθμό τηλεφώνου."
+                                english="Please, enter a phone number."
+                                classes="error-message"
+                            ></span>
+                            
                         }
                     </div>
                     <div class="input-25">
@@ -84,7 +101,11 @@ import { AddRemoveButton } from "../utilities/components/add-remove-button.compo
                             <input matInput formControlName="companyEmail" email>
                         </mat-form-field>
                         @if (companyEmailIsInvalid) {
-                            <span class="error-message">Please, enter a valid email</span>
+                            <span ErrorMessage 
+                                greek="Παρακαλώ, εισάγετε σωστό email."
+                                english="Please, enter a valid email."
+                                classes="error-message"
+                            ></span>
                         }
                     </div>
                     <div class="input-50">
@@ -93,7 +114,11 @@ import { AddRemoveButton } from "../utilities/components/add-remove-button.compo
                             <input matInput formControlName="companyLocation">
                         </mat-form-field>
                         @if (companyLocationIsInvalid) {
-                            <span class="error-message">Please, enter your company location</span>
+                            <span ErrorMessage 
+                                greek="Παρακαλώ, εισάγετε τοποθεσία εταιρείας."
+                                english="Please, enter your company location."
+                                classes="error-message"
+                            ></span>
                         }
                     </div>
                 </section>
@@ -114,7 +139,7 @@ import { AddRemoveButton } from "../utilities/components/add-remove-button.compo
             </section>
 
             <section class="container">
-                <h3>Client Information</h3>
+                <h3>{{ selectedLanguage() === 'greek' ? 'Πληροφορίες Πελάτη' : 'Client Information' }}</h3>
                 <section class="info-block" formGroupName="customer">
                     <div class="input-50">
                         <mat-form-field>
@@ -122,7 +147,11 @@ import { AddRemoveButton } from "../utilities/components/add-remove-button.compo
                             <input matInput formControlName="customerName">
                         </mat-form-field>
                         @if (customerNameIsInvalid) {
-                            <span class="error-message">Please, enter your customer's name</span>
+                            <span ErrorMessage 
+                                greek="Παρακαλώ, εισάγετε όνομα / επωνυμία πελάτη."
+                                english="Please, enter your customer's name."
+                                classes="error-message"
+                            ></span>
                         }
                     </div>
                     <div class="input-25">
@@ -131,7 +160,11 @@ import { AddRemoveButton } from "../utilities/components/add-remove-button.compo
                             <input matInput formControlName="customerPhone">
                         </mat-form-field>
                         @if (customerPhoneIsInvalid) {
-                            <span class="error-message">Please, enter a phone number</span>
+                            <span ErrorMessage 
+                                greek="Παρακαλώ, εισάγετε αριθμό τηλεφώνου."
+                                english="Please, enter a phone number."
+                                classes="error-message"
+                            ></span>
                         }
                     </div>
                     <div class="input-25">
@@ -140,15 +173,78 @@ import { AddRemoveButton } from "../utilities/components/add-remove-button.compo
                             <input matInput formControlName="customerEmail">
                         </mat-form-field>
                         @if (customerEmailIsInvalid) {
-                            <span class="error-message">Please, enter a valid email</span>
+                            <span ErrorMessage 
+                                greek="Παρακαλώ, εισάγετε σωστό email."
+                                english="Please, enter a valid email."
+                                classes="error-message"
+                            ></span>
                         }
                     </div>
                 </section>
             </section>
 
+            <!--// TODO PUT THIS THING IN THE FORM ===================================-->
+            <section class="container">
+                <section>
+                    <h3>{{ selectedLanguage() === 'greek' ? 'Ρυθμίσεις προσφοράς' : 'Offer settings' }}</h3>
+                    <section class="settings-block">
+                        <mat-radio-group [value]="theOfferHasExpirationDate()" (change)="onExpirationChange($event.value)" aria-label="Select an option">
+                            <mat-radio-button color="primary" value="permanent">
+                                {{ selectedLanguage() === 'greek' ? 'Η προσφορά είναι μόνιμη' : 'The offer is valid permanently' }}
+                            </mat-radio-button>
+                            <mat-radio-button color="primary" value="expires">
+                                {{ selectedLanguage() === 'greek' ? 'Έχει ημερομηνία λήξης' : 'Has an expiration date' }}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                        <mat-form-field>
+                            <mat-label>
+                                {{ selectedLanguage() === 'greek' ? 'Διαλέξτε ημερομηνία' : 'Choose a date' }}
+                            </mat-label>
+                            <input matInput [matDatepicker]="picker" [disabled]="theOfferHasExpirationDate() === 'permanent'">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </section>
+                </section>
+                <!--// TODO PUT THIS THING IN THE FORM ===================================-->
+
+
+                <section class="notes-block">
+                  <button (click)="onNotesSelected()" [color]="!notesEnabled() ? 'primary' : 'warn'" mat-raised-button type="button">
+                    <mat-icon>{{ !notesEnabled() ? 'add' : 'remove' }}</mat-icon>
+                    @if (!notesEnabled()) {
+                      {{
+                        selectedLanguage() === 'greek'
+                        ? 'Προσθήκη σημειώσεων'
+                        : 'Add notes'
+                      }}
+                    }
+                    @else {
+                      {{
+                        selectedLanguage() === 'greek'
+                        ? 'Κατάργηση σημειώσεων'
+                        : 'Remove notes'
+                      }}
+                    }
+                  </button>
+                  @if (notesEnabled()) {
+                    <mat-form-field class="example-full-width" app>
+                      <mat-label>
+                        {{
+                          selectedLanguage() === 'greek'
+                          ? 'Σημειώσεις (μέγιστο 200 χαρακτήρες)'
+                          : 'Notes (maximum 200 characters)'
+                        }}
+                      </mat-label>
+                      <textarea matInput maxlength="200" rows="3"></textarea>
+                    </mat-form-field>
+                  }
+                </section>
+            </section>
+
             <section class="container" formArrayName="products">
                 <section class="products-header">
-                    <h3>Product List</h3>
+                    <h3>{{ selectedLanguage() === 'greek' ? 'Λίστα προϊόντων' : 'Product List' }}</h3>
                     <app-add-remove-button buttonType="add" (click)="onAddProduct()" />
                 </section>
                 @for (product of allProducts; track product) {
@@ -160,7 +256,11 @@ import { AddRemoveButton } from "../utilities/components/add-remove-button.compo
                                 <input matInput formControlName="name">
                             </mat-form-field>
                             @if (product.controls.name.invalid && product.controls.name.touched) {
-                                <span class="error-message">Please, enter a product or delete the product if not needed.</span>
+                                <span ErrorMessage 
+                                  greek="Παρακαλώ, εισάγετε όνομα προϊόντος ή διαγράψτε το προϊόν εάν δεν σας χρειάζεται."
+                                  english="Please, enter product name or delete the product if not needed."
+                                  classes="error-message"
+                                ></span>
                             }
                         </div>
                         <div class="input-25">
@@ -173,7 +273,11 @@ import { AddRemoveButton } from "../utilities/components/add-remove-button.compo
                                 </mat-select>
                             </mat-form-field>
                             @if (product.controls.quantity.invalid && product.controls.quantity.touched) {
-                                <span class="error-message">Please, add quantity.</span>
+                                <span ErrorMessage 
+                                  greek="Παρακαλώ, εισάγετε ποσότητα."
+                                  english="Please, add quantity."
+                                  classes="error-message"
+                                ></span>
                             }
                         </div>
                         <div class="input-25">
@@ -182,30 +286,43 @@ import { AddRemoveButton } from "../utilities/components/add-remove-button.compo
                                 <input matInput formControlName="price" type="number">
                             </mat-form-field>
                             @if (product.controls.price.invalid && product.controls.price.touched) {
-                                <span class="error-message">Please, add product price.</span>
+                                <span ErrorMessage 
+                                  greek="Παρακαλώ εισάγετε τιμή προϊόντος."
+                                  english="Please, add product price."
+                                  classes="error-message"
+                                ></span>
                             }
                         </div>
                         <app-add-remove-button buttonType="delete" (click)="onDeleteProduct($index)" />
-                        <mat-divider />
                     </section>
                 }
 
                 <section class="products-header products-header-mobile">
-                  <h5>Add Product</h5>
-                  <app-add-remove-button buttonType="add" (click)="onAddProduct()" />
+                    <h5>{{ selectedLanguage() === 'greek' ? 'Προσθήκη προϊόντος' : 'Add Product' }}</h5>
+                    <app-add-remove-button buttonType="add" (click)="onAddProduct()" />
                 </section>
 
                 <mat-radio-group [value]="selectedRadioOption()" (change)="onOptionChange($event.value)" aria-label="Select an option">
-                  <mat-radio-button color="primary" value="1">Normal Print (coloured table)</mat-radio-button>
-                  <mat-radio-button color="primary" value="2">Remove colours (saves ink)</mat-radio-button>
+                    <mat-radio-button color="primary" value="1">
+                        {{ selectedLanguage() === 'greek' ? 'Κανονική Εκτύπωση (πίνακας με χρώμα)' : 'Normal Print (coloured table)' }}
+                    </mat-radio-button>
+                    <mat-radio-button color="primary" value="2">
+                        {{ selectedLanguage() === 'greek' ? 'Αφαίρεση χρωμάτων (εξοικονόμηση μελανιού)' : 'Remove colours (saves ink)' }}
+                    </mat-radio-button>
                 </mat-radio-group>
                 
                 <section class="submit-section">
                     @if (formIsInvalid) {
-                        <p class="form-error-message">Please make sure all fields are filled correctly!</p>
+                        <span ErrorMessage 
+                          greek="Παρακαλώ, βεβαιωθείτε ότι όλα τα πεδία είναι συμπληρωμένα σωστά!"
+                          english="Please make sure all fields are filled correctly!"
+                          classes="form-error-message"
+                        ></span>
                     }
-                    <button type="submit" mat-raised-button>Generate .pdf</button>
                 </section>
+                <button type="submit" mat-raised-button>
+                  {{ selectedLanguage() === 'greek' ? 'Λήψη αρχείου .pdf' : 'Download .pdf file' }}
+                </button>
             </section>
 
         </form>
@@ -213,15 +330,6 @@ import { AddRemoveButton } from "../utilities/components/add-remove-button.compo
     `
 })
 export class HomeComponent implements OnInit {
-
-  private destroyRef = inject(DestroyRef);
-  private pdfService = inject(PdfService);
-  
-  selectedRadioOption = signal('1');
-
-  onOptionChange(value: string) {
-    this.selectedRadioOption.set(value);
-  }
 
   constructor() {
     effect(
@@ -252,6 +360,33 @@ export class HomeComponent implements OnInit {
       });
   }
 
+  private destroyRef = inject(DestroyRef);
+
+  private pdfService = inject(PdfService);
+  private languageService = inject(LanguageService);
+        
+  selectedLanguage = computed(() => 
+      this.languageService.selectedLanguage()
+  );
+  
+  selectedRadioOption = signal<string>('1');
+
+  onOptionChange(value: string) {
+    this.selectedRadioOption.set(value);
+  }
+  
+  theOfferHasExpirationDate = signal<'expires' | 'permanent'>('permanent');
+
+  onExpirationChange(value: 'expires' | 'permanent'): void {
+    this.theOfferHasExpirationDate.set(value);
+    
+  }
+
+  notesEnabled = signal<boolean>(false);
+
+  onNotesSelected(): void {
+    this.notesEnabled.set(!this.notesEnabled());
+  }
 
   form = new FormGroup({
     companyName: new FormControl(initialCompanyNameValue, required),
@@ -261,7 +396,7 @@ export class HomeComponent implements OnInit {
     companyLocation: new FormControl(initialCompanyLocationValue, required),
 
     customer: new FormGroup({
-      customerName: new FormControl('My Client', required),
+      customerName: new FormControl('', required),
       customerPhone: new FormControl('0000 000 000', required),
       customerEmail: new FormControl('client@client.com', { validators: [ Validators.required, mustContainPeriod ] }),
     }),

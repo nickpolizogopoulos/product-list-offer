@@ -1,4 +1,7 @@
-import { AbstractControl, Validators } from "@angular/forms";
+import {
+  AbstractControl,
+  Validators
+} from "@angular/forms";
 
 type ValidatorResult = { doesNotContainPeriod: true };
 
@@ -13,6 +16,8 @@ export const mustContainPeriod = (control: AbstractControl): ValidatorResult | n
       : { doesNotContainPeriod: true }
     );
 };
+
+export const required = { validators: [Validators.required] };
 
 export const localStorageItemData: string = 'product-offer-to-pdf';
  
@@ -37,5 +42,3 @@ if (savedInformation) {
   initialCompanyLocationValue = loadedFormData.location;
   
 }
-
-export const required = { validators: [Validators.required] };

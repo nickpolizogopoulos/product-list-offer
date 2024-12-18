@@ -7,13 +7,13 @@ import {
     selector: 'app-back-to-top',
     standalone: true,
     host: {
-        '(window:scroll)': 'onVisibilitySet($event)'
+        '(window:scroll)': 'onVisibilitySet($event)',
+        '(click)': 'scrollToTop()'
     },
     template: `
 
         @if (visible()) {
             <svg
-                (click)="scrollToTop()"
                 width="35" height="35"
                 fill="currentColor"
                 viewBox="0 0 16 16"
@@ -31,7 +31,7 @@ import {
             bottom: 30px;
             right: 30px;
             cursor: pointer;
-            color: #e0e0e0;
+            color: rgb(206, 206, 206);
             border: 1px solid transparent;
             background-color: transparent;
             transition: all 0.2s ease-in-out;
@@ -39,8 +39,8 @@ import {
             z-index: 100;
             
             &:hover {
-                color: #e0e0e0;
-                border: 1px solid #e0e0e0;
+                color: rgb(206, 206, 206);
+                border: 1px solid rgb(189, 189, 189);
             }
             
             @media screen and (max-width: 1300px) {
@@ -62,7 +62,7 @@ export class BackToTopComponent {
         this.visible.set(window.scrollY > 120);
     }
 
-    scrollToTop(): void {
+    private scrollToTop(): void {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'

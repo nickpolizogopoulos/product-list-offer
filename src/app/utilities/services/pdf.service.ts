@@ -1,9 +1,12 @@
-import { Injectable, signal } from '@angular/core';
+import {
+    Injectable,
+    signal
+} from '@angular/core';
 
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
-import { type PDF } from './pdf.model';
+import { type PDF } from '../tools/pdf.model';
 
 @Injectable({
     providedIn: 'root'
@@ -79,7 +82,7 @@ export class PdfService {
         //* PRODUCT TABLE ================================================================
         const footer = [['', 'Total', '', pdf.productsQuantity, pdf.subtotal]];
         autoTable(doc, {
-            head: [['No.', 'Product', 'Unit Price €', 'Quantity', 'Total Price €']],
+            head: [['No.', 'Product Title', 'Unit Price €', 'Quantity', 'Total Price €']],
             body: products,
             foot: footer,
             startY: 96,

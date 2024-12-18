@@ -5,7 +5,8 @@ mat-divider {
 mat-form-field {
     margin: 0 0px;
     margin-bottom: 0 !important;
-    max-height: 55px !important;
+    // fucks up the textarea
+    // max-height: 55px !important;
 }
 
 .mdc-text-field--filled:not(.mdc-text-field--disabled),
@@ -32,16 +33,33 @@ mat-form-field {
     }
 }
 
-//* Removing the increment/decrement buttons in type number inputs ====================
+//* Removing the increment/decrement buttons in type number inputs.
 //* Chrome, Safari, Edge, Opera
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
 //* Firefox
 input[type=number] {
     -moz-appearance: textfield;
     appearance: textfield;
+}
+
+//* language dropdown menu
+.mat-mdc-menu-item-text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.mat-mdc-menu-content {
+    padding: 0 !important;
+    background-color: rgb(233, 233, 233);
+    min-width: 140px;
+}
+
+.mat-mdc-menu-item {
+    border-radius: 0px !important;
 }
