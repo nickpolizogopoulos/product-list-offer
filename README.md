@@ -9,12 +9,14 @@ Convert your .ttf file to Base64 using the [Base64.Guru](https://base64.guru/con
 Choose JSON as the Output Format and copy the code to a new .json file in your project. Expect lag, the output is big.  
 Import it with `import * as font from 'your/path/to/json/file/here';` on top.  
 Use the code:  
-`doc.addFileToVFS('FontName.ttf', (font as any).file.data);`  
-`doc.addFont('FontName.ttf', 'FontName', 'normal');`
-`doc.setFont('FontName');`  
+```
+doc.addFileToVFS('FontName.ttf', (font as any).file.data);
+doc.addFont('FontName.ttf', 'FontName', 'normal');
+doc.setFont('FontName');
 
 If you use a table like in this Application, make sure you include your FontName in the table styles:  
-```styles: {
+```
+styles: {
     font: 'CustomGreekFont',
     fontSize: 10,
 }
