@@ -32,7 +32,10 @@ type Social = {
     },
     template: `
   
-        <h1 routerLink="/">Product offer to <span>.</span>pdf</h1>
+        <section routerLink="/" class="icon-and-title-section">
+            <img src="/pdf-icon.svg" alt="pdf icon">
+            <h2>Product offer to <span>.</span>pdf</h2>
+        </section>
 
         <section>
             <button mat-button [matMenuTriggerFor]="menu">
@@ -85,14 +88,6 @@ type Social = {
 
         @use '../../../styles.scss' as *;
 
-        :host,
-        ul,
-        section {
-            @extend .flex-row;
-            align-items: center;
-            justify-content: center;
-        }
-    
         :host {
             height: 110px;
             justify-content: space-between;
@@ -100,7 +95,50 @@ type Social = {
             @media screen and (max-width: 991px) {
                 height: auto;
                 flex-direction: column;
-                padding-bottom: 1rem;
+                padding: 1rem 0;
+            }
+        }
+
+        :host,
+        ul,
+        section {
+            @extend .flex-row;
+            align-items: center;
+        }
+
+        
+        
+        .icon-and-title-section {
+            @extend .flex-row;
+            align-items: center;
+            cursor: pointer;
+            gap: 15px;
+
+            img {
+                width: 60px;
+            }
+
+            h2 {
+                margin: 0 !important;
+
+                @media screen and (max-width: 991px) {
+                    text-align: center;
+                    margin-bottom: 1rem;
+                    font-size: 2.6rem;
+                }
+                
+                @media screen and (max-width: 408px) {
+                    font-size: 2rem;
+                }
+
+                @media screen and (max-width: 315px) {
+                    font-size: 1.7rem;
+                }
+            }
+
+            @media screen and (max-width: 471px) {
+                flex-direction: column;
+                margin: 0 !important;
             }
         }
 
@@ -129,21 +167,6 @@ type Social = {
             
             @media screen and (max-width: 399px) {
                 gap: 1rem;
-            }
-        }
-        
-        h1 {
-            cursor: pointer;
-            margin: 0;
-
-            @media screen and (max-width: 991px) {
-                text-align: center;
-                margin-bottom: 1rem;
-                font-size: 2.6rem;
-            }
-            
-            @media screen and (max-width: 408px) {
-                font-size: 2rem;
             }
         }
 

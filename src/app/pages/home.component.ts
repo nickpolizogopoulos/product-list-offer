@@ -19,6 +19,8 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 import { debounceTime } from "rxjs";
 
+import { provideNativeDateAdapter } from "@angular/material/core";
+
 import {
   localStorageItemData,
   initialCompanyNameValue,
@@ -39,7 +41,6 @@ import { AddRemoveButton } from "../utilities/components/add-remove-button.compo
 import { LanguageService } from "../utilities/services/language.service";
 import { ErrorMessageComponent } from "../utilities/components/error-message.component";
 
-import { provideNativeDateAdapter } from "@angular/material/core";
 import { LanguageSwitchComponent } from "../utilities/components/language-switch.component";
 
 @Component({
@@ -52,8 +53,8 @@ import { LanguageSwitchComponent } from "../utilities/components/language-switch
     ReactiveFormsModule,
     ErrorMessageComponent,
     AddRemoveButton,
-    MaterialComponents,
-    LanguageSwitchComponent
+    LanguageSwitchComponent,
+    MaterialComponents
 ],
     template: `
     
@@ -212,12 +213,12 @@ import { LanguageSwitchComponent } from "../utilities/components/language-switch
                                 <app-language-switch greek="Η προσφορά είναι μόνιμη" english="The offer is valid permanently" />
                             </mat-radio-button>
                             <mat-radio-button color="primary" value="expires">
-                                <app-language-switch greek="Έχει ημερομηνία λήξης" english="Has an expiration date" />
+                                <app-language-switch greek="Με ημερομηνία λήξης" english="With an expiration date" />
                             </mat-radio-button>
                         </mat-radio-group>
                         <mat-form-field>
                             <mat-label>
-                                <app-language-switch greek="Διαλέξτε ημερομηνία" english="Choose a date" />
+                                <app-language-switch greek="Ημ/νία λήξης προσφοράς" english="Offer expiration date" />
                             </mat-label>
                             <input matInput [matDatepicker]="picker" [disabled]="theOfferHasExpirationDate() === 'permanent'">
                             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -235,7 +236,7 @@ import { LanguageSwitchComponent } from "../utilities/components/language-switch
                           <app-language-switch greek="Προσθήκη σημειώσεων" english="Add notes" />
                       }
                       @else {
-                          <app-language-switch greek="Κατάργηση σημειώσεων" english="Remove notes" />
+                          <app-language-switch greek="Διαγραφή σημειώσεων" english="Delete notes" />
                       }
                   </button>
                   @if (notesEnabled()) {
@@ -317,7 +318,7 @@ import { LanguageSwitchComponent } from "../utilities/components/language-switch
 
                 <mat-radio-group [value]="selectedRadioOption()" (change)="onOptionChange($event.value)" aria-label="Select an option">
                     <mat-radio-button color="primary" value="1">
-                        <app-language-switch greek="Κανονική Εκτύπωση (πίνακας με χρώμα)" english="Normal Print (coloured table)" />
+                        <app-language-switch greek="Εκτύπωση αρχείου pdf με χρώμα" english="Print coloured pdf file" />
                     </mat-radio-button>
                     <mat-radio-button color="primary" value="2">
                         <app-language-switch greek="Αφαίρεση χρωμάτων (εξοικονόμηση μελανιού)" english="Remove colours (saves ink)" />
@@ -392,12 +393,14 @@ export class HomeComponent implements OnInit {
 
   onExpirationChange(value: 'expires' | 'permanent'): void {
     this.theOfferHasExpirationDate.set(value);
-    
   }
 
   notesEnabled = signal<boolean>(false);
 
   onNotesSelected(): void {
+    if (this.notesEnabled() === true)
+      this.form.controls.notes.setValue(null);
+    
     this.notesEnabled.set(!this.notesEnabled());
   }
 

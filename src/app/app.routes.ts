@@ -11,13 +11,13 @@ export const extraOptions: ExtraOptions = {
     anchorScrolling:'enabled'
   };
 
-const appTitle: string = '[ Product offer to .pdf ]';
+const appTitle: string = 'Product offer to .pdf';
 
 export const routes: Routes = [
     {
         path: '',
         component: HomeComponent,
-        title: `${appTitle}`
+        title: `${appTitle} - Home`
     },
     {
         path: 'about',

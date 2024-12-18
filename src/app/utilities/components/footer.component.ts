@@ -13,7 +13,7 @@ import { MaterialComponents } from '../tools/material-components';
   },
   template: `
 
-    Product offer to .pdf 2024{{ date === 2024 ? '' : ' - '+date }}<span>.</span>
+    Product offer to <span>.</span>pdf 2024{{ date === 2024 ? '' : ' - '+date }}<span>.</span>
     @if (selectedLanguage() === 'greek') {
       Μια εφαρμογή φτιαγμένη με
       <a class="angular" href="https://angular.dev/" target="_blank">

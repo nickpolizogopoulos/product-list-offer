@@ -29,7 +29,7 @@ type Feature = {
                 <h3>About this Application</h3>
                 <mat-divider />
                 <p>
-                    This application is designed to simplify the process of creating and sharing professional product offers.
+                    This <strong><u>free</u></strong> application is designed to simplify the process of creating and sharing professional product offers.
                 </p>
                 <p>
                     Built with Angular 18, it leverages modern web technologies to ensure
@@ -53,7 +53,7 @@ type Feature = {
                 
                 <h5>Custom PDF</h5>
                 <p>
-                    This application can be customized to allow a business to generate its own custom PDF file,
+                    The application can be customized to allow a business to generate its own custom PDF file,
                     including the company's logo and any other content the business wants to display.
                 </p>
                 <p>
@@ -68,7 +68,7 @@ type Feature = {
                 <h3>Σχετικά με την Εφαρμογή</h3>
                 <mat-divider />
                 <p>
-                    Αυτή η εφαρμογή έχει σχεδιαστεί για να απλοποιεί τη διαδικασία δημιουργίας και κοινοποίησης επαγγελματικών προσφορών προϊόντων.
+                    Αυτή η <strong><u>δωρεάν</u></strong> εφαρμογή έχει σχεδιαστεί για να απλοποιεί τη διαδικασία δημιουργίας και κοινοποίησης επαγγελματικών προσφορών προϊόντων.
                 </p>
                 <p>
                     Κατασκευασμένη με Angular 18, αξιοποιεί σύγχρονες τεχνολογίες ιστού για να εξασφαλίσει μια ομαλή,
@@ -92,7 +92,7 @@ type Feature = {
                 
                 <h5>Προσαρμοσμένο PDF</h5>
                 <p>
-                    Αυτή η εφαρμογή μπορεί να προσαρμοστεί ώστε να επιτρέπει σε μια επιχείρηση να δημιουργεί το δικό της
+                    Η εφαρμογή μπορεί να προσαρμοστεί ώστε να επιτρέπει σε μια επιχείρηση να δημιουργεί το δικό της
                     προσαρμοσμένο αρχείο PDF, συμπεριλαμβανομένου του λογότυπου της εταιρείας και οποιουδήποτε άλλου περιεχομένου θέλει να προβάλλει.
                 </p>
                 <p>
