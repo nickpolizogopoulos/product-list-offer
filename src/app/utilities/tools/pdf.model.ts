@@ -13,7 +13,8 @@ export class PDF {
         public customerEmail: string,
         public products: Product[],
         public productsQuantity: number,
-        public subtotal: number
+        public subtotal: number,
+        public notes?: string,
     ) {}
 
 }

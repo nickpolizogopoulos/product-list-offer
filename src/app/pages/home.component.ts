@@ -232,11 +232,11 @@ import { provideNativeDateAdapter } from "@angular/material/core";
                       <mat-label>
                         {{
                           selectedLanguage() === 'greek'
-                          ? 'Σημειώσεις (μέγιστο 200 χαρακτήρες)'
-                          : 'Notes (maximum 200 characters)'
+                          ? 'Σημειώσεις (μέγιστο 140 χαρακτήρες)'
+                          : 'Notes (maximum 140 characters)'
                         }}
                       </mat-label>
-                      <textarea matInput maxlength="200" rows="3"></textarea>
+                      <textarea matInput maxlength="140" rows="2" formControlName="notes"></textarea>
                     </mat-form-field>
                   }
                 </section>
@@ -389,6 +389,7 @@ export class HomeComponent implements OnInit {
   }
 
   form = new FormGroup({
+
     companyName: new FormControl(initialCompanyNameValue, required),
     companySubtitle: new FormControl(initialCompanySubtitleValue),
     companyPhone: new FormControl(initialCompanyPhoneValue, required),
@@ -396,10 +397,13 @@ export class HomeComponent implements OnInit {
     companyLocation: new FormControl(initialCompanyLocationValue, required),
 
     customer: new FormGroup({
-      customerName: new FormControl('', required),
+      customerName: new FormControl('Client Name', required),
       customerPhone: new FormControl('0000 000 000', required),
       customerEmail: new FormControl('client@client.com', { validators: [ Validators.required, mustContainPeriod ] }),
     }),
+
+    // expirationDate: new FormControl(''),
+    notes: new FormControl(''),
     
     products: new FormArray([
       new FormGroup({
@@ -518,6 +522,7 @@ export class HomeComponent implements OnInit {
     const customerName = this.form.controls.customer.controls.customerName.value!;
     const customerPhone = this.form.controls.customer.controls.customerPhone.value!;
     const customerEmail = this.form.controls.customer.controls.customerEmail.value!;
+    const notes = this.form.controls.notes.value!;
 
     const products = (): Product[] => {
       const products: Product[] = [];
@@ -569,7 +574,8 @@ export class HomeComponent implements OnInit {
       customerEmail,
       products(),
       productsQuantity(),
-      subtotal()
+      subtotal(),
+      notes
     );
 
     this.pdfService.generatePDF(pdf);

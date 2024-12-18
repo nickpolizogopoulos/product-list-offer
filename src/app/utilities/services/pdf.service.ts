@@ -28,28 +28,36 @@ export class PdfService {
 
         const doc = new jsPDF();
 
-        const pdfWidth = doc.internal.pageSize.getWidth();
-        const pdfHeight = doc.internal.pageSize.getHeight();
-
         doc.setFont('helvetica', 'normal');
 
         const textWidth = ( text: string ): number => {
             return doc.getTextDimensions(text).w;
         }
-    
-        //* COMPANY INFORMATION ==========================================================
-        doc.text(pdf.companyName, pdfWidth - textWidth(pdf.companyName) - 10, 10);
-        //TODO put the company subtitle
-        doc.setFontSize(10);
-        doc.text(pdf.companyPhone, pdfWidth - textWidth(pdf.companyPhone) - 10, 17);
-        doc.text(pdf.companyEmail, pdfWidth - textWidth(pdf.companyEmail) - 10, 23);
-        doc.text(pdf.companyLocation, pdfWidth - textWidth(pdf.companyLocation) - 10, 29);
-        
+
+        //* PDF PAPER SETTINGS ===========================================================
+        const pdfWidth = doc.internal.pageSize.getWidth();
+        const pdfHeight = doc.internal.pageSize.getHeight();
         
         //* HORIZONTAL LINE WIDTH SETTINGS ===============================================
         const lineWidth = 200;
         const x1 = (pdfWidth - lineWidth) / 2;
         const x2 = x1 + lineWidth;
+
+        //* COMPANY INFORMATION ==========================================================
+        doc.text(pdf.companyName, pdfWidth - textWidth(pdf.companyName) - 10, 10);
+        //TODO put the company subtitle ===========================================================================
+        doc.setFontSize(10);
+        doc.text(pdf.companyPhone, pdfWidth - textWidth(pdf.companyPhone) - 10, 17);
+        doc.text(pdf.companyEmail, pdfWidth - textWidth(pdf.companyEmail) - 10, 23);
+        doc.text(pdf.companyLocation, pdfWidth - textWidth(pdf.companyLocation) - 10, 29);
+
+        //* NOTES ========================================================================
+        if (pdf.notes) {
+            doc.setFontSize(10);
+            doc.text('Notes:', 10, 90);
+            doc.setFontSize(8);
+            doc.text(pdf.notes!, 10, 95);
+        }
         
         //* FIRST HORIZONTAL LINE ========================================================
         const line1Top = 40;
@@ -85,7 +93,7 @@ export class PdfService {
             head: [['No.', 'Product Title', 'Unit Price €', 'Quantity', 'Total Price €']],
             body: products,
             foot: footer,
-            startY: 96,
+            startY: 110,
             styles: {
                 font: 'helvetica',
                 fontSize: 10,

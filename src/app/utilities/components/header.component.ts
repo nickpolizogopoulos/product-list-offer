@@ -124,7 +124,7 @@ type Social = {
         ul {
             list-style-type: none;
             padding: 0;
-            gap: 1.5rem;
+            gap: 1rem;
             
             @media screen and (max-width: 399px) {
                 gap: 1rem;
