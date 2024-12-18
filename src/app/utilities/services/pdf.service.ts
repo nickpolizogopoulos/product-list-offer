@@ -1,6 +1,4 @@
 import {
-    computed,
-    inject,
     Injectable,
     signal
 } from '@angular/core';
@@ -10,20 +8,15 @@ import autoTable from 'jspdf-autotable';
 
 import { type PDF } from '../tools/pdf.model';
 
-import * as font from '../tools/greek-font.json';
-import { LanguageService } from './language.service';
-
-
 @Injectable({
     providedIn: 'root'
 })
 export class PdfService {
-    
-    private languageService = inject(LanguageService);
 
-    private isGreek = computed(() =>
-        this.languageService.selectedLanguage() === 'greek'
-    );
+    private generateDate(): string {
+        const date = new Date();
+        return `${date.getDate()}-${date.getMonth() + 1 }-${date.getFullYear()}`;
+    }
 
     private printOption = signal<string>('1');
 
@@ -35,83 +28,55 @@ export class PdfService {
 
         const doc = new jsPDF();
 
-        //* PDF PAPER SETTINGS ===========================================================
-        const pdfWidth = doc.internal.pageSize.getWidth();
-        const pdfHeight = doc.internal.pageSize.getHeight();
-
-        //* HEADER =======================================================================
-        if (this.printOption() === '1') {
-            doc.setFillColor(202, 218, 232);
-            //* Rectangle (x, y, width, height, radiusX, radiusY, style) - 'F' = filled rectangle.
-            doc.roundedRect(5, 5, 200, 22, 2, 2, 'F');
-        }
-
-        //* FONT =========================================================================
-        doc.addFileToVFS('InterFont.ttf', (font as any).file.data);
-        doc.addFont('InterFont.ttf', 'InterFont', 'normal');
-        doc.setFont('InterFont');
+        doc.setFont('helvetica', 'normal');
 
         const textWidth = ( text: string ): number => {
             return doc.getTextDimensions(text).w;
         }
+
+        //* PDF PAPER SETTINGS ===========================================================
+        const pdfWidth = doc.internal.pageSize.getWidth();
+        const pdfHeight = doc.internal.pageSize.getHeight();
         
         //* HORIZONTAL LINE WIDTH SETTINGS ===============================================
         const lineWidth = 200;
         const x1 = (pdfWidth - lineWidth) / 2;
         const x2 = x1 + lineWidth;
-        
+
         //* COMPANY INFORMATION ==========================================================
-        doc.setFontSize(18);
-        doc.text(pdf.companyName, 10, 13);
+        doc.text(pdf.companyName, pdfWidth - textWidth(pdf.companyName) - 10, 10);
+        //TODO put the company subtitle ===========================================================================
         doc.setFontSize(10);
-        doc.text(pdf.companySubtitle, 10, 18);
-        doc.text(pdf.companyPhone, pdfWidth - textWidth(pdf.companyPhone) - 10, 12);
-        doc.text(pdf.companyEmail, pdfWidth - textWidth(pdf.companyEmail) - 10, 17);
-        doc.text(pdf.companyLocation, pdfWidth - textWidth(pdf.companyLocation) - 10, 22);
-
-        //* FIRST HORIZONTAL LINE ========================================================
-        const line1Top = 34;
-        doc.line(x1, line1Top, x2, line1Top);
-
-        //* OFFER TITLE ==================================================================
-        doc.setFontSize(18);
-        if (this.isGreek())
-            doc.text('Προσφορά προς πελάτη:', 10, 45);
-        else
-            doc.text('Offer to customer:', 10, 45);
-
-        //* CUSTOMER INFORMATION =========================================================
-        doc.setFontSize(15);
-        doc.text(pdf.customerName, 10, 55);
-        doc.setFontSize(10);
-        doc.text(pdf.customerPhone, 10, 61);
-        doc.text(pdf.customerEmail, 10, 67);
-
-        //TODO //* EXPIRATION DATE ==================================================================================
-        // const expirationDate = '';
-        // if (true) {
-        //     doc.setFontSize(10);
-        //     if (this.isGreek())
-        //         doc.text('Λήγει στις: DD/MM/YYY', pdfWidth - textWidth(pdf.companyPhone) - 22, 45);
-        //     else
-        //         doc.text('Expires in: DD/MM/YYY', pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
-        // }
-        //TODO //* EXPIRATION DATE ==================================================================================
-
-        //* SECOND HORIZONTAL LINE =======================================================
-        const line2Top = 75;
-        doc.line(x1, line2Top, x2, line2Top);
+        doc.text(pdf.companyPhone, pdfWidth - textWidth(pdf.companyPhone) - 10, 17);
+        doc.text(pdf.companyEmail, pdfWidth - textWidth(pdf.companyEmail) - 10, 23);
+        doc.text(pdf.companyLocation, pdfWidth - textWidth(pdf.companyLocation) - 10, 29);
 
         //* NOTES ========================================================================
         if (pdf.notes) {
             doc.setFontSize(10);
-            if (this.isGreek())
-                doc.text('Σημείωση:', 10, 83);
-            else
-                doc.text('Note:', 10, 83);
+            doc.text('Notes:', 10, 90);
             doc.setFontSize(8);
-            doc.text(pdf.notes!, 10, 87);
+            doc.text(pdf.notes!, 10, 95);
         }
+        
+        //* FIRST HORIZONTAL LINE ========================================================
+        const line1Top = 40;
+        doc.line(x1, line1Top, x2, line1Top);
+        
+        //* CUSTOMER INFORMATION =========================================================
+        doc.setFontSize(16);
+        doc.text('Customer:', 10, 55);
+        doc.setFontSize(11);
+        doc.text('Name:', 10, 62);
+        doc.text('Phone:', 10, 68);
+        doc.text('Email:', 10, 74);
+        doc.text(pdf.customerName, 25, 62);
+        doc.text(pdf.customerPhone, 25, 68);
+        doc.text(pdf.customerEmail, 25, 74);
+
+        //* SECOND HORIZONTAL LINE =======================================================
+        const line2Top = 85;
+        doc.line(x1, line2Top, x2, line2Top);
 
         const products: (string | number)[][] = pdf.products
             .map((product, index) => [
@@ -123,41 +88,27 @@ export class PdfService {
             ]);
             
         //* PRODUCT TABLE ================================================================
-        const footer = [
-            this.isGreek()
-            ? ['', 'Σύνολο', '', pdf.productsQuantity, pdf.subtotal]
-            : ['', 'Total', '', pdf.productsQuantity, pdf.subtotal]
-        ];
-
-        const header = [
-            this.isGreek()
-          ? ['No.', 'Τίτλος προϊόντος', 'Τιμή μονάδας €', 'Ποσότητα', 'Σύνολο €']
-          : ['No.', 'Product Title', 'Unit Price €', 'Quantity', 'Total Price €']
-        ];
-
-        const tableStartingPosition: number = pdf.notes ? 95 : 85;
-        
-        doc.setFont('InterFont', 'normal');
+        const footer = [['', 'Total', '', pdf.productsQuantity, pdf.subtotal]];
         autoTable(doc, {
-            head: header,
+            head: [['No.', 'Product Title', 'Unit Price €', 'Quantity', 'Total Price €']],
             body: products,
             foot: footer,
-            startY: tableStartingPosition,
+            startY: 110,
             styles: {
-                font: 'InterFont',
+                font: 'helvetica',
                 fontSize: 10,
                 lineColor: '#ffffff',
                 lineWidth: 0.2,
             },
             //* To remove the colours tablewide if printOption is '2'.
-            didParseCell: data => {
+            didParseCell: (data) => {
                 if (this.printOption() === '2')
                     data.cell.styles.fillColor = 'white';
                 else
                     return;
             },
             //* tableLineColor is the table border.
-            tableLineColor: '#969696',
+            tableLineColor: '#808080',
             tableLineWidth: 0.2,
             headStyles: {
                 fillColor: '#cadae8',
@@ -173,13 +124,13 @@ export class PdfService {
                 0: { cellWidth: 10 },
 
                 //* 1. Product.
-                1: { cellWidth: 92 },
+                1: { cellWidth: 102 },
 
                 //* 2. Unit Price .
-                2: { cellWidth: 32 },
+                2: { cellWidth: 25 },
 
                 //* 3. Quantity.
-                3: { cellWidth: 21 },
+                3: { cellWidth: 18 },
 
                 //* 4. Total Price .
                 4: { cellWidth: 27 }
@@ -190,32 +141,19 @@ export class PdfService {
         const bottomMargin = 10;
         const yPosition = (pdfHeight - bottomMargin) + 6;
         doc.setFontSize(6);
-        if (this.isGreek())
-            doc.text(
-                `Το έγγραφο δημιουργήθηκε μέσω της εφαρμογής «Product Offer to .pdf» από τον Νίκο Πολυζωγόπουλο. Περισσότερες πληροφορίες, επισκεφθείτε: nick-polizogopoulos.web.app`,
-                4,
-                yPosition
-            );
-        else
-            doc.text(
-                `This document was generated using the "Product Offer to .pdf" Web Application made by Nick Polizogopoulos. For more information, visit: nick-polizogopoulos.web.app`,
-                4,
-                yPosition
-            );
+        doc.text(
+            `This document was generated using the "Product Offer to .pdf" Web Application made by Nick Polizogopoulos. For more information, visit: nick-polizogopoulos.web.app & nick-polizogopoulos.web.app`,
+            7,
+            yPosition
+        );
 
         //* PDF SAVE =====================================================================
-
-        const generateDate = (): string => {
-            const date = new Date();
-            return `${date.getDate()}-${date.getMonth() + 1 }-${date.getFullYear()}`;
-        }
         const replaceSpacesWithHyphens = (input: string): string => {
             return input.replace(/\s+/g, '-');
         }
         const companyName = replaceSpacesWithHyphens(pdf.companyName);
         const clientName = replaceSpacesWithHyphens(pdf.customerName);
-
-        doc.save(`${companyName}-offer-to-${clientName}-${generateDate()}.pdf`);
+        doc.save(`${companyName}-offer-to-${clientName}-${this.generateDate()}.pdf`);
     }
 
 }
