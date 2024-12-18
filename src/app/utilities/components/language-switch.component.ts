@@ -12,16 +12,21 @@ import { LanguageService } from "../services/language.service";
     standalone: true,
     template: `
     
-        {{ selectedLanguage() === 'greek' ? greek() : english() }}
+        {{ this.isGreek() ? greek() : english() }}
 
     `
 })
 export class LanguageSwitchComponent {
 
     private languageService = inject(LanguageService);
+
     
-    selectedLanguage = computed(() => 
+    selectedLanguage = computed<string>(() => 
         this.languageService.selectedLanguage()
+    );
+
+    isGreek = computed<boolean>(() =>
+        this.selectedLanguage() === 'greek'
     );
 
     greek = input.required<string>();

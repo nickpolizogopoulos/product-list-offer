@@ -1,24 +1,17 @@
 mat-divider {
-    margin: 30px 0 !important;
-}
-
-mat-form-field {
-    margin: 0 0px;
-    margin-bottom: 0 !important;
-    // fucks up the textarea
-    // max-height: 55px !important;
+    margin: 20px 0 !important;
 }
 
 .mdc-text-field--filled:not(.mdc-text-field--disabled),
 .mat-mdc-form-field-focus-overlay {
-    background-color: rgba(255, 255, 255, 0.8) !important;
+    background-color: rgb(250, 249, 253) !important;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25);
 }
 
 //* Override the default color of the asterisk in the label of an Angular material input field.
 .mat-mdc-form-field-required-marker {
-    color: red;
-    font-size: 18px;
+    color: rgb(255, 35, 35);
+    font-size: 20px;
 }
 
 //* Small box below mat-form-field input.
