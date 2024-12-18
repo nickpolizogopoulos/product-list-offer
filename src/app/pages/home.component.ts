@@ -186,9 +186,7 @@ import { LanguageSwitchComponent } from "../utilities/components/language-switch
                     <div class="input-25">
                         <mat-form-field>
                             <mat-label>
-                                <mat-label>
-                                    <app-language-switch greek="Διευθ. Ηλ. Ταχυδρομείου" english="Email" />
-                                </mat-label>
+                                <app-language-switch greek="Διευθ. Ηλ. Ταχυδρομείου" english="Email" />
                             </mat-label>
                             <input matInput formControlName="customerEmail">
                         </mat-form-field>
@@ -227,7 +225,6 @@ import { LanguageSwitchComponent } from "../utilities/components/language-switch
                     </section>
                 </section>
                 <!--// TODO PUT THIS THING IN THE FORM ===================================-->
-
 
                 <section class="notes-block">
                   <button (click)="onNotesSelected()" [color]="!notesEnabled() ? 'primary' : 'warn'" mat-raised-button type="button">
