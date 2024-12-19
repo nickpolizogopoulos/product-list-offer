@@ -1,6 +1,8 @@
-# ProductListOffer
+# Product offer to .pdf
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.0.
+This project is a powerful example of utilizing [Angular](https://github.com/angular/angular-cli) signals in combination with the jsPDF library.  
+It is a Zoneless Angular 18 application that dynamically renders content in Greek and English, with plans to support additional languages in the future.  
+The application allows companies to effortlessly generate bilingual product offer PDFs by filling out a form, which can then be sent directly to clients or customers.  
 
 ## Setting a custom font for jsPDF
 
@@ -18,7 +20,7 @@ doc.addFileToVFS('FontName.ttf', (font as any).file.data);
 doc.addFont('FontName.ttf', 'FontName', 'normal');
 doc.setFont('FontName');
 ```
-If you use a table like in this Application, make sure you include your FontName in the table styles:  
+If you use a table like in this Application, make sure you include your font in the table styles:  
 ```
 styles: {
     font: 'FontName',

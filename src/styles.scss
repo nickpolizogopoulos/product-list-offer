@@ -37,6 +37,7 @@ a {
 }
 
 h1,
+h2,
 h3 {
     transition: $transition;
     span {
@@ -76,6 +77,11 @@ $heading-styles: (
     }
 }
 
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
 .information-headings {
     h4,
     h5,
@@ -87,11 +93,6 @@ $heading-styles: (
         color: rgb(102, 102, 102);
         font-style: italic;
     }
-}
-
-.flex-row {
-    display: flex;
-    flex-direction: row;
 }
 
 .container {
@@ -106,6 +107,12 @@ $heading-styles: (
     backdrop-filter: blur(35px);
     -webkit-backdrop-filter: blur(35px);
     
+    @media screen and (max-width: 430px) {
+        padding: 30px 20px !important;
+
+        
+    }
+
     @media screen and (max-width: 518px) {
         padding: 30px 30px;
     }
@@ -119,7 +126,6 @@ $heading-styles: (
     }
 }
 
-//TODO - TO REFACTOR =========================
 .company-details { 
     @extend .flex-row;
     justify-content: space-between;
@@ -128,20 +134,26 @@ $heading-styles: (
         text-align: end;
     }
     
-    @media screen and (max-width: 991px) {
+    @media screen and (max-width: 800px) {
         flex-direction: column;
         gap: 30px;
 
         article {
-            text-align: start;
-
             h4 {
                 font-size: 1.5rem;
             }
             
-            h6 {
-                font-size: 1.1rem;
+            h5 {
+                font-size: 1.15rem;
             }
+            
+            h6 {
+                font-size: 1rem;
+            }
+        }
+
+        article:last-of-type {
+            text-align: start;
         }
     }
 }
@@ -187,13 +199,17 @@ $heading-styles: (
 }
 
 .settings-block {
-    margin: 30px 0;
     @extend .flex-row;
-    align-items: center;
+    margin: 30px 0;
+    align-items: start;
     gap: 80px;
-    
-    mat-form-field {
+
+    .expiration-date-box {
+        display: flex;
+        flex-direction: column;
         width: 30%;
+        gap: 4px;
+        min-height: 92px;
     }
     
     @media screen and (max-width: 991px) {
@@ -201,16 +217,18 @@ $heading-styles: (
         flex-direction: column;
         gap: 20px;
         
-        mat-form-field {
+        .expiration-date-box {
+            min-height: 76px;
+            display: flex;
+            flex-direction: column;
             width: 100%;
-        }   
+        }
     }
 }
 
 .notes-block {
     width: 100%;
-    display: flex;
-    flex-direction: row;
+    @extend .flex-row;
     justify-content: space-between;
     gap: 20px;
     

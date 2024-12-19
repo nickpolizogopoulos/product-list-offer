@@ -9,8 +9,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 export const MaterialComponents =
 [
@@ -25,6 +24,5 @@ export const MaterialComponents =
     MatRadioModule,
     MatMenuModule,
     MatIconModule,
-    
     MatDatepickerModule
 ];

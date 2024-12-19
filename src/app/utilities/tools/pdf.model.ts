@@ -15,8 +15,7 @@ export class PDF {
         public productsQuantity: number,
         public subtotal: number,
         public notes?: string,
-
-        // public expirationDate?: string,
+        public expirationDate?: Date,
     ) {}
 
 }

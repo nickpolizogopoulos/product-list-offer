@@ -42,7 +42,7 @@ export class PdfService {
         //* HEADER =======================================================================
         if (this.printOption() === '1') {
             doc.setFillColor(202, 218, 232);
-            //* Rectangle (x, y, width, height, radiusX, radiusY, style) - 'F' = filled rectangle.
+            //* Rectangle (x, y, width, height, radiusX, radiusY, style) 'F' = filled.
             doc.roundedRect(5, 5, 200, 22, 2, 2, 'F');
         }
 
@@ -65,16 +65,15 @@ export class PdfService {
         doc.text(pdf.companyName, 10, 13);
         doc.setFontSize(10);
         doc.text(pdf.companySubtitle, 10, 18);
-        doc.text(pdf.companyPhone, pdfWidth - textWidth(pdf.companyPhone) - 10, 12);
+        doc.text( pdf.companyPhone, pdfWidth - textWidth(pdf.companyPhone) - 10, 12);
         doc.text(pdf.companyEmail, pdfWidth - textWidth(pdf.companyEmail) - 10, 17);
         doc.text(pdf.companyLocation, pdfWidth - textWidth(pdf.companyLocation) - 10, 22);
 
         //* FIRST HORIZONTAL LINE ========================================================
-        const line1Top = 34;
-        doc.line(x1, line1Top, x2, line1Top);
+        doc.line(x1, 34, x2, 34);
 
         //* OFFER TITLE ==================================================================
-        doc.setFontSize(18);
+        doc.setFontSize(15);
         if (this.isGreek())
             doc.text('Προσφορά προς πελάτη:', 10, 45);
         else
@@ -87,20 +86,25 @@ export class PdfService {
         doc.text(pdf.customerPhone, 10, 61);
         doc.text(pdf.customerEmail, 10, 67);
 
-        //TODO //* EXPIRATION DATE ==================================================================================
-        // const expirationDate = '';
-        // if (true) {
-        //     doc.setFontSize(10);
-        //     if (this.isGreek())
-        //         doc.text('Λήγει στις: DD/MM/YYY', pdfWidth - textWidth(pdf.companyPhone) - 22, 45);
-        //     else
-        //         doc.text('Expires in: DD/MM/YYY', pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
-        // }
-        //TODO //* EXPIRATION DATE ==================================================================================
+        //* EXPIRATION DATE ==============================================================
+        const expirationDate = pdf.expirationDate;
+
+        const expirationDay = expirationDate?.getDate();
+        const expirationMonth = expirationDate?.getMonth();
+        const expirationYear = expirationDate?.getFullYear();
+
+        const dateRefactored = `${expirationDay}/${+expirationMonth! + 1}/${expirationYear}`;
+
+        if (expirationDate) {
+            doc.setFontSize(10);
+            if (this.isGreek())
+                doc.text(`Λήγει στις: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 22, 45);
+            else
+                doc.text(`Expires in: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
+        }
 
         //* SECOND HORIZONTAL LINE =======================================================
-        const line2Top = 75;
-        doc.line(x1, line2Top, x2, line2Top);
+        doc.line(x1, 75, x2, 75);
 
         //* NOTES ========================================================================
         const wrappedText = doc.splitTextToSize(pdf.notes as string, 237);
@@ -125,7 +129,7 @@ export class PdfService {
             
         //* PRODUCT TABLE ================================================================
         const footer = [
-            this.isGreek()
+              this.isGreek()
             ? ['', 'Σύνολο', '', pdf.productsQuantity, pdf.subtotal]
             : ['', 'Total', '', pdf.productsQuantity, pdf.subtotal]
         ];
@@ -188,19 +192,21 @@ export class PdfService {
         });
         
         //* CREDITS ======================================================================
+        doc.line(x1, 290, x2, 290);
+
         const bottomMargin = 10;
-        const yPosition = (pdfHeight - bottomMargin) + 6;
+        const yPosition = (pdfHeight - bottomMargin) + 7;
         doc.setFontSize(6);
         if (this.isGreek())
             doc.text(
                 `Το έγγραφο δημιουργήθηκε μέσω της εφαρμογής «Product Offer to .pdf» από τον Νίκο Πολυζωγόπουλο. Περισσότερες πληροφορίες, επισκεφθείτε: nick-polizogopoulos.web.app`,
-                4,
+                5,
                 yPosition
             );
         else
             doc.text(
                 `This document was generated using the "Product Offer to .pdf" Web Application made by Nick Polizogopoulos. For more information, visit: nick-polizogopoulos.web.app`,
-                4,
+                5,
                 yPosition
             );
 
@@ -210,9 +216,11 @@ export class PdfService {
             const date = new Date();
             return `${date.getDate()}-${date.getMonth() + 1 }-${date.getFullYear()}`;
         }
+
         const replaceSpacesWithHyphens = (input: string): string => {
             return input.replace(/\s+/g, '-');
         }
+
         const companyName = replaceSpacesWithHyphens(pdf.companyName);
         const clientName = replaceSpacesWithHyphens(pdf.customerName);
 

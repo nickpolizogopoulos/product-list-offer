@@ -1,5 +1,13 @@
 mat-divider {
     margin: 20px 0 !important;
+
+    &.product-divider {
+        margin: 20px 0 40px !important;
+        
+        @media screen and (min-width: 991px) {
+            display: none !important;
+        }
+    }
 }
 
 .mdc-text-field--filled:not(.mdc-text-field--disabled),

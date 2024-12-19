@@ -17,9 +17,9 @@ import {
 } from "@angular/forms";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
-import { debounceTime } from "rxjs";
+import { MAT_DATE_LOCALE, provideNativeDateAdapter } from "@angular/material/core";
 
-import { provideNativeDateAdapter } from "@angular/material/core";
+import { debounceTime } from "rxjs";
 
 import {
   localStorageItemData,
@@ -40,14 +40,14 @@ import { MaterialComponents } from "../utilities/tools/material-components";
 import { AddRemoveButton } from "../utilities/components/add-remove-button.component";
 import { LanguageService } from "../utilities/services/language.service";
 import { ErrorMessageComponent } from "../utilities/components/error-message.component";
-
 import { LanguageSwitchComponent } from "../utilities/components/language-switch.component";
 
 @Component({
     selector: 'app-home',
     standalone: true,
     providers: [
-      provideNativeDateAdapter()
+      provideNativeDateAdapter(),
+      { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
     ],
     imports: [
     ReactiveFormsModule,
@@ -201,49 +201,56 @@ import { LanguageSwitchComponent } from "../utilities/components/language-switch
                 </section>
             </section>
 
-            <!--// TODO PUT THIS THING IN THE FORM ===================================-->
             <section class="container">
-                <section>
-                    <h3><app-language-switch greek="Ρυθμίσεις προσφοράς" english="Offer settings" /></h3>
-                    <section class="settings-block">
-                        <mat-radio-group [value]="theOfferHasExpirationDate()" (change)="onExpirationChange($event.value)" aria-label="Select an option">
-                            <mat-radio-button color="primary" value="permanent">
-                                <app-language-switch greek="Η προσφορά είναι μόνιμη" english="The offer is valid permanently" />
-                            </mat-radio-button>
-                            <mat-radio-button color="primary" value="expires">
-                                <app-language-switch greek="Με ημερομηνία λήξης" english="With an expiration date" />
-                            </mat-radio-button>
-                        </mat-radio-group>
+                <h3><app-language-switch greek="Ρυθμίσεις προσφοράς" english="Offer settings" /></h3>
+                <section class="settings-block">
+                    <mat-radio-group [value]="theOfferHasExpirationDate()" (change)="onExpirationChange($event.value)" aria-label="Select an option">
+                        <mat-radio-button color="primary" value="permanent">
+                            <app-language-switch greek="Η προσφορά είναι μόνιμη" english="The offer is valid permanently" />
+                        </mat-radio-button>
+                        <mat-radio-button color="primary" value="expires">
+                            <app-language-switch greek="Με ημερομηνία λήξης" english="With an expiration date" />
+                        </mat-radio-button>
+                    </mat-radio-group>
+
+                    <div class="expiration-date-box">
                         <mat-form-field>
                             <mat-label>
                                 <app-language-switch greek="Ημ/νία λήξης προσφοράς" english="Offer expiration date" />
                             </mat-label>
-                            <input matInput [matDatepicker]="picker" [disabled]="theOfferHasExpirationDate() === 'permanent'">
+                            <input matInput [matDatepicker]="picker" formControlName="expirationDate">
                             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
-                    </section>
+                        @if (dateIsInvalid) {
+                            <span ErrorMessage 
+                                greek="Παρακαλώ κάντε κλικ στο κουμπί δίπλα από το πεδίο εισαγωγής για να επιλέξετε μια ημερομηνία."
+                                english="Please click the button next to the input field to select a date."
+                                classes="error-message"
+                            ></span>
+                        }
+                    </div>
+
                 </section>
-                <!--// TODO PUT THIS THING IN THE FORM ===================================-->
 
                 <section class="notes-block">
-                  <button (click)="onNotesSelected()" [color]="!notesEnabled() ? 'primary' : 'warn'" mat-raised-button type="button">
-                      <mat-icon>{{ !notesEnabled() ? 'add' : 'remove' }}</mat-icon>
-                      @if (!notesEnabled()) {
-                          <app-language-switch greek="Προσθήκη σημειώσεων" english="Add notes" />
-                      }
-                      @else {
-                          <app-language-switch greek="Διαγραφή σημειώσεων" english="Delete notes" />
-                      }
-                  </button>
-                  @if (notesEnabled()) {
-                      <mat-form-field class="example-full-width" app>
-                          <mat-label>
-                              <app-language-switch greek="Σημειώσεις (μέγιστο 200 χαρακτήρες)" english="Notes (maximum 200 characters)" />
-                          </mat-label>
-                          <textarea matInput maxlength="200" rows="2" formControlName="notes"></textarea>
-                      </mat-form-field>
-                  }
+                    <button (click)="onNotesSelected()" [color]="!notesEnabled() ? 'primary' : 'warn'" mat-raised-button type="button">
+                        <mat-icon>{{ !notesEnabled() ? 'add' : 'remove' }}</mat-icon>
+                        @if (!notesEnabled()) {
+                            <app-language-switch greek="Προσθήκη σημειώσεων" english="Add notes" />
+                        }
+                        @else {
+                            <app-language-switch greek="Διαγραφή σημειώσεων" english="Delete notes" />
+                        }
+                    </button>
+                    @if (notesEnabled()) {
+                        <mat-form-field class="example-full-width" app>
+                            <mat-label>
+                                <app-language-switch greek="Σημειώσεις (έως 200 χαρακτήρες)" english="Notes (up to 200 characters)" />
+                            </mat-label>
+                            <textarea matInput maxlength="200" rows="2" formControlName="notes"></textarea>
+                        </mat-form-field>
+                    }
                 </section>
             </section>
 
@@ -306,6 +313,7 @@ import { LanguageSwitchComponent } from "../utilities/components/language-switch
                         </div>
                         <app-add-remove-button buttonType="delete" (click)="onDeleteProduct($index)" />
                     </section>
+                    <mat-divider class="product-divider" />
                 }
 
                 <section class="products-header products-header-mobile">
@@ -313,7 +321,7 @@ import { LanguageSwitchComponent } from "../utilities/components/language-switch
                     <app-add-remove-button buttonType="add" (click)="onAddProduct()" />
                 </section>
 
-                <mat-radio-group [value]="selectedRadioOption()" (change)="onOptionChange($event.value)" aria-label="Select an option">
+                <mat-radio-group [value]="thePdfHasColour()" (change)="onColouredPdfOptionChange($event.value)" aria-label="Select an option">
                     <mat-radio-button color="primary" value="1">
                         <app-language-switch greek="Εκτύπωση αρχείου pdf με χρώμα" english="Print coloured pdf file" />
                     </mat-radio-button>
@@ -343,10 +351,28 @@ import { LanguageSwitchComponent } from "../utilities/components/language-switch
 export class HomeComponent implements OnInit {
 
   constructor() {
+    
     effect(
-      () => this.pdfService.setPrintOption( this.selectedRadioOption() ),
+      () => this.pdfService.setPrintOption( this.thePdfHasColour() ),
       { allowSignalWrites: true }
     );
+
+    //* enable - disable the expiration date input based on radio button selection.
+    //* add validator required if the 'expires' radio is selected. 
+    effect(() => {
+      const expirationDateControl = this.form.get('expirationDate');
+
+      if (this.theOfferHasExpirationDate() === 'expires') {
+        expirationDateControl?.enable();
+        expirationDateControl?.addValidators(Validators.required);
+      }
+      else {
+        expirationDateControl?.disable();
+        expirationDateControl?.clearValidators();
+      }
+
+      expirationDateControl?.updateValueAndValidity();
+    });
   }
   
   ngOnInit(): void {
@@ -379,17 +405,24 @@ export class HomeComponent implements OnInit {
   selectedLanguage = computed(() => 
       this.languageService.selectedLanguage()
   );
-  
-  selectedRadioOption = signal<string>('1');
 
-  onOptionChange(value: string) {
-    this.selectedRadioOption.set(value);
+  //TODO THIS IS FOR COLOURED PDF, THE NAME WILL CHANGE.
+  thePdfHasColour = signal<string>('1');
+  
+  //TODO THIS IS FOR COLOURED PDF, THE NAME WILL CHANGE.
+  onColouredPdfOptionChange(value: string) {
+    this.thePdfHasColour.set(value);
   }
   
   theOfferHasExpirationDate = signal<'expires' | 'permanent'>('permanent');
 
   onExpirationChange(value: 'expires' | 'permanent'): void {
+
+    if (this.theOfferHasExpirationDate() === 'expires')
+      this.form.controls.expirationDate.setValue(null);
+
     this.theOfferHasExpirationDate.set(value);
+
   }
 
   notesEnabled = signal<boolean>(false);
@@ -410,12 +443,12 @@ export class HomeComponent implements OnInit {
     companyLocation: new FormControl(initialCompanyLocationValue, required),
 
     customer: new FormGroup({
-      customerName: new FormControl('Client Name', required),
-      customerPhone: new FormControl('0000 000 000', required),
-      customerEmail: new FormControl('client@client.com', { validators: [ Validators.required, mustContainPeriod ] }),
+      customerName: new FormControl('', required),
+      customerPhone: new FormControl('', required),
+      customerEmail: new FormControl('', { validators: [ Validators.required, mustContainPeriod ] }),
     }),
 
-    // expirationDate: new FormControl(''),
+    expirationDate: new FormControl<Date | null>(null),
     notes: new FormControl(''),
     
     products: new FormArray([
@@ -492,6 +525,14 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  //* DATE CHECK
+  get dateIsInvalid(): boolean {
+    return (
+      this.form.controls.expirationDate.invalid && 
+      this.form.controls.expirationDate.touched 
+    );
+  }
+
   //* FORM CHECK
   get formIsInvalid(): boolean {
     return (
@@ -536,6 +577,7 @@ export class HomeComponent implements OnInit {
     const customerPhone = this.form.controls.customer.controls.customerPhone.value!;
     const customerEmail = this.form.controls.customer.controls.customerEmail.value!;
     const notes = this.form.controls.notes.value!;
+    const expirationDate = this.form.controls.expirationDate.value!;
 
     const products = (): Product[] => {
       const products: Product[] = [];
@@ -588,7 +630,8 @@ export class HomeComponent implements OnInit {
       products(),
       productsQuantity(),
       subtotal(),
-      notes
+      notes,
+      expirationDate
     );
 
     this.pdfService.generatePDF(pdf);

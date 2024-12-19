@@ -1,4 +1,9 @@
-import { Component, computed, inject } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject
+} from '@angular/core';
+
 import { LanguageService } from '../services/language.service';
 import { MaterialComponents } from '../tools/material-components';
 

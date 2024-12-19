@@ -106,8 +106,6 @@ type Social = {
             align-items: center;
         }
 
-        
-        
         .icon-and-title-section {
             @extend .flex-row;
             align-items: center;

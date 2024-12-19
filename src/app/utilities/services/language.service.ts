@@ -18,7 +18,7 @@ export class LanguageService {
 
         if (storedLanguage)
             return storedLanguage;
-
+        
         return 'english';
 
         //* Ternary operator can be used as well (I prefer it).
