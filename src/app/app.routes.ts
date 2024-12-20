@@ -9,7 +9,7 @@ import { HomeComponent } from './pages/home.component';
 export const extraOptions: ExtraOptions = {
     scrollPositionRestoration: 'enabled',
     anchorScrolling:'enabled'
-  };
+};
 
 const appTitle: string = 'Product offer to .pdf';
 

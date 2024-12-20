@@ -6,20 +6,19 @@
 * {
     box-sizing: border-box;
     user-select: none;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 body {
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-
+    
     background-image: url('/Mac_M2_Ultra_Day.png');
-    // background-image: url('/Grey_Icons.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 p {
@@ -292,3 +291,5 @@ $heading-styles: (
 .error-message {
     font-size: 13px;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
