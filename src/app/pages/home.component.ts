@@ -54,12 +54,12 @@ import { type ColourOption } from "../utilities/tools/types";
       { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
     ],
     imports: [
-    ReactiveFormsModule,
-    ErrorMessageComponent,
-    AddRemoveButton,
-    LanguageSwitchComponent,
-    MaterialComponents
-],
+      ReactiveFormsModule,
+      ErrorMessageComponent,
+      AddRemoveButton,
+      LanguageSwitchComponent,
+      MaterialComponents
+    ],
     template: `
     
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -356,9 +356,8 @@ export class HomeComponent implements OnInit {
 
   constructor() {
     
-    effect(
-      () => this.pdfService.setPrintOption( this.printOption() ),
-      { allowSignalWrites: true }
+    effect(() => 
+      this.pdfService.setPrintOption( this.printOption() )
     );
 
     //* enable - disable the expiration date input based on radio button selection.

@@ -21,6 +21,19 @@ import { BackToTopComponent } from "./utilities/components/back-to-top.component
     <router-outlet />
     <footer appFooter></footer>
   
-  `,
+  `
 })
-export class AppComponent {}
+export class AppComponent {
+
+  constructor() {
+    console.log(
+      `%c"Product Offer to .pdf" Web Application by Nick Polizogopoulos, late 2024.`,
+      `
+        font-family: Arial;
+        color:rgb(0, 148, 116);
+        font-size: 21px
+      `
+    );
+  }
+
+}
