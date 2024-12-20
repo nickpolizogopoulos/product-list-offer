@@ -25,46 +25,7 @@ type Feature = {
     template: `
 
         <div class="container">
-            @if (selectedLanguage() === 'english') {
-                <h3>About this Application</h3>
-                <mat-divider />
-                <p>
-                    This <strong><u>free</u></strong> application is designed to simplify the process of creating and sharing professional product offers.
-                </p>
-                <p>
-                    Built with Angular 18, it leverages modern web technologies to ensure
-                    a seamless, efficient, and user-friendly experience.
-                </p>
-                
-                <h5>Key features include:</h5>
-                <ul class="features">
-                    @for (feature of allKeyFeaturesEng; track $index) {
-                        <li>
-                            <strong [innerHTML]="feature.name"></strong>
-                            <strong>: </strong>
-                            <span [innerHTML]="feature.information"></span>
-                        </li>
-                    }
-                </ul>
-                <p>
-                    This app empowers businesses to create detailed, professional offers in minutes,
-                    saving time and ensuring quality with every document.
-                </p>
-                
-                <h5>Custom PDF</h5>
-                <p>
-                    The application can be customized to allow a business to generate its own custom PDF file,
-                    including the company's logo and any other content the business wants to display.
-                </p>
-                <p>
-                    Feel free to contact me 
-                    <a class="link" href="mailto:nick.polizogopoulos@gmail.com?Subject=About a custom .pdf generator">
-                        here
-                    </a>. 
-                </p>
-                <p>- Nick Polizogopoulos</p>
-            }
-            @else {
+            @if (isGreek()) {
                 <h3>Σχετικά με την Εφαρμογή</h3>
                 <mat-divider />
                 <p>
@@ -103,9 +64,49 @@ type Feature = {
                 </p>
                 <p>- Νίκος Πολυζωγόπουλος</p>
             }
+
+            @else {
+                <h3>About this Application</h3>
+                <mat-divider />
+                <p>
+                    This <strong><u>free</u></strong> application is designed to simplify the process of creating and sharing professional product offers.
+                </p>
+                <p>
+                    Built with Angular 18, it leverages modern web technologies to ensure
+                    a seamless, efficient, and user-friendly experience.
+                </p>
+                
+                <h5>Key features include:</h5>
+                <ul class="features">
+                    @for (feature of allKeyFeaturesEng; track $index) {
+                        <li>
+                            <strong [innerHTML]="feature.name"></strong>
+                            <strong>: </strong>
+                            <span [innerHTML]="feature.information"></span>
+                        </li>
+                    }
+                </ul>
+                <p>
+                    This app empowers businesses to create detailed, professional offers in minutes,
+                    saving time and ensuring quality with every document.
+                </p>
+                
+                <h5>Custom PDF</h5>
+                <p>
+                    The application can be customized to allow a business to generate its own custom PDF file,
+                    including the company's logo and any other content the business wants to display.
+                </p>
+                <p>
+                    Feel free to contact me 
+                    <a class="link" href="mailto:nick.polizogopoulos@gmail.com?Subject=About a custom .pdf generator">
+                        here
+                    </a>. 
+                </p>
+                <p>- Nick Polizogopoulos</p>
+            }
                 <button routerLink="/" mat-raised-button>
                     {{ 
-                        selectedLanguage() === 'greek'
+                        isGreek()
                         ? 'Φτιάξτε το δικό σας '
                         : 'Make your '
                     }}.pdf!
@@ -150,6 +151,10 @@ export class AboutComponent {
       
     selectedLanguage = computed(() => 
         this.languageService.selectedLanguage()
+    );
+      
+    isGreek = computed(() => 
+        this.selectedLanguage() === 'greek'
     );
 
     get allKeyFeaturesEng(): Feature[] {

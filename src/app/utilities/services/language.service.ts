@@ -4,7 +4,7 @@ import {
     effect
 } from '@angular/core';
 
-export type Language = 'english' | 'greek';
+import { type Language } from '../tools/types';
 
 @Injectable({
     providedIn: 'root',

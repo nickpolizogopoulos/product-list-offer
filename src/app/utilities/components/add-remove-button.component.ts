@@ -9,7 +9,7 @@ import {
     effect
 } from "@angular/core";
 
-import tippy from "tippy.js";
+import tippy, { type Instance } from "tippy.js";
 
 import { LanguageService } from "../services/language.service";
 
@@ -28,6 +28,7 @@ type ButtonType = 'add' | 'delete';
                 </svg>
             </button>
         }
+        
         @else {
             <button class="products-icon-btn" [class]="hostClasses()" type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16">
@@ -39,7 +40,7 @@ type ButtonType = 'add' | 'delete';
 
     `
 })
-export class AddRemoveButton implements AfterViewInit {
+export class AddRemoveButton {
 
     private languageService = inject(LanguageService);
           
@@ -47,37 +48,53 @@ export class AddRemoveButton implements AfterViewInit {
         this.languageService.selectedLanguage()
     );
 
+    private isGreek = computed(() =>
+        this.languageService.selectedLanguage() === 'greek'
+    );
+
     buttonType = input.required<ButtonType>();
 
-    hostClasses = computed<ButtonType>(() => 
+    hostClasses = computed<ButtonType>(() =>
         this.buttonType() === 'add' 
         ? 'add'
         : 'delete'
     );
-    
-    ngAfterViewInit(): void {
-        // this.initialiseTippy();
-    }
-    
-    //TODO Tippy triggers twice.
+
     constructor() {
         effect(() => {
-            this.initialiseTippy();
+            this.initializeTooltip();
         });
     }
 
-    private addProductTooltip = viewChild<ElementRef>('addProductTooltip');
+    private tooltip = viewChild<ElementRef>('addProductTooltip');
     
-    private initialiseTippy(): void {
-        tippy(
-            this.addProductTooltip()?.nativeElement,
-            {
-                content: this.selectedLanguage() === 'greek' ? 'Προσθέστε προϊόν' : 'Add a new product',
-                placement: 'right',
-                theme: 'btntip',
-                duration: [400, 50],
-            }
-        );
-    }
+    private currentTippyInstance: Instance | null = null;
+    
+    private initializeTooltip(): void {
 
+        //* Destroys the previous tooltip if exists
+        if (this.currentTippyInstance)
+            this.currentTippyInstance.destroy();
+
+        const tooltipContent = this.isGreek() 
+            ? 'Προσθέστε προϊόν' 
+            : 'Add a new product';
+
+        if (this.tooltip()) {
+
+            const tooltipInstance = tippy(
+                this.tooltip()?.nativeElement,
+                {
+                    content: tooltipContent,
+                    placement: 'right',
+                    theme: 'btntip',
+                    arrow: false,
+                    duration: [200, 200],
+                }
+            );
+            
+            //* Tippy might return an array of instances, we pick the first one - ensures single instance
+            this.currentTippyInstance = Array.isArray(tooltipInstance) ? tooltipInstance[0] : tooltipInstance;
+        }
+    }
 }

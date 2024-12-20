@@ -5,19 +5,13 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import {
-    type Language,
-    LanguageService
-} from '../services/language.service';
+import { LanguageService } from '../services/language.service';
 import { MaterialComponents } from '../tools/material-components';
 import { LanguageSwitchComponent } from './language-switch.component';
-
-type Social = {
-    name: string;
-    link: string;
-    path: string;
-    viewBox: string;
-};
+import {
+    type Social,
+    type Language
+} from '../tools/types';
 
 @Component({
     selector: 'header[appHeader]',

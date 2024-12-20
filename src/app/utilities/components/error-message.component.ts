@@ -15,9 +15,10 @@ import { LanguageService } from "../services/language.service";
     },
     template: `
 
-        @if (selectedLanguage() === 'greek') {
+        @if (isGreek()) {
             {{ greek() }}
         }
+        
         @else {
             {{ english() }}
         }
@@ -30,6 +31,10 @@ export class ErrorMessageComponent {
       
     selectedLanguage = computed(() => 
         this.languageService.selectedLanguage()
+    );
+
+    isGreek = computed(() => 
+        this.selectedLanguage() === 'greek'
     );
 
     greek = input.required<string>();

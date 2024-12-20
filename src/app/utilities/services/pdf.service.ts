@@ -12,7 +12,7 @@ import { type PDF } from '../tools/pdf.model';
 
 import * as font from '../tools/greek-font.json';
 import { LanguageService } from './language.service';
-
+import { type ColourOption } from '../tools/types';
 
 @Injectable({
     providedIn: 'root'
@@ -25,9 +25,9 @@ export class PdfService {
         this.languageService.selectedLanguage() === 'greek'
     );
 
-    private printOption = signal<string>('1');
+    private printOption = signal<ColourOption>('withColour');
 
-    setPrintOption(option: string): void {
+    setPrintOption(option: ColourOption): void {
         this.printOption.set(option);
     }
 
@@ -40,7 +40,7 @@ export class PdfService {
         const pdfHeight = doc.internal.pageSize.getHeight();
 
         //* HEADER =======================================================================
-        if (this.printOption() === '1') {
+        if (this.printOption() === 'withColour') {
             doc.setFillColor(202, 218, 232);
             //* Rectangle (x, y, width, height, radiusX, radiusY, style) 'F' = filled.
             doc.roundedRect(5, 5, 200, 22, 2, 2, 'F');
@@ -154,9 +154,9 @@ export class PdfService {
                 lineColor: '#ffffff',
                 lineWidth: 0.2,
             },
-            //* To remove the colours tablewide if printOption is '2'.
+            //* Removes the colours from the table if printOption is 'withoutColor'.
             didParseCell: data => {
-                if (this.printOption() === '2')
+                if (this.printOption() === 'withoutColour')
                     data.cell.styles.fillColor = 'white';
                 else
                     return;

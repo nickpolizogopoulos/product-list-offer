@@ -17,9 +17,12 @@ import {
 } from "@angular/forms";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
-import { MAT_DATE_LOCALE, provideNativeDateAdapter } from "@angular/material/core";
-
 import { debounceTime } from "rxjs";
+
+import {
+  MAT_DATE_LOCALE,
+  provideNativeDateAdapter
+} from "@angular/material/core";
 
 import {
   localStorageItemData,
@@ -35,12 +38,13 @@ import {
 import { PDF } from "../utilities/tools/pdf.model";
 import { Product } from "../utilities/tools/product.model";
 import { PdfService } from "../utilities/services/pdf.service";
-import { ProductFormControl } from "../utilities/tools/product-control";
+import { type ProductFormControl } from "../utilities/tools/product-control";
 import { MaterialComponents } from "../utilities/tools/material-components";
 import { AddRemoveButton } from "../utilities/components/add-remove-button.component";
 import { LanguageService } from "../utilities/services/language.service";
 import { ErrorMessageComponent } from "../utilities/components/error-message.component";
 import { LanguageSwitchComponent } from "../utilities/components/language-switch.component";
+import { type ColourOption } from "../utilities/tools/types";
 
 @Component({
     selector: 'app-home',
@@ -317,15 +321,15 @@ import { LanguageSwitchComponent } from "../utilities/components/language-switch
                 }
 
                 <section class="products-header products-header-mobile">
-                    <h5>{{ selectedLanguage() === 'greek' ? 'Προσθήκη προϊόντος' : 'Add Product' }}</h5>
+                    <h5><app-language-switch greek="Προσθήκη προϊόντος" english="Add Product" /></h5>
                     <app-add-remove-button buttonType="add" (click)="onAddProduct()" />
                 </section>
 
-                <mat-radio-group [value]="thePdfHasColour()" (change)="onColouredPdfOptionChange($event.value)" aria-label="Select an option">
-                    <mat-radio-button color="primary" value="1">
+                <mat-radio-group [value]="printOption()" (change)="onColouredPdfOptionChange($event.value)" aria-label="Select an option">
+                    <mat-radio-button color="primary" value="withColour">
                         <app-language-switch greek="Εκτύπωση αρχείου pdf με χρώμα" english="Print coloured pdf file" />
                     </mat-radio-button>
-                    <mat-radio-button color="primary" value="2">
+                    <mat-radio-button color="primary" value="withoutColour">
                         <app-language-switch greek="Αφαίρεση χρωμάτων (εξοικονόμηση μελανιού)" english="Remove colours (saves ink)" />
                     </mat-radio-button>
                 </mat-radio-group>
@@ -353,7 +357,7 @@ export class HomeComponent implements OnInit {
   constructor() {
     
     effect(
-      () => this.pdfService.setPrintOption( this.thePdfHasColour() ),
+      () => this.pdfService.setPrintOption( this.printOption() ),
       { allowSignalWrites: true }
     );
 
@@ -407,11 +411,11 @@ export class HomeComponent implements OnInit {
   );
 
   //TODO THIS IS FOR COLOURED PDF, THE NAME WILL CHANGE.
-  thePdfHasColour = signal<string>('1');
+  printOption = signal<ColourOption>('withColour');
   
   //TODO THIS IS FOR COLOURED PDF, THE NAME WILL CHANGE.
-  onColouredPdfOptionChange(value: string) {
-    this.thePdfHasColour.set(value);
+  onColouredPdfOptionChange(value: ColourOption) {
+    this.printOption.set(value);
   }
   
   theOfferHasExpirationDate = signal<'expires' | 'permanent'>('permanent');
