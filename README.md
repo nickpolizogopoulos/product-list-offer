@@ -1,6 +1,8 @@
 # Product offer to .pdf
 
 This project is a powerful example of utilizing [Angular](https://github.com/angular/angular-cli) signals in combination with the [jsPDF](https://artskydj.github.io/jsPDF/docs/index.html) library.  
+
+Launch the project [[ Here ]](https://product-offer-to-pdf.web.app/).  
  
 It is a Zoneless Angular 18 application that dynamically renders content in Greek and English, with plans to support additional languages in the future.  
 
