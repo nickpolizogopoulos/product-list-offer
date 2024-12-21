@@ -1,5 +1,6 @@
 import {
   ApplicationConfig,
+  enableProdMode,
   provideExperimentalZonelessChangeDetection
 } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
@@ -9,7 +10,11 @@ import {
   withInMemoryScrolling
 } from '@angular/router';
 
+import { initializeApp } from 'firebase/app';
+import { getAnalytics } from 'firebase/analytics';
+
 import { AppComponent } from './app/app.component';
+import { environment } from './environments/environment';
 import {
   extraOptions,
   routes
@@ -25,6 +30,13 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync()
   ]
 };
+
+if (environment.production)
+  enableProdMode();
+
+const app = initializeApp(environment.firebaseConfig);
+const analytics = getAnalytics(app);
+
 
 bootstrapApplication(
   AppComponent,
