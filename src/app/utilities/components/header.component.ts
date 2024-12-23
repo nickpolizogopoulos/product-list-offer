@@ -124,7 +124,7 @@ import {
                 }
 
                 @media screen and (max-width: 315px) {
-                    font-size: 1.7rem;
+                    font-size: 1.8rem;
                 }
             }
 
@@ -231,7 +231,6 @@ import {
             background-color: rgba(195, 195, 195, 0.5);
             backdrop-filter: blur(3px);
         }
-  
   
     `
 })

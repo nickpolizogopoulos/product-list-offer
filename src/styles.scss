@@ -11,7 +11,6 @@
 }
 
 body {
-    
     background-image: url('/Mac_M2_Ultra_Day.png');
     background-position: center;
     background-repeat: no-repeat;
@@ -21,10 +20,6 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-p {
-    margin: .7rem 0;
-}
-
 a {
     color: $blue;
     text-decoration: none;
@@ -32,26 +27,6 @@ a {
         text-decoration: underline;
         text-decoration-thickness: 2px;
         text-underline-offset: 4px;
-    }
-}
-
-h1,
-h2,
-h3 {
-    transition: $transition;
-    span {
-        font-family: monospace;
-        font-size: 35px;
-    }
-
-    @media screen and (max-width: 518px) {
-        font-size: 2.2rem;
-        margin-bottom: 20px !important;
-    }
-    
-    @media screen and (max-width: 399px) {
-        font-size: 1.8rem;
-        margin-bottom: 14px !important;
     }
 }
 
@@ -76,6 +51,15 @@ $heading-styles: (
     }
 }
 
+@for $i from 1 through 6 {
+    h#{$i} {
+        transition: $transition;
+        span {
+            font-family: monospace;
+        }
+    }
+}
+
 .flex-row {
     display: flex;
     flex-direction: row;
@@ -97,37 +81,40 @@ $heading-styles: (
 .container {
     transition: $transition;
     background-color: rgba(255, 255, 255, 0.6);
-    width: 90%;
     padding: 30px 40px;
     margin: 20px auto;
-    border-radius: 15px;
+    width: 90%;
+    border-radius: 14px;
     border: 1px solid rgb(183, 183, 183);
     box-shadow: -5px 5px 16px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(35px);
     -webkit-backdrop-filter: blur(35px);
     
-    @media screen and (max-width: 430px) {
-        padding: 30px 20px !important;
-        width: 96% !important;
-    }
-    
     @media screen and (max-width: 518px) {
-        padding: 30px 30px;
+        padding: 30px 20px;
         width: 96%;
     }
     
     @media (min-width: 1200px) {
         max-width: 1140px;
-        width: 96%;
     }
     
     @media (min-width: 1400px) {
         max-width: 1320px;
-        width: 96%;
+    }
+
+    h3 {
+        @media screen and (max-width: 800px) {
+            font-size: 2rem;
+    
+        }
+        @media screen and (max-width: 518px) {
+            font-size: 1.8rem;
+        }
     }
 }
 
-.company-details { 
+.company-details {     
     @extend .flex-row;
     justify-content: space-between;
     
@@ -217,7 +204,8 @@ $heading-styles: (
         align-items: start;
         flex-direction: column;
         gap: 20px;
-        
+        margin: 0 0 20px 0;
+
         .expiration-date-box {
             min-height: 76px;
             display: flex;
@@ -228,9 +216,7 @@ $heading-styles: (
 }
 
 .notes-block {
-    width: 100%;
     @extend .flex-row;
-    justify-content: space-between;
     gap: 20px;
     
     button {
@@ -243,6 +229,7 @@ $heading-styles: (
 
     @media screen and (max-width: 991px) {
         flex-direction: column;
+        
         button {
             max-width: 260px;
         }
@@ -255,10 +242,7 @@ $heading-styles: (
     gap: 20px;
 
     button {
-        margin: 0 0 15px 0;
-        @media screen and (max-width: 400px) {
-            margin: 0 0 10px 0;
-        }
+        margin-bottom: 15px;
     }
 }
 
@@ -293,5 +277,3 @@ $heading-styles: (
 .error-message {
     font-size: 13px;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

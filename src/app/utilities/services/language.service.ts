@@ -29,15 +29,17 @@ export class LanguageService {
         // );
     }
 
-    selectedLanguage = signal<Language>(this.getInitialLanguage());
+    private language = signal<Language>(this.getInitialLanguage());
+
+    selectedLanguage = this.language.asReadonly();
 
     constructor() {
         effect(() => {
-            localStorage.setItem(this.key, this.selectedLanguage());
+            localStorage.setItem(this.key, this.language());
         });
     }
 
     onChangeLanguage(selection: Language): void {
-        this.selectedLanguage.set(selection);
+        this.language.set(selection);
     }
 }

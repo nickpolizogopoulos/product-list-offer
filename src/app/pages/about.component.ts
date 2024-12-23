@@ -117,7 +117,7 @@ type Feature = {
     styles: `
     
         h5 {
-            margin: 2rem 0;
+            margin: 2rem 0 1.4rem;
         }
 
         p {
