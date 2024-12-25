@@ -32,7 +32,7 @@ import {
         </section>
 
         <section>
-            <button mat-button [matMenuTriggerFor]="menu">
+            <button class="language-button" mat-button [matMenuTriggerFor]="menu">
                 <mat-icon>public</mat-icon>
                 {{ selectedLanguage() === 'greek' ? 'Γλώσσα' : 'Language' }}
             </button>
