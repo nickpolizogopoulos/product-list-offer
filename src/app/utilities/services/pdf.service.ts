@@ -199,13 +199,13 @@ export class PdfService {
         doc.setFontSize(6);
         if (this.isGreek())
             doc.text(
-                `Το έγγραφο δημιουργήθηκε μέσω της εφαρμογής «Product Offer to .pdf» από τον Νίκο Πολυζωγόπουλο. Για περισσότερες πληροφορίες, επισκεφθείτε: nick-polizogopoulos.web.app`,
+                `Το έγγραφο δημιουργήθηκε μέσω της εφαρμογής «Product Offer to .pdf» από τον Νίκο Πολυζωγόπουλο. Για περισσότερες πληροφορίες, επισκεφθείτε: https://product-offer-to-pdf.web.app`,
                 5,
                 yPosition
             );
         else
             doc.text(
-                `This document was generated using the "Product Offer to .pdf" Web Application made by Nick Polizogopoulos. For more information, visit: nick-polizogopoulos.web.app`,
+                `This document was generated using the "Product Offer to .pdf" Web Application made by Nick Polizogopoulos. For more information, visit: https://product-offer-to-pdf.web.app`,
                 5,
                 yPosition
             );
