@@ -33,18 +33,18 @@ import {
   mustContainPeriod,
   initialCompanyLocationValue,
   required
-} from "../utilities/tools/form-tools";
+} from "../../utilities/tools/form-tools";
 
-import { PDF } from "../utilities/tools/pdf.model";
-import { Product } from "../utilities/tools/product.model";
-import { PdfService } from "../utilities/services/pdf.service";
-import { type ProductFormControl } from "../utilities/tools/product-control";
-import { MaterialComponents } from "../utilities/tools/material-components";
-import { AddRemoveButton } from "../utilities/components/add-remove-button.component";
-import { LanguageService } from "../utilities/services/language.service";
-import { ErrorMessageComponent } from "../utilities/components/error-message.component";
-import { LanguageSwitchComponent } from "../utilities/components/language-switch.component";
-import { type ColourOption } from "../utilities/tools/types";
+import { PDF } from "../../utilities/tools/pdf.model";
+import { Product } from "../../utilities/tools/product.model";
+import { PdfService } from "../../utilities/services/pdf.service";
+import { MaterialComponents } from "../../utilities/tools/material-components";
+import { AddRemoveButton } from "../../utilities/components/add-remove-button.component";
+import { LanguageService } from "../../utilities/services/language.service";
+import { ErrorMessageComponent } from "../../utilities/components/error-message.component";
+import { LanguageSwitchComponent } from "../../utilities/components/language-switch.component";
+import { type ProductFormControl } from "../../utilities/tools/product-control";
+import { type ColourOption } from "../../utilities/tools/types";
 
 @Component({
     selector: 'app-home',
