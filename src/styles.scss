@@ -53,7 +53,6 @@ $heading-styles: (
 
 @for $i from 1 through 6 {
     h#{$i} {
-        transition: $transition;
         span {
             font-family: monospace;
         }

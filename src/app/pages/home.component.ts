@@ -209,10 +209,10 @@ import { type ColourOption } from "../utilities/tools/types";
                 <h3><app-language-switch greek="Ρυθμίσεις προσφοράς" english="Offer settings" /></h3>
                 <section class="settings-block">
                     <mat-radio-group [value]="theOfferHasExpirationDate()" (change)="onExpirationChange($event.value)" aria-label="Select an option">
-                        <mat-radio-button color="primary" value="permanent">
+                        <mat-radio-button value="permanent">
                             <app-language-switch greek="Η προσφορά είναι μόνιμη" english="The offer is valid permanently" />
                         </mat-radio-button>
-                        <mat-radio-button color="primary" value="expires">
+                        <mat-radio-button value="expires">
                             <app-language-switch greek="Με ημερομηνία λήξης" english="With an expiration date" />
                         </mat-radio-button>
                     </mat-radio-group>
@@ -326,10 +326,10 @@ import { type ColourOption } from "../utilities/tools/types";
                 </section>
 
                 <mat-radio-group [value]="printOption()" (change)="onColouredPdfOptionChange($event.value)" aria-label="Select an option">
-                    <mat-radio-button color="primary" value="withColour">
+                    <mat-radio-button value="withColour">
                         <app-language-switch greek="Εκτύπωση αρχείου pdf με χρώμα" english="Print coloured pdf file" />
                     </mat-radio-button>
-                    <mat-radio-button color="primary" value="withoutColour">
+                    <mat-radio-button value="withoutColour">
                         <app-language-switch greek="Αφαίρεση χρωμάτων (εξοικονόμηση μελανιού)" english="Remove colours (saves ink)" />
                     </mat-radio-button>
                 </mat-radio-group>
