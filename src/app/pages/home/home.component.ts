@@ -252,7 +252,7 @@ import { type ColourOption } from "../../utilities/tools/types";
                             <mat-label>
                                 <app-language-switch greek="Σημειώσεις (έως 200 χαρακτήρες)" english="Notes (up to 200 characters)" />
                             </mat-label>
-                            <textarea matInput maxlength="200" rows="2" formControlName="notes"></textarea>
+                            <textarea matInput maxlength="200" [rows]="textareaRows()" formControlName="notes"></textarea>
                         </mat-form-field>
                     }
                 </section>
@@ -275,8 +275,8 @@ import { type ColourOption } from "../../utilities/tools/types";
                             </mat-form-field>
                             @if (product.controls.name.invalid && product.controls.name.touched) {
                                 <span ErrorMessage 
-                                  greek="Παρακαλώ, εισάγετε όνομα προϊόντος ή διαγράψτε το προϊόν εάν δεν σας χρειάζεται."
-                                  english="Please, enter product name or delete the product if not needed."
+                                  greek="Παρακαλώ, εισάγετε όνομα προϊόντος."
+                                  english="Please, enter product name."
                                   classes="error-message"
                                 ></span>
                             }
@@ -355,7 +355,15 @@ import { type ColourOption } from "../../utilities/tools/types";
 export class HomeComponent implements OnInit {
 
   constructor() {
-    
+
+    //* for the textarea rows
+    effect(() =>
+      window.addEventListener(
+        'resize',
+        () => this.windowWidth.set(window.outerWidth)
+      )
+    );
+        
     effect(() => 
       this.pdfService.setPrintOption( this.printOption() )
     );
@@ -401,18 +409,18 @@ export class HomeComponent implements OnInit {
   }
 
   private destroyRef = inject(DestroyRef);
-
+  
   private pdfService = inject(PdfService);
-  private languageService = inject(LanguageService);
-        
-  selectedLanguage = computed(() => 
-      this.languageService.selectedLanguage()
-  );
 
-  //TODO THIS IS FOR COLOURED PDF, THE NAME WILL CHANGE.
+  //* textarea more rows on mobile
+  private windowWidth = signal<number>(window.outerWidth);
+
+  textareaRows = computed<number>(
+    () => this.windowWidth() < 800 ? 5 : 3
+  );
+  
   printOption = signal<ColourOption>('withColour');
   
-  //TODO THIS IS FOR COLOURED PDF, THE NAME WILL CHANGE.
   onColouredPdfOptionChange(value: ColourOption) {
     this.printOption.set(value);
   }

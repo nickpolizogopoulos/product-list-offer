@@ -21,11 +21,11 @@ import { MaterialComponents } from '../tools/material-components';
     Product offer to <span>.</span>pdf 2024{{ date === 2024 ? '' : ' - '+date }}<span>.</span>
 
     @if (isGreek()) {
-      Μια εφαρμογή φτιαγμένη με
+      Μια
       <a class="angular" href="https://angular.dev/" target="_blank">
         Angular
       </a>
-      απο τον
+      εφαρμογή απο τον
       <a href="https://nick-polizogopoulos.web.app/" class="nodecor" target="_blank">
         Νίκο Πολυζωγόπουλο</a><span>.</span>
     }
