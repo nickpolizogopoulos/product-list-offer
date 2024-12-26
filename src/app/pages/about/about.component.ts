@@ -59,11 +59,6 @@ import { contentGr } from "./greek-content";
             margin: 0;
             line-height: 1.8;
         }
-
-        strong,
-        .link {
-            font-weight: 600;
-        }
         
         .features {
             padding-left: 0;
