@@ -3,10 +3,10 @@ import {
     Routes
 } from '@angular/router';
 
-import { AboutComponent } from './pages/about/about.component';
 import { HomeComponent } from './pages//home/home.component';
+import { AboutComponent } from './pages/about/about.component';
 import { CookiesComponent } from './pages/cookies/cookies.component';
-import { PolicyTermsComponent } from './pages/policy-terms/policy-terms.component';
+import { PrivacyTermsComponent } from './pages/privacy-terms/privacy-terms.component';
 
 export const extraOptions: ExtraOptions = {
     scrollPositionRestoration: 'enabled',
@@ -39,6 +39,11 @@ export const routes: Routes = [
         path: 'cookies',
         component: CookiesComponent,
         title: getTitle('Cookies')
+    },
+    {
+        path: 'privacy-terms',
+        component: PrivacyTermsComponent,
+        title: getTitle('Privacy & Terms')
     },
     {
         path: '**',
