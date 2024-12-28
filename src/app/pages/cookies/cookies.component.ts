@@ -47,13 +47,6 @@ import { contentGr } from './greek-content';
       <h5>{{ content.block4.title }}</h5>
       <p>{{ content.block4.text }}</p>
 
-      <h5>{{ content.title }}:</h5>
-      <ul>
-        @for (item of content.list2; track $index) {
-          <li>{{ item }}</li>
-        }
-      </ul>
-
       <button mat-raised-button routerLink="/">{{ content.buttonText }}</button>
 
     </div>
@@ -63,6 +56,10 @@ import { contentGr } from './greek-content';
 
     p {
       margin-bottom: 1.7rem;
+
+      &:last-of-type {
+        margin-bottom: 2rem;
+      }
     }
 
     strong {
@@ -75,10 +72,6 @@ import { contentGr } from './greek-content';
 
       &:first-of-type {
         margin-bottom: 1.7rem;
-      }
-
-      &:last-of-type {
-        margin-bottom: 2rem;
       }
     }
     

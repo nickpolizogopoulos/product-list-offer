@@ -53,9 +53,5 @@ export const contentEng: CookiesContent = {
             This website contains links to other websites. 
             Please note that we have no control over how these websites use cookies and we advise you to check their respective privacy policies.`
     },
-    title: 'Note',
-    list2: [
-        'This policy focuses on the specific cookies used by this app.'
-    ],
     buttonText: 'Back to home'
 };
