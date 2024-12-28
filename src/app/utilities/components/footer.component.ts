@@ -33,7 +33,7 @@ import { FooterLink } from '../tools/types';
         Νίκο Πολυζωγόπουλο</a><span>.</span>
 
       <ul>
-        @for (link of allLinks; track $index) {
+        @for (link of allLinksGr; track $index) {
           <li>
             <a class="link" [routerLink]="link.path">{{ link.name }}</a>
           </li>
@@ -51,7 +51,7 @@ import { FooterLink } from '../tools/types';
         Nick Polizogopoulos</a><span>.</span>
 
       <ul>
-        @for (link of allLinks; track $index) {
+        @for (link of allLinksEng; track $index) {
           <li>
             <a class="link" [routerLink]="link.path">{{ link.name }}</a>
           </li>
@@ -80,14 +80,6 @@ import { FooterLink } from '../tools/types';
         flex-direction: column;
       }
 
-      a { 
-        &::before {
-          content: '[';
-        }
-        &::after {
-          content: ']';
-        }
-      }
     }
 
     span {
@@ -123,11 +115,15 @@ export class FooterComponent {
     this.selectedLanguage() === 'greek'
   );
   
-  get allLinks(): FooterLink[] {
-    return [ ...this.links ];
+  get allLinksEng(): FooterLink[] {
+    return [ ...this.linksEng ];
   }
 
-  private links: FooterLink[] = [
+  get allLinksGr(): FooterLink[] {
+    return [ ...this.linksGr ];
+  }
+
+  private linksEng: FooterLink[] = [
     {
       name: 'About',
       path: 'about'
@@ -138,6 +134,21 @@ export class FooterComponent {
     },
     {
       name: 'Privacy & Terms',
+      path: 'privacy-terms'
+    }
+  ];
+
+  private linksGr: FooterLink[] = [
+    {
+      name: 'Πληροφορίες',
+      path: 'about'
+    },
+    {
+      name: 'Cookies',
+      path: 'cookies'
+    },
+    {
+      name: 'Απόρρητο & Όροι',
       path: 'privacy-terms'
     }
   ];
