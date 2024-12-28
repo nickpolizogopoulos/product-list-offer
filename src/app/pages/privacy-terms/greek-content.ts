@@ -1,84 +1,90 @@
 import { PrivacyTermsContentType } from "./terms-types";
 
 export const contentGr: PrivacyTermsContentType = {
-    pageTitle: 'Privacy Policy & Terms of Use',
+    pageTitle: 'Πολιτική Απορρήτου & Όροι Χρήσης',
     content: [
         {
-            title: 'Privacy Policy',
-            date: 'Effective Date: 27th of December 2024',
+            title: 'Πολιτική Απορρήτου',
+            date: 'Ημερομηνία Έναρξης Ισχύος: 29η Δεκεμβρίου 2024',
             introductionText: `
-                "Product offer to .pdf" respects your privacy and is committed to protecting your personal information. 
-                Here's what you need to know:`,
+                Η εφαρμογή "Product offer to .pdf" σέβεται την ιδιωτικότητά σας και δεσμεύεται να προστατεύει τις προσωπικές σας πληροφορίες. 
+                Αυτά είναι όσα πρέπει να γνωρίζετε:`,
             list: [
                 {
-                    title: 'Data Collection',
+                    title: 'Συλλογή Δεδομένων',
                     bullet: [
-                        'We do not collect or store any user data on our servers.',
-                        `Company details entered in the form are saved locally in your browser for convenience. 
-                        This information is not shared or uploaded anywhere.`
+                        'Δεν συλλέγουμε ούτε αποθηκεύουμε δεδομένα χρηστών στους διακομιστές μας.',
+                        `Τα στοιχεία της εταιρείας που καταχωρούνται στη φόρμα αποθηκεύονται τοπικά στον περιηγητή σας για ευκολία. 
+                        Αυτές οι πληροφορίες δεν κοινοποιούνται ούτε μεταφορτώνονται πουθενά.`
                     ]
                 },
                 {
                     title: 'Google Analytics',
                     bullet: [
-                        `We use Google Analytics 4 to analyze usage patterns and improve the app. 
-                        This may include anonymized data, such as device information or usage statistics.`
+                        `Χρησιμοποιούμε το Google Analytics 4 για την ανάλυση προτύπων χρήσης και τη βελτίωση της εφαρμογής. 
+                        Αυτό μπορεί να περιλαμβάνει ανώνυμα δεδομένα, όπως πληροφορίες συσκευής ή στατιστικά χρήσης.`
                     ]
                 },
                 {
-                    title: 'Your Rights',
+                    title: 'Τα δικαιώματά σας',
                     bullet: [
-                        'Since no personal data is collected or stored on our servers, no actions are needed to delete or access your data.'
+                        `Δεδομένου ότι δεν συλλέγονται ή αποθηκεύονται προσωπικά δεδομένα στους διακομιστές μας, 
+                        δεν απαιτούνται ενέργειες για τη διαγραφή ή πρόσβαση στα δεδομένα σας.`
                     ]
                 },
                 {
                     title: 'Cookies',
                     bullet: [
-                        'Google Analytics may use cookies to track usage. You can manage cookies through your browser settings.'
+                        `Το Google Analytics ενδέχεται να χρησιμοποιεί cookies για την παρακολούθηση χρήσης. 
+                        Μπορείτε να διαχειριστείτε τα cookies μέσω των ρυθμίσεων του περιηγητή σας.`
                     ]
                 }
             ],
-            contact: `For questions, contact us <a class="link" href="mailto:nick.polizogopoulos@gmail.com">here</a>.`
+            contact: `Για ερωτήσεις, επικοινωνήστε μαζί μας 
+            <a class="link" href="mailto:nick.polizogopoulos@gmail.com?Subject=Σχετικά με την Πολιτική Απορρήτου και Όρους Χρήσης της εφαρμογής Product offer to .pdf">
+            εδώ</a>.`
         },
         {
-            title: 'Terms of Use',
-            date: 'Effective Date: 27th of December 2024',
-            introductionText: 'By using "Product offer to .pdf," you agree to the following terms:',
+            title: 'Όροι Χρήσης',
+            date: 'Ημερομηνία Έναρξης Ισχύος: 29η Δεκεμβρίου 2024',
+            introductionText: 'Χρησιμοποιώντας την εφαρμογή "Product offer to .pdf", συμφωνείτε με τους παρακάτω όρους:',
             list: [
                 {
-                    title: 'Purpose of the App',
-                    bullet: ['This app is provided for companies to generate PDF offers for their customers.']
+                    title: 'Σκοπός της Εφαρμογής',
+                    bullet: ['Η εφαρμογή παρέχεται για εταιρείες, ώστε να δημιουργούν προσφορές σε αρχείο PDF για τους πελάτες τους.']
                 },
                 {
-                    title: 'User Responsibilities',
+                    title: 'Υποχρεώσεις Χρηστών',
                     bullet: [
-                        'Ensure the accuracy of information entered into the form.',
-                        'You are responsible for ensuring compliance with applicable laws when using this app.',
+                        'Εξασφαλίστε την ακρίβεια των πληροφοριών που καταχωρούνται στη φόρμα.',
+                        'Είστε υπεύθυνοι για τη συμμόρφωση με τους ισχύοντες νόμους κατά τη χρήση αυτής της εφαρμογής.',
                     ]
                 },
                 {
-                    title: 'Local Storage',
+                    title: 'Τοπικός Αποθηκευτικός Χώρος.',
                     bullet: [
-                        `The app stores company details locally in your browser for convenience. 
-                        This data is not backed up or recoverable if cleared.`
+                        `Η εφαρμογή αποθηκεύει τα στοιχεία της εταιρείας τοπικά στον περιηγητή σας για ευκολία. 
+                        Αυτά τα δεδομένα δεν δημιουργούν αντίγραφα ασφαλείας ούτε είναι ανακτήσιμα αν διαγραφούν.`
                     ]
                 },
                 {
-                    title: 'No Warranties',
-                    bullet: [`The app is provided "as-is" without any guarantees of accuracy or reliability.`]
+                    title: 'Χωρίς Εγγυήσεις',
+                    bullet: [`Η εφαρμογή παρέχεται "ως έχει" χωρίς καμία εγγύηση ακρίβειας ή αξιοπιστίας.`]
                 },
                 {
-                    title: 'Limitation of Liability',
+                    title: 'Περιορισμός Ευθύνης',
                     bullet: [
-                        `We are not liable for any issues arising from the use of the app, 
-                        including loss of data or errors in the PDF generated.`
+                        `Δεν φέρουμε ευθύνη για οποιαδήποτε προβλήματα προκύψουν από τη χρήση της εφαρμογής, 
+                        συμπεριλαμβανομένης της απώλειας δεδομένων ή λαθών στα παραγόμενα PDF.`
                     ]
                 }
             ],
             contact: `
-                If you do not agree with these terms, please discontinue using the app. 
-                For questions, contact us <a class="link" href="mailto:nick.polizogopoulos@gmail.com">here</a>.`
+                Αν δεν συμφωνείτε με αυτούς τους όρους, παρακαλούμε να διακόψετε τη χρήση της εφαρμογής. 
+                Για ερωτήσεις, επικοινωνήστε μαζί μας 
+                <a class="link" href="mailto:nick.polizogopoulos@gmail.com?Subject=Σχετικά με την Πολιτική Απορρήτου και Όρους Χρήσης της εφαρμογής Product offer to .pdf">
+                εδώ</a>.`
         }
     ],
-    buttonText: 'Back to home'
+    buttonText: 'Επιστροφή στην αρχική'
 };
