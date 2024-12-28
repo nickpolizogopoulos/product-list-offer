@@ -13,3 +13,8 @@ export type Social = {
   path: string;
   viewBox: string;
 };
+
+export type FooterLink = {
+  name: string;
+  path: string;
+};
