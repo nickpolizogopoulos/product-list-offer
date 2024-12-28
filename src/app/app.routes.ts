@@ -5,24 +5,40 @@ import {
 
 import { AboutComponent } from './pages/about/about.component';
 import { HomeComponent } from './pages//home/home.component';
+import { CookiesComponent } from './pages/cookies/cookies.component';
+import { PolicyTermsComponent } from './pages/policy-terms/policy-terms.component';
 
 export const extraOptions: ExtraOptions = {
     scrollPositionRestoration: 'enabled',
-    anchorScrolling:'enabled'
+    anchorScrolling: 'enabled'
 };
 
-const appTitle: string = 'Product offer to .pdf';
+const getTitle = ( pageName?: string ): string => {
+    
+    const appTitle: string = 'Product offer to .pdf';
+    
+    return (
+          pageName
+        ? `${ appTitle } - ${ pageName }`
+        : appTitle
+    );
+};
 
 export const routes: Routes = [
     {
         path: '',
         component: HomeComponent,
-        title: `${appTitle} - Home`
+        title: getTitle()
     },
     {
         path: 'about',
         component: AboutComponent,
-        title: `${appTitle} - About`
+        title: getTitle('About')
+    },
+    {
+        path: 'cookies',
+        component: CookiesComponent,
+        title: getTitle('Cookies')
     },
     {
         path: '**',
