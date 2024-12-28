@@ -31,7 +31,7 @@ export class AppComponent {
       `
         font-family: Arial;
         color:rgb(0, 148, 116);
-        font-size: 21px
+        font-size: 21px;
       `
     );
   }

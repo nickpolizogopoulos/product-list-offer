@@ -45,7 +45,6 @@ if (environment.production)
 const app = initializeApp(environment.firebaseConfig);
 const analytics = getAnalytics(app);
 
-
 bootstrapApplication(
   AppComponent,
   appConfig

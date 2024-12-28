@@ -45,7 +45,7 @@ import { contentGr } from './greek-content';
           }
         </ol>
         
-        <p [outerHTML]="item.contact"></p>
+        <p [innerHTML]="item.contact"></p>
 
         @if ($index <= content.content.length - 2) {
           <mat-divider />

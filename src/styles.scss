@@ -1,4 +1,4 @@
-@use './app/utilities/styles/material-styles.scss';
+@use './app/utilities/styles/material-styles.scss' as *;
 @use './app/utilities/styles/tippy.scss' as *;
 @use './app/utilities/styles/variables.scss' as *;
 @use './app/utilities/styles/buttons.scss' as *;
