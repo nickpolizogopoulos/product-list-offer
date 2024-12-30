@@ -4,9 +4,16 @@ This project is a powerful example of utilizing [Angular](https://github.com/ang
 
 Launch the project [[ Here ]](https://product-offer-to-pdf.web.app/).  
  
-It is a Zoneless Angular 18 application that dynamically renders content in Greek and English, with plans to support additional languages in the future.  
+It is an Angular 18 application that dynamically renders content in Greek and English, with plans to support additional languages in the future.  
 
-The application allows companies to effortlessly generate bilingual product offer PDFs by filling out a form, which can then be sent directly to clients or customers.  
+## Advanced Development  
+With Angular Signals, the app offers dynamic updates for form data and interactive elements.  
+
+## Zoneless Environment  
+With the adoption of "Angular Zoneless", the app ensures improved performance and reduced complexity  
+
+## Angular Material & SASS  
+The elegant and flexible Angular Material, combined with SASS, offers a clean and modern design  
 
 ## Setting a custom font for jsPDF
 
