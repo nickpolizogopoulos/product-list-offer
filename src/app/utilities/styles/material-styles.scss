@@ -78,3 +78,37 @@ input[type=number] {
 .mat-mdc-menu-item {
     border-radius: 0px !important;
 }
+
+//* Material snackbar styling
+.mdc-snackbar__surface {
+    background-color: rgba(0, 0, 0, 0.75) !important;
+    border-radius: 100px !important;
+    
+    @media screen and (max-width: 1170px) {
+        border-radius: 10px !important;
+    }
+}
+
+.mat-mdc-snack-bar-label {
+    font-size: 16px !important;
+    font-family: inherit !important;
+}
+
+simple-snack-bar {
+    padding: 10px 20px;
+    
+    @media screen and (max-width: 1170px) {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        padding: 5px;
+    }
+}
+
+.mdc-snackbar__surface, .mat-mdc-snackbar-surface {
+    min-width: 1100px !important;
+
+    @media screen and (max-width: 1170px) {
+        min-width: 100% !important;
+    }
+}

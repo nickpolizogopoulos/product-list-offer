@@ -1,9 +1,14 @@
-import { Component } from "@angular/core";
+import {
+  Component,
+  inject,
+  OnInit
+} from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 
 import { FooterComponent } from "./utilities/components/footer.component";
 import { HeaderComponent } from "./utilities/components/header.component";
 import { BackToTopComponent } from "./utilities/components/back-to-top.component";
+import { CookieWarningService } from "./utilities/services/cookie-warning.service";
 
 @Component({
   selector: 'app-root',
@@ -23,7 +28,9 @@ import { BackToTopComponent } from "./utilities/components/back-to-top.component
   
   `
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+  private cookieWarningService = inject(CookieWarningService);
 
   constructor() {
     console.log(
@@ -34,6 +41,10 @@ export class AppComponent {
         font-size: 21px;
       `
     );
+  }
+
+  ngOnInit(): void {
+    this.cookieWarningService.displayCookieWarning();
   }
 
 }
