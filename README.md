@@ -1,6 +1,6 @@
 # Product offer to .pdf
 
-This project is a powerful example of utilizing [Angular](https://github.com/angular/angular-cli) signals in combination with the [jsPDF](https://artskydj.github.io/jsPDF/docs/index.html) library.  
+This project is a powerful example of utilizing [Angular](https://github.com/angular/angular-cli) signals in combination with the [jsPDF](https://rawgit.com/MrRio/jsPDF/master/docs/) library.  
 
 Launch the project [[ Here ]](https://product-offer-to-pdf.web.app/).  
  
