@@ -1,8 +1,7 @@
 import {
     Component,
     computed,
-    inject,
-    ViewEncapsulation
+    inject
 } from "@angular/core";
 import { RouterLink } from "@angular/router";
 
@@ -19,7 +18,6 @@ import { contentGr } from "./greek-content";
         RouterLink,
         MaterialComponents
     ],
-    encapsulation: ViewEncapsulation.None,
     template: `
 
         <div class="container">
@@ -43,6 +41,10 @@ import { contentGr } from "./greek-content";
             @for (item of content.contact; track $index) {
                 <p [innerHTML]="item"></p>
             }
+
+            <div>
+                <span class="credits" [innerHTML]="content.credits"></span>
+            </div>
 
             <button routerLink="/" mat-raised-button>{{ content.buttonText }}</button>
 
@@ -68,6 +70,15 @@ import { contentGr } from "./greek-content";
                 margin: .7rem;
             }
         }
+
+        .credits {
+            color: rgb(71, 71, 71);
+            font-size: 13px;
+            font-style: italic;
+            display: flex;
+            justify-content: end;
+        }
+        
 
         p:last-of-type {
             margin: 2rem 0 2rem 0;

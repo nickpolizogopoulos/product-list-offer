@@ -67,5 +67,6 @@ export const contentGr: AboutContent = {
         εδώ</a>.`,
         `- Νίκος Πολυζωγόπουλος`,
     ],
+    credits: 'Η εικόνα της αρχικής σελίδας είναι από το&nbsp;<a href="https://undraw.co/" target="_blank">unDraw</a>&nbsp;- Κατερίνα Λιμπιτσούνη. (ευχαριστώ πολύ!)',
     buttonText: 'Φτιάξτε το δικό σας .pdf!'
 }

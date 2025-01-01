@@ -63,5 +63,6 @@ export const contentEng: AboutContent = {
             here</a>.`,
         `- Nick Polizogopoulos`,
     ],
+    credits: 'Home page illustration by&nbsp;<a href="https://undraw.co/" target="_blank">unDraw</a>&nbsp;- Katerina Limpitsouni. (thank you very much!)',
     buttonText: 'Make your own .pdf!'
 }

@@ -15,6 +15,7 @@ import {
   FormArray,
   Validators
 } from "@angular/forms";
+import { Router } from "@angular/router";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 import { debounceTime } from "rxjs";
@@ -45,6 +46,8 @@ import { LanguageSwitchComponent } from "../../utilities/components/language-swi
 import { type ProductFormControl } from "../../utilities/tools/product-control";
 import { type ColourOption } from "../../utilities/tools/types";
 
+import { HeroSectionComponent } from "../../utilities/components/hero-section.component";
+
 @Component({
     selector: 'app-home',
     standalone: true,
@@ -53,12 +56,13 @@ import { type ColourOption } from "../../utilities/tools/types";
       { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
     ],
     imports: [
-      ReactiveFormsModule,
-      ErrorMessageComponent,
-      AddRemoveButton,
-      LanguageSwitchComponent,
-      MaterialComponents
-    ],
+    ReactiveFormsModule,
+    ErrorMessageComponent,
+    AddRemoveButton,
+    LanguageSwitchComponent,
+    MaterialComponents,
+    HeroSectionComponent
+],
     templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
@@ -118,6 +122,11 @@ export class HomeComponent implements OnInit {
   }
 
   private destroyRef = inject(DestroyRef);
+  private router = inject(Router);
+
+  onGetStarted(): void {
+    this.router.navigateByUrl('#get-started')
+  }
   
   private pdfService = inject(PdfService);
 

@@ -12,6 +12,7 @@ export type AboutContent = {
     features: Feature[];
     customPdfHeader: string;
     contact: string[];
+    credits: string;
     buttonText: string;
 };
 

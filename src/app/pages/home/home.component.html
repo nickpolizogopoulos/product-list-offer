@@ -1,6 +1,8 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-    <section class="container">
+    <app-hero-section (getStarted)="onGetStarted()" />
+    
+    <section class="container" id="get-started">
         <h3><app-language-switch greek="Πληροφορίες Εταιρείας" english="Company Information" /></h3>
         <section class="info-block">
             <div class="input-50">
