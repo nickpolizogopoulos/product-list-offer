@@ -34,7 +34,7 @@ import {
         <section>
             <button class="language-button" mat-button [matMenuTriggerFor]="menu">
                 <mat-icon>public</mat-icon>
-                {{ selectedLanguage() === 'greek' ? 'Γλώσσα' : 'Language' }}
+                {{ isGreek() ? 'Γλώσσα' : 'Language' }}
             </button>
             <mat-menu #menu="matMenu">
                 <button (click)="onLanguageSelect('greek')" mat-menu-item>
@@ -238,8 +238,8 @@ export class HeaderComponent {
 
     private languageService = inject(LanguageService);
 
-    selectedLanguage = computed(() => 
-        this.languageService.selectedLanguage()
+    isGreek = computed<boolean>(() => 
+        this.languageService.selectedLanguage() === 'greek'
     );
 
     onLanguageSelect(selection: Language): void {
@@ -247,7 +247,7 @@ export class HeaderComponent {
     }
 
     get allSocial(): Social[] {
-        return [...this.social];
+        return [ ...this.social ];
     }
 
     private social: Social[] = [

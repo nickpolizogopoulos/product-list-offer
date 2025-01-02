@@ -24,12 +24,8 @@ export class LanguageSwitchComponent {
 
     private languageService = inject(LanguageService);
 
-    selectedLanguage = computed<string>(() => 
-        this.languageService.selectedLanguage()
-    );
-
     isGreek = computed<boolean>(() =>
-        this.selectedLanguage() === 'greek'
+        this.languageService.selectedLanguage() === 'greek'
     );
 
     greek = input.required<string>();

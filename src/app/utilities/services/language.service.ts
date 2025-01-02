@@ -15,18 +15,11 @@ export class LanguageService {
 
     private getInitialLanguage(): Language {
         const storedLanguage: Language | null = localStorage.getItem(this.key) as Language | null;
-
-        if (storedLanguage)
-            return storedLanguage;
-        
-        return 'english';
-
-        //* Ternary operator can be used as well (I prefer it).
-        // return (
-        //       storedLanguage
-        //     ? storedLanguage 
-        //     : 'english'
-        // );
+        return (
+              storedLanguage
+            ? storedLanguage 
+            : 'english'
+        );
     }
 
     private language = signal<Language>(this.getInitialLanguage());
@@ -34,12 +27,13 @@ export class LanguageService {
     selectedLanguage = this.language.asReadonly();
 
     constructor() {
-        effect(() => {
-            localStorage.setItem(this.key, this.language());
-        });
+        effect(
+            () => localStorage.setItem(this.key, this.language())
+        );
     }
 
     onChangeLanguage(selection: Language): void {
         this.language.set(selection);
     }
+    
 }

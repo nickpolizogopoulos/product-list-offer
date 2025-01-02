@@ -48,10 +48,6 @@ export class AddRemoveButton {
         this.languageService.selectedLanguage()
     );
 
-    private isGreek = computed(() =>
-        this.languageService.selectedLanguage() === 'greek'
-    );
-
     buttonType = input.required<ButtonType>();
 
     hostClasses = computed<ButtonType>(() =>
@@ -76,7 +72,7 @@ export class AddRemoveButton {
         if (this.currentTippyInstance)
             this.currentTippyInstance.destroy();
 
-        const tooltipContent = this.isGreek() 
+        const tooltipContent = this.languageService.selectedLanguage() === 'greek'
             ? 'Προσθέστε προϊόν' 
             : 'Add a new product';
 

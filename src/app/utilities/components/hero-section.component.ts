@@ -126,10 +126,6 @@ export class HeroSectionComponent {
 
     private languageService = inject(LanguageService);
 
-    isGreek = computed(() => 
-        this.languageService.selectedLanguage() === 'greek'
-    );
-
     getStarted = output<void>();
 
     onGetStarted(): void {
@@ -138,7 +134,7 @@ export class HeroSectionComponent {
 
     get content(): HeroContent {
         return (
-              this.isGreek()
+              this.languageService.selectedLanguage() === 'greek'
             ? this.heroContentGr
             : this.heroContentEng
         );
