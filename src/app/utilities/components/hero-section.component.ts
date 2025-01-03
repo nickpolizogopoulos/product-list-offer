@@ -29,12 +29,12 @@ type HeroContent = {
         <div class="container">
 
             <div class="title-image-box">
-                <div>
+                <aside>
                     <h1>{{ content.title }}</h1>
                     <h4>{{ content.subtitle }}</h4>
                     <mat-divider />
                     <h6>{{ content.phrase }}</h6>
-                </div>
+                </aside>
                 <img src="/undraw_to-do-list_dzdz.svg" alt="Hero Section Banner by https://undraw.co/ - Katerina Limpitsouni">
             </div>
 

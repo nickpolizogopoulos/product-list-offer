@@ -1,7 +1,8 @@
 import {
   ApplicationConfig,
   enableProdMode,
-  provideExperimentalZonelessChangeDetection, isDevMode
+  provideExperimentalZonelessChangeDetection,
+  isDevMode
 } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';

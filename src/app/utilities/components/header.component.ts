@@ -100,6 +100,34 @@ import {
             align-items: center;
         }
 
+        section {
+            gap: 30px;
+
+            button {
+                color: black;
+                min-width: 130px;
+
+                &:hover {
+                    background-color: rgba(245, 245, 245, 0.5);
+                }
+            }
+
+            @media screen and (max-width: 519px) {
+                flex-direction: column-reverse;
+                gap: 0;
+            }
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            gap: 1rem;
+            
+            @media screen and (max-width: 399px) {
+                gap: 1rem;
+            }
+        }
+
         .icon-and-title-section {
             @extend .flex-row;
             align-items: center;
@@ -131,34 +159,6 @@ import {
             @media screen and (max-width: 471px) {
                 flex-direction: column;
                 margin: 0 !important;
-            }
-        }
-
-        section {
-            gap: 30px;
-
-            button {
-                color: black;
-                min-width: 130px;
-
-                &:hover {
-                    background-color: rgba(245, 245, 245, 0.5);
-                }
-            }
-
-            @media screen and (max-width: 519px) {
-                flex-direction: column-reverse;
-                gap: 0;
-            }
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-            gap: 1rem;
-            
-            @media screen and (max-width: 399px) {
-                gap: 1rem;
             }
         }
 
