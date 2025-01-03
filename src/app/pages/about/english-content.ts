@@ -33,7 +33,7 @@ export const contentEng: AboutContent = {
         {
             name: 'Multilingual PDF',
             information: `
-                The PDF will be generated in the language selected by the user on the header section of the Application
+                The PDF will be generated in the language selected by the user on the header section of the Application.
                 You can choose either English or Greek. More languages will be added in the future.
             `
         },
