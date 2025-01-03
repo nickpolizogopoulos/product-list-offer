@@ -163,8 +163,8 @@ export class HeroSectionComponent {
         title: 'Welcome!',
         subtitle: 'Create your own product offer instantly and for free!',
         phrase: `
-            Streamline your sales process with a professional product offer generator.
-            Fill out the details, and we’ll handle the rest, quick, with accuracy, and polished every time.
+            Simplify your sales process with a professional product offer generator.
+            Fill in the details, and we’ll handle the rest quickly, accurately, and professionally.
         `,
         buttonGetStarted: 'Get Started Now!',
         buttonLearnMore: 'Learn more!'
