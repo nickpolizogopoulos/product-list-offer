@@ -1,13 +1,22 @@
 import {
   Component,
-  computed,
-  inject
+  inject,
+  ViewEncapsulation
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { LanguageService } from '../services/language.service';
 import { MaterialComponents } from '../tools/material-components';
-import { FooterLink } from '../tools/types';
+
+type FooterLink = {
+  name: string;
+  path: string;
+};
+
+type FooterContent = {
+  text: string;
+  links: FooterLink[];
+};
 
 @Component({
   selector: 'footer[appFooter]',
@@ -16,56 +25,29 @@ import { FooterLink } from '../tools/types';
     RouterLink,
     MaterialComponents
   ],
+  encapsulation: ViewEncapsulation.ShadowDom,
   host: {
-    'class': 'container'
+    class: 'container',
+    style: 'text-align: center;'
   },
   template: `
 
-    Product offer to <span>.</span>pdf 2024{{ date === 2024 ? '' : ' - '+date }}<span>.</span>
+    Product offer to <span>.</span>pdf 2024 - {{ date }}<span>.</span>
 
-    @if (isGreek()) {
-      Μια
-      <a class="angular" href="https://angular.dev/" target="_blank">
-        Angular
-      </a>
-      εφαρμογή απο τον
-      <a href="https://nick-polizogopoulos.web.app/" class="nodecor" target="_blank">
-        Νίκο Πολυζωγόπουλο</a><span>.</span>
+    <span [innerHTML]="content.text"></span>
 
-      <ul>
-        @for (link of allLinksGr; track $index) {
+    <ul>
+        @for (link of content.links; track $index) {
           <li>
             <a class="link" [routerLink]="link.path">{{ link.name }}</a>
           </li>
         }
-      </ul>
-    }
-    
-    @else {
-      An
-      <a class="angular" href="https://angular.dev/" target="_blank">
-        Angular
-      </a>
-      Application by 
-      <a href="https://nick-polizogopoulos.web.app/" class="nodecor" target="_blank">
-        Nick Polizogopoulos</a><span>.</span>
-
-      <ul>
-        @for (link of allLinksEng; track $index) {
-          <li>
-            <a class="link" [routerLink]="link.path">{{ link.name }}</a>
-          </li>
-        }
-      </ul>
-    }
+    </ul>
   
   `,
   styles: `
-  
-    :host {
-      user-select: none;
-      text-align: center;
-    }
+
+    @use '../styles/variables.scss' as *;
 
     ul {
       display: flex;
@@ -82,8 +64,19 @@ import { FooterLink } from '../tools/types';
 
     }
 
-    span {
+    .monospace {
       font-family: monospace;
+    }
+
+    .link {
+      font-weight: 600;
+      color: $blue;
+      text-decoration: none;
+      &:hover {
+          text-decoration: underline;
+          text-decoration-thickness: 2px;
+          text-underline-offset: 4px;
+      }
     }
 
     .angular {
@@ -106,51 +99,63 @@ export class FooterComponent {
   date = new Date().getFullYear();
 
   private languageService = inject(LanguageService);
-  
-  selectedLanguage = computed(() => 
-      this.languageService.selectedLanguage()
-  );
 
-  isGreek = computed(() => 
-    this.selectedLanguage() === 'greek'
-  );
-  
-  get allLinksEng(): FooterLink[] {
-    return [ ...this.linksEng ];
+  private angularLink: string = `
+    <a class="angular" style="color: red !important;" href="https://angular.dev/" target="_blank">
+      Angular
+    </a>
+  `;
+
+  get content(): FooterContent {
+    return (
+        this.languageService.selectedLanguage() === 'greek'
+      ? this.contentGr 
+      : this.contentEng
+    );
   }
 
-  get allLinksGr(): FooterLink[] {
-    return [ ...this.linksGr ];
-  }
+  private contentGr: FooterContent = {
+    text: `
+      Μια ${this.angularLink} εφαρμογή απο τον 
+      <a href="https://nick-polizogopoulos.web.app/" class="link nodecor" target="_blank">
+      Νίκο Πολυζωγόπουλο</a><span class="monospace">.</span>
+    `,
+    links: [
+      {
+        name: 'Πληροφορίες',
+        path: 'about'
+      },
+      {
+        name: 'Cookies',
+        path: 'cookies'
+      },
+      {
+        name: 'Απόρρητο & Όροι',
+        path: 'privacy-terms'
+      }
+    ]
+  };
 
-  private linksEng: FooterLink[] = [
-    {
-      name: 'About',
-      path: 'about'
-    },
-    {
-      name: 'Cookies',
-      path: 'cookies'
-    },
-    {
-      name: 'Privacy & Terms',
-      path: 'privacy-terms'
-    }
-  ];
-
-  private linksGr: FooterLink[] = [
-    {
-      name: 'Πληροφορίες',
-      path: 'about'
-    },
-    {
-      name: 'Cookies',
-      path: 'cookies'
-    },
-    {
-      name: 'Απόρρητο & Όροι',
-      path: 'privacy-terms'
-    }
-  ];
+  private contentEng: FooterContent = {
+    text: `
+      An ${this.angularLink} Application by 
+      <a href="https://nick-polizogopoulos.web.app/" class="link nodecor" target="_blank">
+        Nick Polizogopoulos</a><span class="monospace">.</span>
+    `,
+    links: [
+      {
+        name: 'About',
+        path: 'about'
+      },
+      {
+        name: 'Cookies',
+        path: 'cookies'
+      },
+      {
+        name: 'Privacy & Terms',
+        path: 'privacy-terms'
+      }
+    ]
+  };
 
 }
