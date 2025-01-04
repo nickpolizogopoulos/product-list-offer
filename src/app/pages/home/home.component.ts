@@ -182,14 +182,14 @@ export class HomeComponent implements OnInit {
     
     products: new FormArray([
       new FormGroup({
-        name: new FormControl('Product #1', required),
-        quantity: new FormControl('10', required),
-        price: new FormControl(100, required)
+        name: new FormControl('', required),
+        quantity: new FormControl('', required),
+        price: new FormControl(null, required)
       }),
       new FormGroup({
-        name: new FormControl('Product #2', required),
-        quantity: new FormControl('5', required),
-        price: new FormControl(80, required)
+        name: new FormControl('', required),
+        quantity: new FormControl('', required),
+        price: new FormControl(null, required)
       })
     ])
   });
@@ -272,14 +272,14 @@ export class HomeComponent implements OnInit {
 
   get allProducts(): FormGroup<ProductFormControl>[] {
     const products = this.form.controls.products;
-    return products.controls;
+    return products.controls as FormGroup<ProductFormControl>[];
   }
 
   onAddProduct(): void {
     const productGroup = new FormGroup({
       name: new FormControl('', required),
       quantity: new FormControl('', required),
-      price: new FormControl(0, required)
+      price: new FormControl(null, required)
     });
     const products = this.form.controls.products;
     products.push(productGroup);
