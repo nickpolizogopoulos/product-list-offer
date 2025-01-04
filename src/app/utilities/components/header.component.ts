@@ -7,10 +7,10 @@ import { RouterLink } from '@angular/router';
 
 import { LanguageService } from '../services/language.service';
 import { MaterialComponents } from '../tools/material-components';
-import { LanguageSwitchComponent } from './language-switch.component';
 import {
     type Social,
-    type Language
+    type Language,
+    type LanguageSelectionItem
 } from '../tools/types';
 
 @Component({
@@ -18,7 +18,6 @@ import {
     standalone: true,
     imports: [
         RouterLink,
-        LanguageSwitchComponent,
         MaterialComponents
     ],
     host: {
@@ -34,17 +33,17 @@ import {
         <section>
             <button class="language-button" mat-button [matMenuTriggerFor]="menu">
                 <mat-icon>public</mat-icon>
-                {{ isGreek() ? 'Γλώσσα' : 'Language' }}
+                {{ loadLanguage }}
             </button>
             <mat-menu #menu="matMenu">
-                <button (click)="onLanguageSelect('greek')" mat-menu-item>
-                    <img src="/greek-flag.svg" alt="greek-flag">
-                    <app-language-switch greek="Ελληνικά" english="Greek" />
-                </button>
-                <button (click)="onLanguageSelect('english')" mat-menu-item>
-                    <img src="/uk-flag.svg" alt="uk-flag">
-                    <app-language-switch greek="Αγγλικά" english="English" />
-                </button>
+                @for (language of allLanguages; track $index) {
+                    <button (click)="onLanguageSelect(language.onSelect)" mat-menu-item>
+                        <img [src]="language.imagePath" [alt]="language.alt">
+                        <span>
+                            {{ language.name }}
+                        </span>
+                    </button>
+                }
             </mat-menu>
 
             <ul>
@@ -238,9 +237,40 @@ export class HeaderComponent {
 
     private languageService = inject(LanguageService);
 
-    isGreek = computed<boolean>(() => 
-        this.languageService.selectedLanguage() === 'greek'
-    );
+    get loadLanguage(): string {
+        return (
+              this.languageService.isGreek()
+            ? 'Ελληνικά'
+            : this.languageService.isEnglish()
+            ? 'English'
+            : 'Español'
+        );
+    }
+
+    get allLanguages(): LanguageSelectionItem[] {
+        return [ ...this.languages ];
+    }
+
+    private languages: LanguageSelectionItem[] = [
+        {
+            imagePath:'/flags/greek.svg',
+            alt: 'greek-flag',
+            onSelect: 'greek',
+            name: 'Ελληνικά',
+        },
+        {
+            imagePath:'/flags/uk.svg',
+            alt: 'uk-flag',
+            onSelect: 'english',
+            name: 'English',
+        },
+        {
+            imagePath:'/flags/spanish.svg',
+            alt: 'spanish-flag',
+            onSelect: 'spanish',
+            name: 'Español',
+        }
+    ]
 
     onLanguageSelect(selection: Language): void {
         this.languageService.onChangeLanguage(selection);

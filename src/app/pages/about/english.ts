@@ -34,7 +34,6 @@ export const contentEng: AboutContent = {
             name: 'Multilingual PDF',
             information: `
                 The PDF will be generated in the language selected by the user on the header section of the Application.
-                You can choose either English or Greek. More languages will be added in the future.
             `
         },
         {
@@ -65,4 +64,4 @@ export const contentEng: AboutContent = {
     ],
     credits: 'Home page illustration by&nbsp;<a href="https://undraw.co/" target="_blank">unDraw</a>&nbsp;- Katerina Limpitsouni. (thank you very much!)',
     buttonText: 'Make your own .pdf!'
-}
+};

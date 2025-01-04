@@ -1,5 +1,4 @@
 import {
-    computed,
     inject,
     Injectable,
     signal
@@ -10,7 +9,7 @@ import autoTable from 'jspdf-autotable';
 
 import { type PDF } from '../tools/pdf.model';
 
-import * as font from '../tools/greek-font.json';
+import * as font from '../tools/custom-font.json';
 import { LanguageService } from './language.service';
 import { type ColourOption } from '../tools/types';
 
@@ -20,10 +19,6 @@ import { type ColourOption } from '../tools/types';
 export class PdfService {
     
     private languageService = inject(LanguageService);
-
-    private isGreek = computed(() =>
-        this.languageService.selectedLanguage() === 'greek'
-    );
 
     private printOption = signal<ColourOption>('withColour');
 
@@ -74,10 +69,12 @@ export class PdfService {
 
         //* OFFER TITLE ==================================================================
         doc.setFontSize(15);
-        if (this.isGreek())
+        if (this.languageService.isGreek())
             doc.text('Προσφορά προς πελάτη:', 10, 45);
-        else
+        else if (this.languageService.selectedLanguage() === 'english')
             doc.text('Offer to customer:', 10, 45);
+        else
+            doc.text('Oferta al cliente:', 10, 45);
 
         //* CUSTOMER INFORMATION =========================================================
         doc.setFontSize(15);
@@ -97,10 +94,12 @@ export class PdfService {
 
         if (expirationDate) {
             doc.setFontSize(10);
-            if (this.isGreek())
+            if (this.languageService.isGreek())
                 doc.text(`Λήγει στις: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 22, 45);
-            else
+            else if (this.languageService.selectedLanguage() === 'english')
                 doc.text(`Expires in: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
+            else
+                doc.text(`Caduca en: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
         }
 
         //* SECOND HORIZONTAL LINE =======================================================
@@ -110,10 +109,12 @@ export class PdfService {
         const wrappedText = doc.splitTextToSize(pdf.notes as string, 237);
         if (pdf.notes) {
             doc.setFontSize(10);
-            if (this.isGreek())
+            if (this.languageService.isGreek())
                 doc.text('Σημείωση:', 10, 83);
-            else
+            else if (this.languageService.selectedLanguage() === 'english')
                 doc.text('Note:', 10, 83);
+            else
+                doc.text('Nota:', 10, 83);
             doc.setFontSize(8);
             doc.text(wrappedText, 10, 87);
         }
@@ -129,15 +130,19 @@ export class PdfService {
             
         //* PRODUCT TABLE ================================================================
         const footer = [
-              this.isGreek()
+              this.languageService.isGreek()
             ? ['', 'Σύνολο', '', pdf.productsQuantity, pdf.subtotal]
+            : this.languageService.isEnglish()
+            ? ['', 'Total', '', pdf.productsQuantity, pdf.subtotal]
             : ['', 'Total', '', pdf.productsQuantity, pdf.subtotal]
         ];
 
         const header = [
-            this.isGreek()
+            this.languageService.isGreek()
           ? ['No.', 'Τίτλος προϊόντος', 'Τιμή μονάδας €', 'Ποσότητα', 'Σύνολο €']
-          : ['No.', 'Product Title', 'Unit Price €', 'Quantity', 'Total Price €']
+          : this.languageService.isEnglish()
+          ? ['No.', 'Product Title', 'Unit Price €', 'Quantity', 'Total Price €']
+          : ['No.', 'Título del producto', 'Precio unitario €', 'Cantidad', 'Precio total €']
         ];
 
         const tableStartingPosition: number = pdf.notes ? 98 : 85;
@@ -197,15 +202,21 @@ export class PdfService {
         const bottomMargin = 10;
         const yPosition = (pdfHeight - bottomMargin) + 7;
         doc.setFontSize(6);
-        if (this.isGreek())
+        if (this.languageService.isGreek())
             doc.text(
                 `Το έγγραφο δημιουργήθηκε μέσω της εφαρμογής «Product Offer to .pdf» του Νίκου Πολυζωγόπουλου. Για περισσότερες πληροφορίες, επισκεφτείτε: https://product-offer-to-pdf.web.app`,
                 5,
                 yPosition
             );
-        else
+        else if (this.languageService.isEnglish())
             doc.text(
                 `This document was generated using the "Product Offer to .pdf" Web Application made by Nick Polizogopoulos. For more information, visit: https://product-offer-to-pdf.web.app`,
+                5,
+                yPosition
+            );
+        else
+            doc.text(
+                `Este documento fue generado utilizando la aplicación web "Product Offer to .pdf" creada por Nick Polizogopoulos. Para más información, visita: https://product-offer-to-pdf.web.app`,
                 5,
                 yPosition
             );

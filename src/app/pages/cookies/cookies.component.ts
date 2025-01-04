@@ -1,14 +1,14 @@
 import {
   Component,
-  inject,
-  computed
+  inject
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { MaterialComponents } from '../../utilities/tools/material-components';
 import { LanguageService } from '../../utilities/services/language.service';
-import { contentEng } from './english-content';
-import { contentGr } from './greek-content';
+import { contentEng } from './english';
+import { contentGr } from './greek';
+import { contentEs } from './spanish';
 
 
 @Component({
@@ -84,20 +84,14 @@ import { contentGr } from './greek-content';
 export class CookiesComponent {
 
     private languageService = inject(LanguageService);
-      
-    private selectedLanguage = computed(() => 
-        this.languageService.selectedLanguage()
-    );
-      
-    isGreek = computed(() => 
-        this.selectedLanguage() === 'greek'
-    );
 
     get content() {
         return (
-              this.isGreek()
+              this.languageService.isGreek()
             ? contentGr
-            : contentEng
+            : this.languageService.isEnglish()
+            ? contentEng
+            : contentEs
         );
     }
   

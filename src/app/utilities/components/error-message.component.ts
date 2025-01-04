@@ -15,30 +15,28 @@ import { LanguageService } from "../services/language.service";
     },
     template: `
 
-        @if (isGreek()) {
+        @if (languageService.isGreek()) {
             {{ greek() }}
         }
         
-        @else {
+        @else if (languageService.isEnglish()) {
             {{ english() }}
+        }
+
+        @else {
+            {{ spanish() }}
         }
     
     `
 })
 export class ErrorMessageComponent {
 
-    private languageService = inject(LanguageService);
-      
-    selectedLanguage = computed(() => 
-        this.languageService.selectedLanguage()
-    );
+    languageService = inject(LanguageService);
 
-    isGreek = computed(() => 
-        this.selectedLanguage() === 'greek'
-    );
+    classes = input.required<string>();
 
     greek = input.required<string>();
     english = input.required<string>();
-    classes = input.required<string>();
+    spanish = input.required<string>();
 
 }

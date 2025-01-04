@@ -8,8 +8,9 @@ import { RouterLink } from "@angular/router";
 import { MaterialComponents } from "../../utilities/tools/material-components";
 import { LanguageService } from "../../utilities/services/language.service";
 import { type AboutContent } from "./about-types";
-import { contentEng } from "./english-content";
-import { contentGr } from "./greek-content";
+import { contentEng } from "./english";
+import { contentGr } from "./greek";
+import { contentEs } from "./spanish";
 
 @Component({
     selector: 'app-about',
@@ -90,19 +91,13 @@ export class AboutComponent {
 
     private languageService = inject(LanguageService);
       
-    private selectedLanguage = computed(() => 
-        this.languageService.selectedLanguage()
-    );
-      
-    isGreek = computed(() => 
-        this.selectedLanguage() === 'greek'
-    );
-
     get content(): AboutContent {
         return (
-              this.isGreek()
+              this.languageService.isGreek()
             ? contentGr
-            : contentEng
+            : this.languageService.isEnglish()
+            ? contentEng
+            : contentEs
         );
     }
 

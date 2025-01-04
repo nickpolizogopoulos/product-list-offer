@@ -134,9 +134,11 @@ export class HeroSectionComponent {
 
     get content(): HeroContent {
         return (
-              this.languageService.selectedLanguage() === 'greek'
+              this.languageService.isGreek()
             ? this.heroContentGr
-            : this.heroContentEng
+            : this.languageService.isEnglish()
+            ? this.heroContentEng
+            : this.heroContentSp
         );
     }
 
@@ -146,6 +148,10 @@ export class HeroSectionComponent {
 
     get contentEng(): any {
         return { ...this.heroContentEng };
+    }
+
+    get contentSp(): any {
+        return { ...this.heroContentSp };
     }
 
     private heroContentGr: HeroContent = {
@@ -168,6 +174,17 @@ export class HeroSectionComponent {
         `,
         buttonGetStarted: 'Get Started Now!',
         buttonLearnMore: 'Learn more!'
+    }
+
+    private heroContentSp: HeroContent = {
+        title: '¡Bienvenidos!',
+        subtitle: '¡Cree su propia oferta de productos al instante y de forma gratuita!',
+        phrase: `
+            Simplifique su proceso de ventas con un generador de ofertas de productos profesional.
+            Complete los detalles y nosotros nos encargaremos del resto de forma rápida, precisa y profesional.
+        `,
+        buttonGetStarted: '¡Comience Ahora!',
+        buttonLearnMore: '¡Aprende más!'
     }
 
 }

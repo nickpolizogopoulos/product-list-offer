@@ -61,7 +61,9 @@ export class CookieWarningService {
         return (
               this.languageService.selectedLanguage() === 'greek'
             ? this.snackbarContentGr
-            : this.snackbarContentEng
+            : this.languageService.selectedLanguage() === 'english'
+            ? this.snackbarContentEng
+            : this.snackbarContentEs
         );
     }
 
@@ -73,6 +75,11 @@ export class CookieWarningService {
     private snackbarContentEng = {
         title: 'This application uses cookies to ensure you get the best experience!',
         action: 'Got it!',
+    };
+
+    private snackbarContentEs = {
+        title: '¡Esta aplicación utiliza cookies para garantizar que obtengas la mejor experiencia!',
+        action: '¡Entendido!',
     };
 
 }

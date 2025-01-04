@@ -1,7 +1,8 @@
 import {
     Injectable,
     signal,
-    effect
+    effect,
+    computed
 } from '@angular/core';
 
 import { type Language } from '../tools/types';
@@ -12,6 +13,13 @@ import { type Language } from '../tools/types';
 export class LanguageService {
 
     private key: string = 'product-offer-to-pdf-language';
+
+    isGreek = computed(() => this.selectedLanguage() === 'greek');
+    isEnglish = computed(() => this.selectedLanguage() === 'english');
+    isSpanish = computed(() => this.selectedLanguage() === 'spanish');
+    // isFrench = computed(() => this.selectedLanguage() === 'french');
+    // isItalian = computed(() => this.selectedLanguage() === 'italian');
+    // isRussian = computed(() => this.selectedLanguage() === 'russian');
 
     private getInitialLanguage(): Language {
         const storedLanguage: Language | null = localStorage.getItem(this.key) as Language | null;
@@ -27,8 +35,8 @@ export class LanguageService {
     selectedLanguage = this.language.asReadonly();
 
     constructor() {
-        effect(
-            () => localStorage.setItem(this.key, this.language())
+        effect(() => 
+            localStorage.setItem(this.key, this.language())
         );
     }
 

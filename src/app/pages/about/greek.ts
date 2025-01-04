@@ -38,7 +38,6 @@ export const contentGr: AboutContent = {
             name: 'Πολύγλωσσο PDF',
             information: `
                 Το PDF θα δημιουργηθεί στη γλώσσα που έχει επιλέξει ο χρήστης στο πάνω μέρος (μενού) της εφαρμογής.
-                Μπορείτε να επιλέξετε είτε Αγγλικά είτε Ελληνικά. Στο μέλλον θα προστεθούν περισσότερες γλώσσες.
             `
         },
         {
@@ -69,4 +68,4 @@ export const contentGr: AboutContent = {
     ],
     credits: 'Η εικόνα της αρχικής σελίδας είναι από το&nbsp;<a href="https://undraw.co/" target="_blank">unDraw</a>&nbsp;- Κατερίνα Λιμπιτσούνη. (ευχαριστώ πολύ!)',
     buttonText: 'Φτιάξτε το δικό σας .pdf!'
-}
+};

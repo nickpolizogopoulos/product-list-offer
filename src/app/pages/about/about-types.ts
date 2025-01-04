@@ -1,5 +1,4 @@
 
-
 export type Feature = {
     name: string;
     information: string;
@@ -15,4 +14,3 @@ export type AboutContent = {
     credits: string;
     buttonText: string;
 };
-

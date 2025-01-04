@@ -108,9 +108,11 @@ export class FooterComponent {
 
   get content(): FooterContent {
     return (
-        this.languageService.selectedLanguage() === 'greek'
-      ? this.contentGr 
-      : this.contentEng
+        this.languageService.isGreek()
+      ? this.contentGr
+      : this.languageService.isEnglish()
+      ? this.contentEng
+      : this.contentSp
     );
   }
 
@@ -153,6 +155,28 @@ export class FooterComponent {
       },
       {
         name: 'Privacy & Terms',
+        path: 'privacy-terms'
+      }
+    ]
+  };
+
+  private contentSp: FooterContent = {
+    text: ` 
+      Una aplicación ${this.angularLink} de
+      <a href="https://nick-polizogopoulos.web.app/" class="link nodecor" target="_blank">
+        Nick Polizogopoulos</a><span class="monospace">.</span>
+    `,
+    links: [
+      {
+        name: 'Acerca',
+        path: 'about'
+      },
+      {
+        name: 'Cookies',
+        path: 'cookies'
+      },
+      {
+        name: 'Privacidad y Términos',
         path: 'privacy-terms'
       }
     ]

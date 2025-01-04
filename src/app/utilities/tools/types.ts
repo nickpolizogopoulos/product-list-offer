@@ -1,7 +1,18 @@
 
 export type Language =
     'english'
-  | 'greek';
+  | 'greek'
+  | 'spanish'
+  | 'french'
+  | 'italian'
+  | 'russian';
+
+export type LanguageSelectionItem = {
+  imagePath: string;
+  alt: string;
+  onSelect: Language;
+  name: string;
+};
 
 export type ColourOption = 
     'withColour'
@@ -18,3 +29,4 @@ export type FooterLink = {
   name: string;
   path: string;
 };
+
