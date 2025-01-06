@@ -1,6 +1,5 @@
 import {
     Component,
-    computed,
     inject
 } from "@angular/core";
 import { RouterLink } from "@angular/router";
@@ -11,6 +10,7 @@ import { type AboutContent } from "./about-types";
 import { contentEng } from "./english";
 import { contentGr } from "./greek";
 import { contentEs } from "./spanish";
+import { contentFr } from "./french";
 
 @Component({
     selector: 'app-about',
@@ -97,7 +97,9 @@ export class AboutComponent {
             ? contentGr
             : this.languageService.isEnglish()
             ? contentEng
-            : contentEs
+            : this.languageService.isSpanish()
+            ? contentEs
+            : contentFr
         );
     }
 

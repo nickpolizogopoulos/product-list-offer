@@ -15,17 +15,15 @@ import { LanguageService } from "../services/language.service";
     },
     template: `
 
-        @if (languageService.isGreek()) {
-            {{ greek() }}
-        }
-        
-        @else if (languageService.isEnglish()) {
-            {{ english() }}
-        }
-
-        @else {
-            {{ spanish() }}
-        }
+        {{
+            languageService.isGreek()
+            ? greek()
+            : languageService.isEnglish()
+            ? english()
+            : languageService.isSpanish()
+            ? spanish()
+            : french()
+        }}
     
     `
 })
@@ -38,5 +36,6 @@ export class ErrorMessageComponent {
     greek = input.required<string>();
     english = input.required<string>();
     spanish = input.required<string>();
+    french = input.required<string>();
 
 }

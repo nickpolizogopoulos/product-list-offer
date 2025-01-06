@@ -73,7 +73,9 @@ export class AddRemoveButton {
             ? 'Προσθέστε νέο προϊόν'
             : this.languageService.isEnglish()
             ? 'Add a new product'
-            : 'Añadir un nuevo producto';
+            : this.languageService.isSpanish()
+            ? 'Añadir un nuevo producto'
+            : 'Ajouter un nouveau produit';
 
         if (this.tooltip()) {
 

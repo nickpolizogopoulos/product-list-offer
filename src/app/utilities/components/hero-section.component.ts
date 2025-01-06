@@ -90,7 +90,7 @@ type HeroContent = {
             gap: 6rem;
             
             button {
-                min-width: 210px;
+                min-width: 230px;
                 max-width: 250px;
             }
             
@@ -138,7 +138,9 @@ export class HeroSectionComponent {
             ? this.heroContentGr
             : this.languageService.isEnglish()
             ? this.heroContentEng
-            : this.heroContentSp
+            : this.languageService.isSpanish()
+            ? this.heroContentSp
+            : this.heroContentFr
         );
     }
 
@@ -154,9 +156,13 @@ export class HeroSectionComponent {
         return { ...this.heroContentSp };
     }
 
+    get contentFr(): any {
+        return { ...this.heroContentFr };
+    }
+
     private heroContentGr: HeroContent = {
         title: 'Καλώς ήρθατε!',
-        subtitle: 'Δημιουργήστε την δική σας προσφορά προϊόντων άμεσα και δωρεάν!',
+        subtitle: 'Κερδίστε χρόνο δημιουργώντας την δική σας προσφορά προϊόντων άμεσα και δωρεάν!',
         phrase: `
             Απλοποιήστε τη διαδικασία πωλήσεων με έναν επαγγελματικό δημιουργό προσφορών προϊόντων.
             Συμπληρώστε τα στοιχεία και εμείς θα αναλάβουμε τα υπόλοιπα, γρήγορα, με ακρίβεια και επαγγελματικά.
@@ -167,7 +173,7 @@ export class HeroSectionComponent {
 
     private heroContentEng: HeroContent = {
         title: 'Welcome!',
-        subtitle: 'Create your own product offer instantly and for free!',
+        subtitle: 'Save time by creating your own product offer instantly and for free!',
         phrase: `
             Simplify your sales process with a professional product offer generator.
             Fill in the details, and we’ll handle the rest quickly, accurately, and professionally.
@@ -178,13 +184,24 @@ export class HeroSectionComponent {
 
     private heroContentSp: HeroContent = {
         title: '¡Bienvenidos!',
-        subtitle: '¡Cree su propia oferta de productos al instante y de forma gratuita!',
+        subtitle: 'Ahorre tiempo creando su propia oferta de productos de forma instantánea y gratuita.',
         phrase: `
             Simplifique su proceso de ventas con un generador de ofertas de productos profesional.
             Complete los detalles y nosotros nos encargaremos del resto de forma rápida, precisa y profesional.
         `,
         buttonGetStarted: '¡Comience Ahora!',
         buttonLearnMore: '¡Aprende más!'
+    }
+
+    private heroContentFr: HeroContent = {
+        title: 'Bienvenue !',
+        subtitle: 'Gagnez du temps en créant votre propre offre de produits instantanément et gratuitement !',
+        phrase: `
+            Simplifiez votre processus de vente avec un générateur d'offres de produits professionnel.
+            Remplissez les informations, et nous nous occupons du reste rapidement, précisément et professionnellement.
+        `,
+        buttonGetStarted: 'Commencez maintenant !',
+        buttonLearnMore: 'En savoir plus !'
     }
 
 }

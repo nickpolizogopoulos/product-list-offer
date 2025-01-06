@@ -9,6 +9,7 @@ import { LanguageService } from '../../utilities/services/language.service';
 import { contentEng } from './english';
 import { contentGr } from './greek';
 import { contentEs } from './spanish';
+import { contentFr } from './french';
 
 
 @Component({
@@ -91,7 +92,9 @@ export class CookiesComponent {
             ? contentGr
             : this.languageService.isEnglish()
             ? contentEng
-            : contentEs
+            : this.languageService.isSpanish()
+            ? contentEs
+            : contentFr
         );
     }
   

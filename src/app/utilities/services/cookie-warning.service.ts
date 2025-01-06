@@ -1,11 +1,12 @@
 import {
     Injectable,
-    inject
+    inject,
+    effect
 } from '@angular/core';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 import { LanguageService } from '../services/language.service';
+import { Language } from '../tools/types';
 
 type SnackBarContent = {
     title: string;
@@ -23,14 +24,31 @@ export class CookieWarningService {
     private cookieExpirationDays: number = 30;
     private key: string = 'product-offer-to-pdf-cookie-action';
 
+    private currentContent: SnackBarContent | null = null;
+
+    constructor() {
+        effect(() => {
+
+            const content = this.getContent(this.languageService.selectedLanguage());
+
+            if (this.currentContent !== content) {
+
+                this.currentContent = content;
+                this.displayCookieWarning();
+            }
+        });
+    }
+
     displayCookieWarning(): void {
         const storedConsent = localStorage.getItem(this.key);
 
         if (!storedConsent || this.isConsentExpired(storedConsent)) {
 
+            const content = this.currentContent || this.getContent(this.languageService.selectedLanguage());
+
             const snackBarRef = this.snackBar.open(
-                this.content.title,
-                this.content.action
+                content.title,
+                content.action
             );
 
             snackBarRef.onAction()
@@ -57,29 +75,36 @@ export class CookieWarningService {
         return currentTime - consentTime > this.cookieExpirationDays * 24 * 60 * 60 * 1000;
     }
 
-    private get content(): SnackBarContent {
+    private getContent(language: Language): SnackBarContent {
         return (
-              this.languageService.selectedLanguage() === 'greek'
-            ? this.snackbarContentGr
-            : this.languageService.selectedLanguage() === 'english'
-            ? this.snackbarContentEng
-            : this.snackbarContentEs
+              language === 'greek'
+            ? this.contentGr
+            : language === 'english' 
+            ? this.contentEng 
+            : language === 'spanish' 
+            ? this.contentEs 
+            : this.contentFr
         );
     }
 
-    private snackbarContentGr = {
+    private contentGr: SnackBarContent = {
         title: 'Αυτή η εφαρμογή χρησιμοποιεί cookies για να εξασφαλίσει ότι θα έχετε την καλύτερη εμπειρία!',
         action: 'Το κατάλαβα!',
     };
 
-    private snackbarContentEng = {
+    private contentEng: SnackBarContent = {
         title: 'This application uses cookies to ensure you get the best experience!',
         action: 'Got it!',
     };
 
-    private snackbarContentEs = {
+    private contentEs: SnackBarContent = {
         title: '¡Esta aplicación utiliza cookies para garantizar que obtengas la mejor experiencia!',
         action: '¡Entendido!',
+    };
+
+    private contentFr: SnackBarContent = {
+        title: 'Cette application utilise des cookies pour vous garantir la meilleure expérience !',
+        action: 'Compris !',
     };
 
 }

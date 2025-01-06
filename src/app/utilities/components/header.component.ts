@@ -243,7 +243,9 @@ export class HeaderComponent {
             ? 'Ελληνικά'
             : this.languageService.isEnglish()
             ? 'English'
-            : 'Español'
+            : this.languageService.isSpanish() 
+            ? 'Español'
+            : 'Français'
         );
     }
 
@@ -269,11 +271,17 @@ export class HeaderComponent {
             alt: 'spanish-flag',
             onSelect: 'spanish',
             name: 'Español',
-        }
+        },
+        {
+            imagePath:'/flags/french.svg',
+            alt: 'french-flag',
+            onSelect: 'french',
+            name: 'Français',
+        },
     ]
 
     onLanguageSelect(selection: Language): void {
-        this.languageService.onChangeLanguage(selection);
+        this.languageService.setCurrentLanguage(selection);
     }
 
     get allSocial(): Social[] {

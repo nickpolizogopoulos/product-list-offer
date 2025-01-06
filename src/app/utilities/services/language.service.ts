@@ -17,7 +17,7 @@ export class LanguageService {
     isGreek = computed(() => this.selectedLanguage() === 'greek');
     isEnglish = computed(() => this.selectedLanguage() === 'english');
     isSpanish = computed(() => this.selectedLanguage() === 'spanish');
-    // isFrench = computed(() => this.selectedLanguage() === 'french');
+    isFrench = computed(() => this.selectedLanguage() === 'french');
     // isItalian = computed(() => this.selectedLanguage() === 'italian');
     // isRussian = computed(() => this.selectedLanguage() === 'russian');
 
@@ -40,7 +40,7 @@ export class LanguageService {
         );
     }
 
-    onChangeLanguage(selection: Language): void {
+    setCurrentLanguage(selection: Language): void {
         this.language.set(selection);
     }
     

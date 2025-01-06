@@ -4,8 +4,8 @@ export type Language =
   | 'greek'
   | 'spanish'
   | 'french'
-  | 'italian'
-  | 'russian';
+  // | 'italian'
+  // | 'russian';
 
 export type LanguageSelectionItem = {
   imagePath: string;

@@ -6,7 +6,7 @@ export const contentEng: AboutContent = {
         This <strong><u>free and open source</u></strong> application, developed with the latest tools, 
         simplifies the creation and sharing of professional product proposals. 
         Built using modern web technologies, it offers a user-friendly and efficient experience, 
-        enabling businesses to generate detailed, bilingual product offer PDFs in minutes by simply filling out a form. 
+        enabling businesses to generate detailed product offer PDFs in minutes by simply filling out a form. 
         These offers can then be sent directly to clients or customers.
     `,
     keyFeaturesHeader: 'Key features include:',

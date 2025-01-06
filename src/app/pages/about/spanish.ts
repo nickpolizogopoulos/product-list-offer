@@ -5,9 +5,8 @@ export const contentEs: AboutContent = {
     appDescription: `
         Esta aplicación <strong><u>gratuita y de código abierto</u></strong>, desarrollada con las herramientas más modernas, 
         simplifica la creación y el envío de propuestas de productos profesionales. Construida con tecnologías web de última generación, 
-        ofrece una experiencia intuitiva y eficiente, permitiendo a las empresas generar rápidamente archivos PDF detallados y 
-        bilingües de ofertas de productos, simplemente completando un formulario. Estas ofertas luego pueden enviarse directamente 
-        a los clientes.
+        ofrece una experiencia intuitiva y eficiente, permitiendo a las empresas generar rápidamente archivos PDF detallados de ofertas de productos, 
+        simplemente completando un formulario. Estas ofertas luego pueden enviarse directamente a los clientes.
 
     `,
     keyFeaturesHeader: 'Las características clave incluyen:',
