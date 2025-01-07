@@ -4,7 +4,8 @@ This project is a powerful example of utilizing [Angular](https://github.com/ang
 
 Launch the project [[ Here ]](https://product-offer-to-pdf.web.app/).  
  
-It is an Angular 18 application that dynamically renders content in Greek and English, with plans to support additional languages in the future.  
+It is an Angular 18 application that dynamically renders content in Greek, English, Spanish, French and Italian based on the user's selection.  
+The language can be changed from the nav bar button.  
 
 ## Advanced Development  
 With Angular Signals, the app offers dynamic updates for form data and interactive elements.  
