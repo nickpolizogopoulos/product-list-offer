@@ -1,6 +1,5 @@
 import {
     Component,
-    AfterViewInit,
     inject,
     ElementRef,
     input,
@@ -12,8 +11,17 @@ import {
 import tippy, { type Instance } from "tippy.js";
 
 import { LanguageService } from "../services/language.service";
+import { Language } from "../tools/types";
 
 type ButtonType = 'add' | 'delete';
+
+type TippyContent = {
+    greek: string;
+    english: string;
+    spanish: string;
+    french: string;
+    italian: string;
+}
 
 @Component({
     selector: 'app-add-remove-button',
@@ -70,12 +78,14 @@ export class AddRemoveButton {
 
         const tooltipContent = 
               this.languageService.isGreek()
-            ? 'Προσθέστε νέο προϊόν'
+            ? this.getContent('greek')
             : this.languageService.isEnglish()
-            ? 'Add a new product'
+            ? this.getContent('english')
             : this.languageService.isSpanish()
-            ? 'Añadir un nuevo producto'
-            : 'Ajouter un nouveau produit';
+            ? this.getContent('spanish')
+            : this.languageService.isFrench()
+            ? this.getContent('french')
+            : this.getContent('italian');
 
         if (this.tooltip()) {
 
@@ -93,5 +103,17 @@ export class AddRemoveButton {
             //* Tippy might return an array of instances, we pick the first one - ensures single instance
             this.currentTippyInstance = Array.isArray(tooltipInstance) ? tooltipInstance[0] : tooltipInstance;
         }
+    }
+
+    getContent(language: Language): string {
+        return this.content[language];
+    }
+
+    private content: TippyContent = {
+        greek: 'Προσθέστε νέο προϊόν',
+        english: 'Add a new product',
+        spanish: 'Añadir un nuevo producto',
+        french: 'Ajouter un nouveau produit',
+        italian: 'Aggiungi un nuovo prodotto'
     }
 }

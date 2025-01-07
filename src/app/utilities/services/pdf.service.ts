@@ -75,8 +75,10 @@ export class PdfService {
             doc.text('Offer to client:', 10, 45);
         else if (this.languageService.isSpanish())
             doc.text('Oferta al cliente:', 10, 45);
-        else
+        else if (this.languageService.isFrench())
             doc.text('Offre au client :', 10, 45);
+        else
+            doc.text('Offerta al cliente:', 10, 45);
 
 
         //* CUSTOMER INFORMATION =========================================================
@@ -97,14 +99,21 @@ export class PdfService {
 
         if (expirationDate) {
             doc.setFontSize(10);
+
             if (this.languageService.isGreek())
                 doc.text(`Λήγει στις: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 22, 45);
+            
             else if (this.languageService.selectedLanguage() === 'english')
                 doc.text(`Expires in: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
+
             else if (this.languageService.isSpanish())
                 doc.text(`Caduca en: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
-            else
+            
+            else if (this.languageService.isFrench())
                 doc.text(`Expire dans : ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
+
+            else
+                doc.text(`Scade il: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
 
         }
 
@@ -115,14 +124,22 @@ export class PdfService {
         const wrappedText = doc.splitTextToSize(pdf.notes as string, 237);
         if (pdf.notes) {
             doc.setFontSize(10);
+
             if (this.languageService.isGreek())
                 doc.text('Σημείωση:', 10, 83);
+
             else if (this.languageService.selectedLanguage() === 'english')
                 doc.text('Note:', 10, 83);
+
             else if (this.languageService.isSpanish())
                 doc.text('Nota:', 10, 83);
+
+            else if (this.languageService.isFrench())
+                doc.text('Notes :', 10, 83);
+
             else
-                doc.text('Note :', 10, 83);
+                doc.text('Note:', 10, 83);
+
             doc.setFontSize(8);
             doc.text(wrappedText, 10, 87);
         }
@@ -144,17 +161,21 @@ export class PdfService {
           ? ['No.', 'Product Title', 'Unit Price €', 'Quantity', 'Total Price €']
           : this.languageService.isSpanish()
           ? ['No.', 'Título del producto', 'Precio unitario €', 'Cantidad', 'Precio total €']
-          : ['N°', 'Titre du produit', 'Prix unitaire (€)', 'Quantité', 'Prix total (€)']
+          : this.languageService.isFrench()
+          ? ['N°', 'Titre du produit', 'Prix unitaire (€)', 'Quantité', 'Prix total €']
+          : ['Nr.', 'Titolo del prodotto', 'Prezzo unitario €', 'Quantità', 'Prezzo totale €']
         ];
 
         const footer = [
               this.languageService.isGreek()
             ? ['', 'Σύνολο', '', pdf.productsQuantity, pdf.subtotal]
-            : this.languageService.isEnglish()
+
+            : this.languageService.isEnglish() || 
+              this.languageService.isSpanish() || 
+              this.languageService.isFrench()
             ? ['', 'Total', '', pdf.productsQuantity, pdf.subtotal]
-            : this.languageService.isSpanish()
-            ? ['', 'Total', '', pdf.productsQuantity, pdf.subtotal]
-            : ['', 'Total', '', pdf.productsQuantity, pdf.subtotal]
+            
+            : ['', 'Totale', '', pdf.productsQuantity, pdf.subtotal]
         ];
 
         const tableStartingPosition: number = pdf.notes ? 98 : 85;
@@ -214,38 +235,32 @@ export class PdfService {
         const bottomMargin = 10;
         const yPosition = (pdfHeight - bottomMargin) + 7;
         doc.setFontSize(6);
-        if (this.languageService.isGreek())
-            doc.text(
-                `Το έγγραφο δημιουργήθηκε μέσω της εφαρμογής «Product Offer to .pdf» του Νίκου Πολυζωγόπουλου. Για περισσότερες πληροφορίες, επισκεφτείτε: https://product-offer-to-pdf.web.app`,
-                5,
-                yPosition
-            );
-        else if (this.languageService.isEnglish())
-            doc.text(
-                `This document was generated using the "Product Offer to .pdf" Web Application made by Nick Polizogopoulos. For more information, visit: https://product-offer-to-pdf.web.app`,
-                5,
-                yPosition
-            );
-        else if (this.languageService.isSpanish())
-            doc.text(
-                `Este documento fue generado utilizando la aplicación web "Product Offer to .pdf" creada por Nick Polizogopoulos. Para más información, visita: https://product-offer-to-pdf.web.app`,
-                5,
-                yPosition
-            );
-        else
-            doc.text(
-                `Ce document a été généré à l'aide de l'application Web "Product Offer to .pdf" créée par Nick Polizogopoulos. Pour plus d'informations, visitez : https://product-offer-to-pdf.web.app`,
-                5,
-                yPosition
-            );
 
-        //* PDF SAVE =====================================================================
+        const getCreditsText = (): string => {
+            return (
+              this.languageService.isGreek() 
+            ? `Το έγγραφο δημιουργήθηκε μέσω της εφαρμογής «Product Offer to .pdf» του Νίκου Πολυζωγόπουλου. Για περισσότερες πληροφορίες, επισκεφτείτε: https://product-offer-to-pdf.web.app`
 
-        const generateDate = (): string => {
-            const date = new Date();
-            return `${date.getDate()}-${date.getMonth() + 1 }-${date.getFullYear()}`;
+            : this.languageService.isEnglish()
+            ? `This document was generated using the "Product Offer to .pdf" Web Application made by Nick Polizogopoulos.  For more information, visit: https://product-offer-to-pdf.web.app`
+
+            : this.languageService.isSpanish()
+            ? `Este documento fue generado utilizando la aplicación web "Product Offer to .pdf" creada por Nick Polizogopoulos.  Para más información, visita: https://product-offer-to-pdf.web.app`
+
+            : this.languageService.isFrench()
+            ? `Ce document a été généré à l'aide de l'application Web "Product Offer to .pdf" créée par Nick Polizogopoulos.  Pour plus d'informations, visitez : https://product-offer-to-pdf.web.app`
+
+            : `Questo documento è stato generato utilizzando l'applicazione web "Product Offer to .pdf" realizzata da Nick Polizogopoulos.  Per maggiori informazioni, visita: https://product-offer-to-pdf.web.app`
+            );
         }
 
+        doc.text(
+            getCreditsText(),
+            5,
+            yPosition
+        );
+
+        //* PDF SAVE =====================================================================
         const replaceSpacesWithHyphens = (input: string): string => {
             return input.replace(/\s+/g, '-');
         }
@@ -253,8 +268,30 @@ export class PdfService {
         const companyName = replaceSpacesWithHyphens(pdf.companyName);
         const clientName = replaceSpacesWithHyphens(pdf.customerName);
 
-        //TODO - MAKE THE FILE NAME MULTILINGUAL
-        doc.save(`${companyName}-offer-to-${clientName}-${generateDate()}.pdf`);
+        const getFileNameTranslation = (): string => {
+            return (
+                this.languageService.isGreek()
+              ? `prosfora-se`
+  
+              : this.languageService.isEnglish()
+              ? `offer-to`
+  
+              : this.languageService.isSpanish()
+              ? `oferta-a`
+  
+              : this.languageService.isFrench()
+              ? `offre-à`
+  
+              : `offerta-a`
+              );
+        }
+
+        const generateDate = (): string => {
+            const date = new Date();
+            return `${date.getDate()}-${date.getMonth() + 1 }-${date.getFullYear()}`;
+        }
+
+        doc.save(`${companyName}-${getFileNameTranslation()}-${clientName}-${generateDate()}.pdf`);
     }
 
 }

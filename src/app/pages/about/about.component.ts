@@ -11,6 +11,7 @@ import { contentEng } from "./english";
 import { contentGr } from "./greek";
 import { contentEs } from "./spanish";
 import { contentFr } from "./french";
+import { contentIt } from "./italian";
 
 @Component({
     selector: 'app-about',
@@ -99,7 +100,9 @@ export class AboutComponent {
             ? contentEng
             : this.languageService.isSpanish()
             ? contentEs
-            : contentFr
+            : this.languageService.isFrench()
+            ? contentFr
+            : contentIt
         );
     }
 

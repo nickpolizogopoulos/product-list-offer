@@ -58,8 +58,7 @@ export const contentFr: AboutContent = {
                 y compris le logo de l’entreprise et tout autre contenu que l’entreprise souhaite afficher.`,
         `Il est possible de créer tout type de fichiers PDF, pas seulement des offres de produits.`,
         `N’hésitez pas à me contacter 
-        <a class="link" href="mailto:nick.polizogopoulos@gmail.com?Subject=À propos d'un générateur de .pdf personnalisé">
-            ici</a>.`,
+        <a class="link" href="mailto:nick.polizogopoulos@gmail.com?Subject=About a custom .pdf generator">ici</a>. (In English please)`,
         `- Nick Polizogopoulos`,
     ],
     credits: 'Illustration de la page d\'accueil par&nbsp;<a href="https://undraw.co/" target="_blank">unDraw</a>&nbsp;- Katerina Limpitsouni. (merci beaucoup !)',

@@ -4,7 +4,7 @@ export type Language =
   | 'greek'
   | 'spanish'
   | 'french'
-  // | 'italian'
+  | 'italian'
   // | 'russian';
 
 export type LanguageSelectionItem = {

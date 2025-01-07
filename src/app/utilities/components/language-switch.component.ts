@@ -19,7 +19,9 @@ import { LanguageService } from "../services/language.service";
             ? english()
             : languageService.isSpanish()
             ? spanish()
-            : french()
+            : languageService.isFrench()
+            ? french()
+            : italian()
         }}
 
     `
@@ -32,5 +34,6 @@ export class LanguageSwitchComponent {
     english = input.required<string>();
     spanish = input.required<string>();
     french = input.required<string>();
+    italian = input.required<string>();
 
 }

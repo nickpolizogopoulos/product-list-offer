@@ -13,6 +13,7 @@ import { contentEng } from './english';
 import { contentGr } from './greek';
 import { contentEs } from './spanish';
 import { contentFr } from './french';
+import { contentIt } from './italian';
 
 @Component({
   selector: 'app-privacy-terms',
@@ -96,15 +97,17 @@ export class PrivacyTermsComponent {
     private languageService = inject(LanguageService);
 
     get content(): PrivacyTermsContentType {
-      return (
-            this.languageService.isGreek()
-          ? contentGr
-          : this.languageService.isEnglish()
-          ? contentEng
-          : this.languageService.isSpanish()
-          ? contentEs
-          : contentFr
-      );
+        return (
+              this.languageService.isGreek()
+            ? contentGr
+            : this.languageService.isEnglish()
+            ? contentEng
+            : this.languageService.isSpanish()
+            ? contentEs
+            : this.languageService.isFrench()
+            ? contentFr
+            : contentIt
+        );
     }
 
 }

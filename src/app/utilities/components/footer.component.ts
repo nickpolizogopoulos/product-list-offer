@@ -114,11 +114,33 @@ export class FooterComponent {
       ? this.contentEng
       : this.languageService.isSpanish()
       ? this.contentSp
-      : this.contentFr
+      : this.languageService.isFrench()
+      ? this.contentFr
+      : this.contentIt
     );
   }
 
-  private contentGr: FooterContent = {
+  get contentGr(): FooterContent {
+    return { ...this.footerContentGr };
+  }
+
+  get contentEng(): FooterContent {
+      return { ...this.footerContentEng };
+  }
+
+  get contentSp(): FooterContent {
+      return { ...this.footerContentSp };
+  }
+
+  get contentFr(): FooterContent {
+      return { ...this.footerContentFr };
+  }
+
+  get contentIt(): FooterContent {
+      return { ...this.footerContentIt };
+  }
+
+  private footerContentGr: FooterContent = {
     text: `
       Μια ${this.angularLink} εφαρμογή απο τον 
       <a href="https://nick-polizogopoulos.web.app/" class="link nodecor" target="_blank">
@@ -140,7 +162,7 @@ export class FooterComponent {
     ]
   };
 
-  private contentEng: FooterContent = {
+  private footerContentEng: FooterContent = {
     text: `
       An ${this.angularLink} Application by 
       <a href="https://nick-polizogopoulos.web.app/" class="link nodecor" target="_blank">
@@ -162,7 +184,7 @@ export class FooterComponent {
     ]
   };
 
-  private contentSp: FooterContent = {
+  private footerContentSp: FooterContent = {
     text: ` 
       Una aplicación ${this.angularLink} de
       <a href="https://nick-polizogopoulos.web.app/" class="link nodecor" target="_blank">
@@ -184,7 +206,7 @@ export class FooterComponent {
     ]
   };
 
-  private contentFr: FooterContent = {
+  private footerContentFr: FooterContent = {
     text: ` 
       Une application ${this.angularLink} par 
       <a href="https://nick-polizogopoulos.web.app/" class="link nodecor" target="_blank">
@@ -201,6 +223,28 @@ export class FooterComponent {
       },
       {
         name: 'Confidentialité et Conditions',
+        path: 'privacy-terms'
+      }
+    ]
+  };
+
+  private footerContentIt: FooterContent = {
+    text: ` 
+      Un'applicazione ${this.angularLink} di 
+      <a href="https://nick-polizogopoulos.web.app/" class="link nodecor" target="_blank">
+        Nick Polizogopoulos</a><span class="monospace">.</span>
+    `,
+    links: [
+      {
+        name: 'Informazioni',
+        path: 'about'
+      },
+      {
+        name: 'Cookies',
+        path: 'cookies'
+      },
+      {
+        name: 'Privacy e Termini',
         path: 'privacy-terms'
       }
     ]

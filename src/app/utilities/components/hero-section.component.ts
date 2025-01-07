@@ -135,12 +135,14 @@ export class HeroSectionComponent {
     get content(): HeroContent {
         return (
               this.languageService.isGreek()
-            ? this.heroContentGr
+            ? this.contentGr
             : this.languageService.isEnglish()
-            ? this.heroContentEng
+            ? this.contentEng
             : this.languageService.isSpanish()
-            ? this.heroContentSp
-            : this.heroContentFr
+            ? this.contentSp
+            : this.languageService.isFrench()
+            ? this.contentFr
+            : this.contentIt
         );
     }
 
@@ -148,16 +150,20 @@ export class HeroSectionComponent {
         return { ...this.heroContentGr };
     }
 
-    get contentEng(): any {
+    get contentEng(): HeroContent {
         return { ...this.heroContentEng };
     }
 
-    get contentSp(): any {
+    get contentSp(): HeroContent {
         return { ...this.heroContentSp };
     }
 
-    get contentFr(): any {
+    get contentFr(): HeroContent {
         return { ...this.heroContentFr };
+    }
+
+    get contentIt(): HeroContent {
+        return { ...this.heroContentIt };
     }
 
     private heroContentGr: HeroContent = {
@@ -202,6 +208,17 @@ export class HeroSectionComponent {
         `,
         buttonGetStarted: 'Commencez maintenant !',
         buttonLearnMore: 'En savoir plus !'
+    }
+
+    private heroContentIt: HeroContent = {
+        title: 'Benvenuti!',
+        subtitle: 'Risparmia tempo creando subito e gratuitamente la tua offerta di prodotti!',
+        phrase: `
+            Semplifica il tuo processo di vendita con un generatore professionale di offerte di prodotti. 
+            Compila i dettagli e noi ci occuperemo del resto in modo rapido, preciso e professionale.
+        `,
+        buttonGetStarted: 'Inizia Subito!',
+        buttonLearnMore: 'Scopri di Più!'
     }
 
 }

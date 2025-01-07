@@ -83,28 +83,55 @@ export class CookieWarningService {
             ? this.contentEng 
             : language === 'spanish' 
             ? this.contentEs 
-            : this.contentFr
+            : language === 'french'
+            ? this.contentFr
+            : this.contentIt
         );
     }
 
-    private contentGr: SnackBarContent = {
+    get contentGr(): SnackBarContent {
+        return { ...this.snackbarContentGr }
+    }
+
+    get contentEng(): SnackBarContent {
+        return { ...this.snackbarContentEng }
+    }
+
+    get contentEs(): SnackBarContent {
+        return { ...this.snackbarContentEs }
+    }
+
+    get contentFr(): SnackBarContent {
+        return { ...this.snackbarContentFr }
+    }
+
+    get contentIt(): SnackBarContent {
+        return { ...this.snackbarContentIt }
+    }
+
+    private snackbarContentGr: SnackBarContent = {
         title: 'Αυτή η εφαρμογή χρησιμοποιεί cookies για να εξασφαλίσει ότι θα έχετε την καλύτερη εμπειρία!',
         action: 'Το κατάλαβα!',
     };
 
-    private contentEng: SnackBarContent = {
+    private snackbarContentEng: SnackBarContent = {
         title: 'This application uses cookies to ensure you get the best experience!',
         action: 'Got it!',
     };
 
-    private contentEs: SnackBarContent = {
+    private snackbarContentEs: SnackBarContent = {
         title: '¡Esta aplicación utiliza cookies para garantizar que obtengas la mejor experiencia!',
         action: '¡Entendido!',
     };
 
-    private contentFr: SnackBarContent = {
+    private snackbarContentFr: SnackBarContent = {
         title: 'Cette application utilise des cookies pour vous garantir la meilleure expérience !',
         action: 'Compris !',
+    };
+
+    private snackbarContentIt: SnackBarContent = {
+        title: 'Questa applicazione utilizza i cookie per garantirti la migliore esperienza possibile!',
+        action: 'Capito!',
     };
 
 }

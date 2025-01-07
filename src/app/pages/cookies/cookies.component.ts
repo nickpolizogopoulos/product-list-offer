@@ -10,6 +10,8 @@ import { contentEng } from './english';
 import { contentGr } from './greek';
 import { contentEs } from './spanish';
 import { contentFr } from './french';
+import { contentIt } from './italian';
+import { CookiesContent } from './cookies-types';
 
 
 @Component({
@@ -86,7 +88,7 @@ export class CookiesComponent {
 
     private languageService = inject(LanguageService);
 
-    get content() {
+    get content(): CookiesContent {
         return (
               this.languageService.isGreek()
             ? contentGr
@@ -94,7 +96,9 @@ export class CookiesComponent {
             ? contentEng
             : this.languageService.isSpanish()
             ? contentEs
-            : contentFr
+            : this.languageService.isFrench()
+            ? contentFr
+            : contentIt
         );
     }
   

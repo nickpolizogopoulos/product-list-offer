@@ -18,7 +18,7 @@ export class LanguageService {
     isEnglish = computed(() => this.selectedLanguage() === 'english');
     isSpanish = computed(() => this.selectedLanguage() === 'spanish');
     isFrench = computed(() => this.selectedLanguage() === 'french');
-    // isItalian = computed(() => this.selectedLanguage() === 'italian');
+    isItalian = computed(() => this.selectedLanguage() === 'italian');
     // isRussian = computed(() => this.selectedLanguage() === 'russian');
 
     private getInitialLanguage(): Language {
