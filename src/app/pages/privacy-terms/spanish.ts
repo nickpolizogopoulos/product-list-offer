@@ -40,7 +40,7 @@ export const contentEs: PrivacyTermsContentType = {
             ],
             contact: `Si tiene preguntas, contáctenos 
                 <a class="link" href="mailto:nick.polizogopoulos@gmail.com?Subject=About Privacy and Terms of -Product offer to .pdf- Application">
-                aquí</a>. (In English please)`
+                aquí</a>. (Por favor, escribe en inglés)`
         },
         {
             title: 'Términos de Uso',
@@ -81,7 +81,7 @@ export const contentEs: PrivacyTermsContentType = {
                 Si no está de acuerdo con estos términos, por favor, deje de usar la aplicación. 
                 Para preguntas, contáctenos 
                 <a class="link" href="mailto:nick.polizogopoulos@gmail.com?Subject=About Privacy and Terms of -Product offer to .pdf- Application">
-                aquí</a>. (In English please)`
+                aquí</a>. (Por favor, escribe en inglés)`
         }
     ],
     buttonText: 'Volver a inicio'

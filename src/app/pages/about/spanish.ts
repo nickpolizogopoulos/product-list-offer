@@ -59,7 +59,7 @@ export const contentEs: AboutContent = {
         `Existe la opción de crear todo tipo de archivos PDF, no solo ofertas de productos.`,
         `No dude en contactarme
             <a class="link" href="mailto:nick.polizogopoulos@gmail.com?Subject=About a custom .pdf generator">
-            aquí</a>. (In English Please)`,
+            aquí</a>. (Por favor, escribe en inglés)`,
         `- Nick Polizogopoulos`,
     ],
     credits: 'Ilustración de la página de inicio por&nbsp;<a href="https://undraw.co/" target="_blank">unDraw</a>&nbsp;- Katerina Limpitsouni. (¡Muchas gracias!)',

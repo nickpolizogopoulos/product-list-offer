@@ -59,7 +59,7 @@ export const contentRu: AboutContent = {
         `Есть возможность создавать любые виды PDF-файлов, а не только предложения по продуктам.`,
         `Не стесняйтесь связаться со мной 
         <a class="link" href="mailto:nick.polizogopoulos@gmail.com?Subject=About a custom .pdf generator">
-            здесь</a>. (In English please)`,
+            здесь</a>. (Пожалуйста, пишите на английском)`,
         `- Nick Polizogopoulos`,
     ],
     credits: 'Иллюстрация для главной страницы&nbsp;<a href="https://undraw.co/" target="_blank">unDraw</a>&nbsp;- Katerina Limpitsouni. (огромное спасибо!)',

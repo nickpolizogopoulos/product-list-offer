@@ -40,7 +40,7 @@ export const contentRu: PrivacyTermsContentType = {
             ],
             contact: `Если у вас есть вопросы, свяжитесь с нами 
                 <a class="link" href="mailto:nick.polizogopoulos@gmail.com?Subject=About Privacy and Terms of -Product offer to .pdf- Application">
-                здесь</a>. (In English please)`
+                здесь</a>. (Пожалуйста, пишите на английском)`
         },
         {
             title: 'Условия использования',
@@ -81,7 +81,7 @@ export const contentRu: PrivacyTermsContentType = {
                 Если вы не согласны с этими условиями, прекратите использование приложения. 
                 Если у вас есть вопросы, свяжитесь с нами 
                 <a class="link" href="mailto:nick.polizogopoulos@gmail.com?Subject=About Privacy and Terms of -Product offer to .pdf- Application">
-                здесь</a>. (In English please)`
+                здесь</a>. (Пожалуйста, пишите на английском)`
         }
     ],
     buttonText: 'Вернуться на главную'
