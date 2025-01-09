@@ -58,7 +58,7 @@ type FooterContent = {
       list-style-type: none;
       gap: 20px;
 
-      @media screen and (max-width: 449px) {
+      @media screen and (max-width: 607px) {
         flex-direction: column;
       }
 
@@ -101,7 +101,7 @@ export class FooterComponent {
   private languageService = inject(LanguageService);
 
   private angularLink: string = `
-    <a class="angular" style="color: red !important;" href="https://angular.dev/" target="_blank">
+    <a class="angular" href="https://angular.dev/" target="_blank">
       Angular
     </a>
   `;
@@ -116,7 +116,9 @@ export class FooterComponent {
       ? this.contentSp
       : this.languageService.isFrench()
       ? this.contentFr
-      : this.contentIt
+      : this.languageService.isItalian()
+      ? this.contentIt
+      : this.contentRu
     );
   }
 
@@ -138,6 +140,10 @@ export class FooterComponent {
 
   get contentIt(): FooterContent {
       return { ...this.footerContentIt };
+  }
+
+  get contentRu(): FooterContent {
+      return { ...this.footerContentRu };
   }
 
   private footerContentGr: FooterContent = {
@@ -245,6 +251,28 @@ export class FooterComponent {
       },
       {
         name: 'Privacy e Termini',
+        path: 'privacy-terms'
+      }
+    ]
+  };
+
+  private footerContentRu: FooterContent = {
+    text: ` 
+      Приложение Angular ${this.angularLink} от 
+      <a href="https://nick-polizogopoulos.web.app/" class="link nodecor" target="_blank">
+        Nick Polizogopoulos</a><span class="monospace">.</span>
+    `,
+    links: [
+      {
+        name: 'О приложении',
+        path: 'about'
+      },
+      {
+        name: 'Куки',
+        path: 'cookies'
+      },
+      {
+        name: 'Конфиденциальность и условия',
         path: 'privacy-terms'
       }
     ]

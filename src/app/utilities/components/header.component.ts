@@ -1,6 +1,5 @@
 import {
     Component,
-    computed,
     inject
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -120,7 +119,7 @@ import {
         ul {
             list-style-type: none;
             padding: 0;
-            gap: 1rem;
+            gap: 1.4rem;
             
             @media screen and (max-width: 399px) {
                 gap: 1rem;
@@ -247,7 +246,9 @@ export class HeaderComponent {
             ? 'Español'
             : this.languageService.isFrench()
             ? 'Français'
-            : 'Italiano'
+            : this.languageService.isItalian()
+            ? 'Italiano'
+            : 'Русский'
         );
     }
 
@@ -285,6 +286,12 @@ export class HeaderComponent {
             alt: 'italian-flag',
             onSelect: 'italian',
             name: 'Italiano',
+        },
+        {
+            imagePath:'/flags/russian.svg',
+            alt: 'russian-flag',
+            onSelect: 'russian',
+            name: 'Русский',
         }
     ]
 

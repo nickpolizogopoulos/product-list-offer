@@ -258,6 +258,13 @@ $heading-styles: (
     }
 }
 
+.product-list-empty {
+    font-style: italic;
+    text-decoration: underline $blue;
+    color: rgb(75, 75, 75);
+    line-height: 1.7rem;
+}
+
 .submit-section {
     margin: 20px 0 10px;
 }

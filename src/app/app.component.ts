@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
 
   constructor() {
     console.log(
-      `%c"Product Offer to .pdf" Web Application by Nick Polizogopoulos, late 2024.`,
+      `%c"Product Offer to .pdf" Web Application by Nick Polizogopoulos, late 2024 - 2025.`,
       `
         font-family: Arial;
         color:rgb(0, 148, 116);

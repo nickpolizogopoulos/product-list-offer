@@ -10,6 +10,7 @@
                 spanish="Información de la Empresa"
                 french="Informations sur l'entreprise"
                 italian="Informazioni Aziendali"
+                russian="Информация о Компании"
             /></h3>
         <section class="info-block">
             <div class="input-50">
@@ -21,6 +22,7 @@
                             spanish="Nombre de la Empresa"
                             french="Nom de l'entreprise"
                             italian="Nome dell'Azienda"
+                            russian="Название Компании"
                         />
                     </mat-label>
                     <input matInput formControlName="companyName">
@@ -33,6 +35,7 @@
                         spanish="Por favor, ingrese el nombre de su empresa."
                         french="Veuillez entrer le nom de votre entreprise."
                         italian="Per favore, inserisci il nome della tua azienda."
+                        russian="Пожалуйста, введите название вашей компании."
                     ></span>
                 }
             </div>
@@ -45,6 +48,7 @@
                             spanish="Subtítulo de la Empresa (opcional)"
                             french="Sous-titre de l'entreprise (facultatif)"
                             italian="Sottotitolo dell'Azienda (facoltativo)"
+                            russian="Подзаголовок компании (необязательно)"
                         />
                     </mat-label>
                     <input matInput formControlName="companySubtitle">
@@ -61,6 +65,7 @@
                             spanish="Teléfono"
                             french="Téléphone"
                             italian="Telefono"
+                            russian="Телефон"
                         />
                     </mat-label>
                     <input matInput formControlName="companyPhone">
@@ -73,6 +78,7 @@
                         spanish="Por favor, ingrese un número de teléfono."
                         french="Veuillez entrer un numéro de téléphone."
                         italian="Si prega di inserire un numero di telefono."
+                        russian="Пожалуйста, введите номер телефона."
                     ></span>
                 }
             </div>
@@ -85,6 +91,7 @@
                             spanish="Correo Electrónico"
                             french="Adresse e-mail"
                             italian="Indirizzo email"
+                            russian="Электронная почта"
                         />
                     </mat-label>
                     <input matInput formControlName="companyEmail" email>
@@ -97,6 +104,7 @@
                         spanish="Por favor, ingrese un correo electrónico válido."
                         french="Veuillez entrer une adresse e-mail valide."
                         italian="Si prega di inserire un indirizzo email valido."
+                        russian="Пожалуйста, введите правильный адрес электронной почты."
                     ></span>
                 }
             </div>
@@ -109,6 +117,7 @@
                             spanish="Ubicación"
                             french="Adresse"
                             italian="Indirizzo"
+                            russian="Адрес Компании"
                         />
                     </mat-label>
                     <input matInput formControlName="companyLocation">
@@ -121,6 +130,7 @@
                         spanish="Por favor, ingrese la ubicación de su empresa."
                         french="Veuillez entrer l'adresse de votre entreprise."
                         italian="Si prega di inserire l'indirizzo della vostra azienda."
+                        russian="Пожалуйста, введите адрес вашей компании."
                     ></span>
                 }
             </div>
@@ -148,6 +158,7 @@
                 spanish="Información del Cliente"
                 french="Informations sur le client"
                 italian="Informazioni del Cliente"
+                russian="Информация о Клиенте"
             /></h3>
         <section class="info-block" formGroupName="customer">
             <div class="input-50">
@@ -159,6 +170,7 @@
                             spanish="Nombre del Cliente"
                             french="Nom du client"
                             italian="Nome del cliente"
+                            russian="Имя Клиента"
                         />
                     </mat-label>
                     <input matInput formControlName="customerName">
@@ -171,6 +183,7 @@
                         spanish="Por favor, ingrese el nombre de su cliente."
                         french="Veuillez entrer le nom de votre client."
                         italian="Si prega di inserire il nome del cliente."
+                        russian="Пожалуйста, введите имя вашего клиента."
                     ></span>
                 }
             </div>
@@ -183,6 +196,7 @@
                             spanish="Teléfono"
                             french="Téléphone"
                             italian="Telefono"
+                            russian="Телефон"
                         />
                     </mat-label>
                     <input matInput formControlName="customerPhone">
@@ -195,6 +209,7 @@
                         spanish="Por favor, ingrese un número de teléfono."
                         french="Veuillez entrer un numéro de téléphone."
                         italian="Si prega di inserire un numero di telefono."
+                        russian="Пожалуйста, введите номер телефона."
                     ></span>
                 }
             </div>
@@ -207,6 +222,7 @@
                             spanish="Correo Electrónico"
                             french="Adresse e-mail"
                             italian="Indirizzo email"
+                            russian="Электронная почта"
                         />
                     </mat-label>
                     <input matInput formControlName="customerEmail">
@@ -219,6 +235,7 @@
                         spanish="Por favor, ingrese un correo electrónico válido."
                         french="Veuillez entrer une adresse e-mail valide."
                         italian="Si prega di inserire un indirizzo email valido."
+                        russian="Пожалуйста, введите правильный адрес электронной почты."
                     ></span>
                 }
             </div>
@@ -232,6 +249,7 @@
                 spanish="Configuración de la oferta"
                 french="Paramètres de l'offre"
                 italian="Impostazioni dell'offerta"
+                russian="Настройки предложения"
             /></h3>
         <section class="settings-block">
             <mat-radio-group [value]="theOfferHasExpirationDate()" (change)="onExpirationChange($event.value)" aria-label="Select an option">
@@ -242,6 +260,7 @@
                         spanish="La oferta es válida permanentemente"
                         french="L'offre est valable de manière permanente"
                         italian="L'offerta è valida permanentemente"
+                        russian="Предложение действительно бессрочно"
                     />
                 </mat-radio-button>
                 <mat-radio-button value="expires">
@@ -251,6 +270,7 @@
                         spanish="Con fecha de vencimiento"
                         french="Avec une date d'expiration"
                         italian="Con una data di scadenza"
+                        russian="С датой истечения срока"
                     />
                 </mat-radio-button>
             </mat-radio-group>
@@ -264,6 +284,7 @@
                             spanish="Fecha de vencimiento de la oferta"
                             french="Date d'expiration de l'offre"
                             italian="Data di scadenza dell'offerta"
+                            russian="Дата истечения срока предложения"
                         />
                     </mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="expirationDate">
@@ -278,6 +299,7 @@
                         spanish="Por favor, haga clic en el botón junto al campo de entrada para seleccionar una fecha."
                         french="Veuillez cliquer sur le bouton à côté du champ de saisie pour sélectionner une date."
                         italian="Fai clic sul pulsante accanto al campo di inserimento per selezionare una data."
+                        russian="Пожалуйста, нажмите кнопку рядом с полем ввода, чтобы выбрать дату."
                     ></span>
                 }
             </div>
@@ -294,6 +316,7 @@
                         spanish="Añadir notas"
                         french="Ajouter des notes"
                         italian="Aggiungi note"
+                        russian="Добавить заметки"
                     />
                 }
                 @else {
@@ -303,6 +326,7 @@
                         spanish="Eliminar notas"
                         french="Supprimer les notes"
                         italian="Elimina note"
+                        russian="Удалить заметки"
                     />
                 }
             </button>
@@ -315,6 +339,7 @@
                             spanish="Notas (hasta 200 caracteres)"
                             french="Notes (jusqu'à 200 caractères)"
                             italian="Note (fino a 200 caratteri)"
+                            russian="Заметки (до 200 символов)"
                         />
                     </mat-label>
                     <textarea matInput maxlength="200" [rows]="textareaRows()" formControlName="notes"></textarea>
@@ -331,6 +356,7 @@
                     spanish="Lista de productos"
                     french="Liste des produits"
                     italian="Elenco dei prodotti"
+                    russian="Список продуктов"
             /></h3>
             <app-add-remove-button buttonType="add" (click)="onAddProduct()" />
         </section>
@@ -346,6 +372,7 @@
                                 spanish="Título del Producto"
                                 french="Titre du produit"
                                 italian="Titolo del prodotto"
+                                russian="Заголовок Продукта"
                             />
                         </mat-label>
                         <input matInput formControlName="name">
@@ -358,6 +385,7 @@
                             spanish="Por favor, ingrese el título del producto."
                             french="Veuillez entrer le titre du produit."
                             italian="Si prega di inserire il titolo del prodotto."
+                            russian="Пожалуйста, введите заголовок продукта."
                         ></span>
                     }
                 </div>
@@ -370,6 +398,7 @@
                                 spanish="Cantidad"
                                 french="Quantité"
                                 italian="Quantità"
+                                russian="Количество"
                             />
                         </mat-label>
                         <mat-select formControlName="quantity" type="number">
@@ -386,6 +415,7 @@
                             spanish="Por favor, ingrese la cantidad."
                             french="Veuillez ajouter la quantité."
                             italian="Per favore, aggiungi la quantità."
+                            russian="Пожалуйста, добавьте количество."
                         ></span>
                     }
                 </div>
@@ -398,6 +428,7 @@
                                 spanish="Precio Unitario €"
                                 french="Prix unitaire (€)"
                                 italian="Prezzo unitario €"
+                                russian="Цена за единицу ₽"
                             />
                         </mat-label>
                         <input matInput formControlName="price" type="number">
@@ -410,12 +441,25 @@
                             spanish="Por favor, ingrese el precio del producto."
                             french="Veuillez ajouter le prix du produit."
                             italian="Per favore, aggiungi il prezzo del prodotto."
+                            russian="Пожалуйста, добавьте цену продукта."
                         ></span>
                     }
                 </div>
                 <app-add-remove-button buttonType="delete" (click)="onDeleteProduct($index)" />
             </section>
             <mat-divider class="product-divider" />
+        }
+        @empty {
+            <h6 class="product-list-empty">
+                <app-language-switch
+                    greek="Δεν υπάρχουν προϊόντα στη λίστα σας. Το αρχείο PDF δεν μπορεί να δημιουργηθεί με άδεια λίστα προϊόντων!"
+                    english="There are no products in your list. The PDF file cannot be generated with an empty product list!"
+                    spanish="No hay productos en su lista. ¡No se puede generar el archivo PDF con una lista de productos vacía!"
+                    french="Il n'y a pas de produits dans votre liste. Le fichier PDF ne peut pas être généré avec une liste de produits vide !"
+                    italian="Non ci sono prodotti nella tua lista. Il file PDF non può essere generato con una lista di prodotti vuota!"
+                    russian="В вашем списке нет товаров. Невозможно создать PDF-файл с пустым списком товаров!"
+                />
+            </h6>
         }
 
         <section class="products-header products-header-mobile">
@@ -425,6 +469,7 @@
                     spanish="Añadir Producto"
                     french="Ajouter un produit"
                     italian="Aggiungi prodotto"
+                    russian="Добавить продукт"
 
             /></h5>
             <app-add-remove-button buttonType="add" (click)="onAddProduct()" />
@@ -438,6 +483,7 @@
                     spanish="Imprimir archivo pdf a color"
                     french="Imprimer le fichier pdf en couleur"
                     italian="Stampa pdf a colori"
+                    russian="Печать цветного pdf файла"
                 />
             </mat-radio-button>
             <mat-radio-button value="withoutColour">
@@ -447,11 +493,23 @@
                     spanish="Eliminar colores (ahorra tinta)"
                     french="Supprimer les couleurs (économise de l'encre)"
                     italian="Rimuovi i colori (risparmia inchiostro)"
+                    russian="Удалить цвета (экономия чернил)"
                 />
             </mat-radio-button>
         </mat-radio-group>
         
         <section class="submit-section">
+            @if (theListIsEmpty()) {
+                <span ErrorMessage 
+                    classes="form-error-message"
+                    greek="Η λίστα είναι άδεια."
+                    english="The list is empty."
+                    spanish="La lista está vacía."
+                    french="La liste est vide."
+                    italian="La lista è vuota."
+                    russian="Список пуст."
+                ></span>
+            }
             @if (formIsInvalid) {
                 <span ErrorMessage 
                     classes="form-error-message"
@@ -460,6 +518,7 @@
                     spanish="¡Por favor, asegúrese de que todos los campos estén completados correctamente!"
                     french="Veuillez vous assurer que tous les champs sont correctement remplis !"
                     italian="Assicurati che tutti i campi siano compilati correttamente!"
+                    russian="Пожалуйста, убедитесь, что все поля заполнены правильно!"
                 ></span>
             }
         </section>
@@ -470,6 +529,7 @@
                 spanish="Descargar archivo .pdf"
                 french="Télécharger le fichier .pdf"
                 italian="Scarica il file .pdf"
+                russian="Скачать .pdf файл"
             />
         </button>
     </section>

@@ -40,7 +40,7 @@ export const contentIt: PrivacyTermsContentType = {
             ],
             contact: `Per domande, contattaci 
                 <a class="link" href="mailto:nick.polizogopoulos@gmail.com?Subject=About Privacy and Terms of -Product offer to .pdf- Application">
-                qui</a>.`
+                qui</a>. (In English please)`
         },
         {
             title: 'Termini di Utilizzo',
@@ -81,7 +81,7 @@ export const contentIt: PrivacyTermsContentType = {
                 Se non sei d'accordo con questi termini, ti preghiamo di interrompere l'uso dell'app. 
                 Per domande, contattaci 
                 <a class="link" href="mailto:nick.polizogopoulos@gmail.com?Subject=About Privacy and Terms of -Product offer to .pdf- Application">
-                qui</a>.`
+                qui</a>. (In English please)`
         }
     ],
     buttonText: 'Torna alla home'

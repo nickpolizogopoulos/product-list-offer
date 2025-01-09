@@ -6,12 +6,13 @@ import { RouterLink } from '@angular/router';
 
 import { MaterialComponents } from '../../utilities/tools/material-components';
 import { LanguageService } from '../../utilities/services/language.service';
+import { type CookiesContent } from './cookies-types';
 import { contentEng } from './english';
 import { contentGr } from './greek';
 import { contentEs } from './spanish';
 import { contentFr } from './french';
 import { contentIt } from './italian';
-import { CookiesContent } from './cookies-types';
+import { contentRu } from './russian';
 
 
 @Component({
@@ -98,7 +99,9 @@ export class CookiesComponent {
             ? contentEs
             : this.languageService.isFrench()
             ? contentFr
-            : contentIt
+            : this.languageService.isItalian()
+            ? contentIt
+            : contentRu
         );
     }
   

@@ -21,6 +21,7 @@ type TippyContent = {
     spanish: string;
     french: string;
     italian: string;
+    russian: string;
 }
 
 @Component({
@@ -85,7 +86,9 @@ export class AddRemoveButton {
             ? this.getContent('spanish')
             : this.languageService.isFrench()
             ? this.getContent('french')
-            : this.getContent('italian');
+            : this.languageService.isItalian()
+            ? this.getContent('italian')
+            : this.getContent('russian');
 
         if (this.tooltip()) {
 
@@ -114,6 +117,7 @@ export class AddRemoveButton {
         english: 'Add a new product',
         spanish: 'Añadir un nuevo producto',
         french: 'Ajouter un nouveau produit',
-        italian: 'Aggiungi un nuovo prodotto'
+        italian: 'Aggiungi un nuovo prodotto',
+        russian: 'Добавить новый продукт'
     }
 }

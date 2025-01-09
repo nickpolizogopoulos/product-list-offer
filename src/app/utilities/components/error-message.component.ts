@@ -23,7 +23,9 @@ import { LanguageService } from "../services/language.service";
             ? spanish()
             : languageService.isFrench()
             ? french()
-            : italian()
+            : this.languageService.isItalian()
+            ? italian()
+            : russian()
         }}
     
     `
@@ -39,5 +41,6 @@ export class ErrorMessageComponent {
     spanish = input.required<string>();
     french = input.required<string>();
     italian = input.required<string>();
+    russian = input.required<string>();
 
 }

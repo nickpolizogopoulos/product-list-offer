@@ -65,20 +65,29 @@ export class PdfService {
         doc.text(pdf.companyLocation, pdfWidth - textWidth(pdf.companyLocation) - 10, 22);
 
         //* FIRST HORIZONTAL LINE ========================================================
-        doc.line(x1, 34, x2, 34);
+        if (this.printOption() === 'withColour') {            
+            doc.line(x1, 34, x2, 34);
+        }
 
         //* OFFER TITLE ==================================================================
         doc.setFontSize(15);
         if (this.languageService.isGreek())
             doc.text('Προσφορά προς πελάτη:', 10, 45);
+
         else if (this.languageService.selectedLanguage() === 'english')
             doc.text('Offer to client:', 10, 45);
+
         else if (this.languageService.isSpanish())
             doc.text('Oferta al cliente:', 10, 45);
+
         else if (this.languageService.isFrench())
             doc.text('Offre au client :', 10, 45);
-        else
+
+        else if (this.languageService.isItalian())
             doc.text('Offerta al cliente:', 10, 45);
+
+        else
+            doc.text('Предложение клиенту:', 10, 45);
 
 
         //* CUSTOMER INFORMATION =========================================================
@@ -104,21 +113,26 @@ export class PdfService {
                 doc.text(`Λήγει στις: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 22, 45);
             
             else if (this.languageService.selectedLanguage() === 'english')
-                doc.text(`Expires in: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
+                doc.text(`Expires on: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
 
             else if (this.languageService.isSpanish())
-                doc.text(`Caduca en: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
+                doc.text(`Caduca el: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
             
             else if (this.languageService.isFrench())
-                doc.text(`Expire dans : ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
+                doc.text(`Expire le : ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
+
+            else if (this.languageService.isItalian())
+                doc.text(`Scade il: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
 
             else
-                doc.text(`Scade il: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
+                doc.text(`Срок действия до: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 33, 45);
 
         }
 
         //* SECOND HORIZONTAL LINE =======================================================
-        doc.line(x1, 75, x2, 75);
+        if (this.printOption() === 'withColour') {
+            doc.line(x1, 75, x2, 75);
+        }
 
         //* NOTES ========================================================================
         const wrappedText = doc.splitTextToSize(pdf.notes as string, 237);
@@ -137,8 +151,11 @@ export class PdfService {
             else if (this.languageService.isFrench())
                 doc.text('Notes :', 10, 83);
 
-            else
+            else if (this.languageService.isItalian())
                 doc.text('Note:', 10, 83);
+
+            else
+                doc.text('Примечание:', 10, 83);
 
             doc.setFontSize(8);
             doc.text(wrappedText, 10, 87);
@@ -157,13 +174,20 @@ export class PdfService {
         const header = [
             this.languageService.isGreek()
           ? ['No.', 'Τίτλος προϊόντος', 'Τιμή μονάδας €', 'Ποσότητα', 'Σύνολο €']
+
           : this.languageService.isEnglish()
           ? ['No.', 'Product Title', 'Unit Price €', 'Quantity', 'Total Price €']
+
           : this.languageService.isSpanish()
-          ? ['No.', 'Título del producto', 'Precio unitario €', 'Cantidad', 'Precio total €']
+          ? ['No.', 'Título del Producto', 'Precio unitario €', 'Cantidad', 'Precio total €']
+
           : this.languageService.isFrench()
           ? ['N°', 'Titre du produit', 'Prix unitaire (€)', 'Quantité', 'Prix total €']
-          : ['Nr.', 'Titolo del prodotto', 'Prezzo unitario €', 'Quantità', 'Prezzo totale €']
+
+          : this.languageService.isItalian()
+          ? ['Nr.', 'Titolo del Prodotto', 'Prezzo unitario €', 'Quantità', 'Prezzo totale €']
+
+          : ['№', 'Заголовок Продукта', 'Цена за единицу ₽', 'Количество', 'Общая стоимость ₽']
         ];
 
         const footer = [
@@ -175,7 +199,10 @@ export class PdfService {
               this.languageService.isFrench()
             ? ['', 'Total', '', pdf.productsQuantity, pdf.subtotal]
             
-            : ['', 'Totale', '', pdf.productsQuantity, pdf.subtotal]
+            : this.languageService.isItalian()
+            ? ['', 'Totale', '', pdf.productsQuantity, pdf.subtotal]
+
+            : ['', 'Итого', '', pdf.productsQuantity, pdf.subtotal]
         ];
 
         const tableStartingPosition: number = pdf.notes ? 98 : 85;
@@ -250,7 +277,12 @@ export class PdfService {
             : this.languageService.isFrench()
             ? `Ce document a été généré à l'aide de l'application Web "Product Offer to .pdf" créée par Nick Polizogopoulos.  Pour plus d'informations, visitez : https://product-offer-to-pdf.web.app`
 
-            : `Questo documento è stato generato utilizzando l'applicazione web "Product Offer to .pdf" realizzata da Nick Polizogopoulos.  Per maggiori informazioni, visita: https://product-offer-to-pdf.web.app`
+            : this.languageService.isItalian()
+            ? `Questo documento è stato generato utilizzando l'applicazione web "Product Offer to .pdf" realizzata da Nick Polizogopoulos.  Per maggiori informazioni, visita: https://product-offer-to-pdf.web.app`
+
+            : `Документ создан с использованием веб-приложения "Product Offer to .pdf" от Nick Polizogopoulos. Подробнее: https://product-offer-to-pdf.web.app`
+
+
             );
         }
 
@@ -282,7 +314,10 @@ export class PdfService {
               : this.languageService.isFrench()
               ? `offre-à`
   
-              : `offerta-a`
+              : this.languageService.isItalian()
+              ? `offerta-a`
+
+              : `предложение-к`
               );
         }
 

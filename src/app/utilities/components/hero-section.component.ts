@@ -1,7 +1,6 @@
 import {
     Component,
     inject,
-    computed,
     output
 } from "@angular/core";
 import { RouterLink } from "@angular/router";
@@ -142,7 +141,9 @@ export class HeroSectionComponent {
             ? this.contentSp
             : this.languageService.isFrench()
             ? this.contentFr
-            : this.contentIt
+            : this.languageService.isItalian()
+            ? this.contentIt
+            : this.contentRu
         );
     }
 
@@ -164,6 +165,10 @@ export class HeroSectionComponent {
 
     get contentIt(): HeroContent {
         return { ...this.heroContentIt };
+    }
+
+    get contentRu(): HeroContent {
+        return { ...this.heroContentRu };
     }
 
     private heroContentGr: HeroContent = {
@@ -219,6 +224,17 @@ export class HeroSectionComponent {
         `,
         buttonGetStarted: 'Inizia Subito!',
         buttonLearnMore: 'Scopri di Più!'
+    }
+
+    private heroContentRu: HeroContent = {
+        title: 'Добро пожаловать!',
+        subtitle: 'Экономьте время, создавая собственное предложение продукта мгновенно и бесплатно!',
+        phrase: `
+            Упростите процесс продаж с профессиональным создателем предложений продуктов. 
+            Заполните данные, и мы возьмем на себя остальное, быстро, точно и профессионально.
+        `,
+        buttonGetStarted: 'Начните прямо сейчас!',
+        buttonLearnMore: 'Узнать больше!'
     }
 
 }

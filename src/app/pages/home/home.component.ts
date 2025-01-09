@@ -43,27 +43,27 @@ import { MaterialComponents } from "../../utilities/tools/material-components";
 import { AddRemoveButton } from "../../utilities/components/add-remove-button.component";
 import { ErrorMessageComponent } from "../../utilities/components/error-message.component";
 import { LanguageSwitchComponent } from "../../utilities/components/language-switch.component";
+import { HeroSectionComponent } from "../../utilities/components/hero-section.component";
 import { type ProductFormControl } from "../../utilities/tools/product-control";
 import { type ColourOption } from "../../utilities/tools/types";
 
-import { HeroSectionComponent } from "../../utilities/components/hero-section.component";
 
 @Component({
-    selector: 'app-home',
-    standalone: true,
-    providers: [
+  selector: 'app-home',
+  standalone: true,
+  providers: [
       provideNativeDateAdapter(),
       { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
-    ],
-    imports: [
-    ReactiveFormsModule,
-    ErrorMessageComponent,
-    AddRemoveButton,
-    LanguageSwitchComponent,
-    MaterialComponents,
-    HeroSectionComponent
-],
-    templateUrl: './home.component.html'
+  ],
+  imports: [
+      ReactiveFormsModule,
+      ErrorMessageComponent,
+      AddRemoveButton,
+      LanguageSwitchComponent,
+      MaterialComponents,
+      HeroSectionComponent
+  ],
+  templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
 
@@ -276,6 +276,7 @@ export class HomeComponent implements OnInit {
   }
 
   onAddProduct(): void {
+    this.theListIsEmpty.set(false);
     const productGroup = new FormGroup({
       name: new FormControl('', required),
       quantity: new FormControl('', required),
@@ -290,12 +291,23 @@ export class HomeComponent implements OnInit {
     products.removeAt(index);
   }
 
+  theListIsEmpty = signal<boolean>(false);
+
   onSubmit(): void {
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
+
+    const theProductListIsEmpty = this.form.controls.products.length < 1;
+    
+    if (theProductListIsEmpty) {
+      this.theListIsEmpty.set(true);
+      return;
+    }
+
+    this.theListIsEmpty.set(false);
 
     const companyName = this.form.controls.companyName.value!;
     const companySubtitle = this.form.controls.companySubtitle.value!;
@@ -326,6 +338,10 @@ export class HomeComponent implements OnInit {
     };
 
     const productArray = this.form.controls.products.controls;
+
+    if (productArray.length === 0) {
+      return;
+    }
 
     const subtotal = (): number => {
       let totalPrice = 0;

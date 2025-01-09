@@ -14,6 +14,7 @@ import { contentGr } from './greek';
 import { contentEs } from './spanish';
 import { contentFr } from './french';
 import { contentIt } from './italian';
+import { contentRu } from './russian';
 
 @Component({
   selector: 'app-privacy-terms',
@@ -106,7 +107,9 @@ export class PrivacyTermsComponent {
             ? contentEs
             : this.languageService.isFrench()
             ? contentFr
-            : contentIt
+            : this.languageService.isItalian()
+            ? contentIt
+            : contentRu
         );
     }
 

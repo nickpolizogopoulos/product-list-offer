@@ -7,11 +7,13 @@ import { RouterLink } from "@angular/router";
 import { MaterialComponents } from "../../utilities/tools/material-components";
 import { LanguageService } from "../../utilities/services/language.service";
 import { type AboutContent } from "./about-types";
-import { contentEng } from "./english";
+
 import { contentGr } from "./greek";
+import { contentEng } from "./english";
 import { contentEs } from "./spanish";
 import { contentFr } from "./french";
 import { contentIt } from "./italian";
+import { contentRu } from "./russian";
 
 @Component({
     selector: 'app-about',
@@ -79,6 +81,14 @@ import { contentIt } from "./italian";
             font-style: italic;
             display: flex;
             justify-content: end;
+            
+            @media screen and (max-width: 790px) {
+                display: block;
+            }
+        }
+        
+        button {
+            margin-top: 20px;
         }
         
 
@@ -102,7 +112,9 @@ export class AboutComponent {
             ? contentEs
             : this.languageService.isFrench()
             ? contentFr
-            : contentIt
+            : this.languageService.isItalian()
+            ? contentIt
+            : contentRu
         );
     }
 

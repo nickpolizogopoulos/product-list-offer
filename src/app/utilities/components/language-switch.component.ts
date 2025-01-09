@@ -1,6 +1,5 @@
 import {
     Component,
-    computed,
     inject,
     input
 } from "@angular/core";
@@ -21,7 +20,9 @@ import { LanguageService } from "../services/language.service";
             ? spanish()
             : languageService.isFrench()
             ? french()
-            : italian()
+            : languageService.isItalian()
+            ? italian()
+            : russian()
         }}
 
     `
@@ -35,5 +36,6 @@ export class LanguageSwitchComponent {
     spanish = input.required<string>();
     french = input.required<string>();
     italian = input.required<string>();
+    russian = input.required<string>();
 
 }
