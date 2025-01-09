@@ -12,17 +12,19 @@ import { LanguageService } from "../services/language.service";
     template: `
     
         {{
-              languageService.isGreek() 
-            ? greek() 
-            : languageService.isEnglish() 
+              languageService.isGreek()
+            ? greek()
+            : languageService.isEnglish()
             ? english()
             : languageService.isSpanish()
             ? spanish()
             : languageService.isFrench()
             ? french()
-            : languageService.isItalian()
+            : this.languageService.isItalian()
             ? italian()
-            : russian()
+            : this.languageService.isRussian()
+            ? russian()
+            : korean()
         }}
 
     `
@@ -37,5 +39,6 @@ export class LanguageSwitchComponent {
     french = input.required<string>();
     italian = input.required<string>();
     russian = input.required<string>();
+    korean = input.required<string>();
 
 }

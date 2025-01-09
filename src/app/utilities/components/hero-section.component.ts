@@ -143,7 +143,9 @@ export class HeroSectionComponent {
             ? this.contentFr
             : this.languageService.isItalian()
             ? this.contentIt
-            : this.contentRu
+            : this.languageService.isRussian()
+            ? this.contentRu
+            : this.contentKr
         );
     }
 
@@ -169,6 +171,10 @@ export class HeroSectionComponent {
 
     get contentRu(): HeroContent {
         return { ...this.heroContentRu };
+    }
+
+    get contentKr(): HeroContent {
+        return { ...this.heroContentKr };
     }
 
     private heroContentGr: HeroContent = {
@@ -235,6 +241,17 @@ export class HeroSectionComponent {
         `,
         buttonGetStarted: 'Начните прямо сейчас!',
         buttonLearnMore: 'Узнать больше!'
+    }
+
+    private heroContentKr: HeroContent = {
+        title: '환영합니다!',
+        subtitle: '직접 제품 제안을 즉시 무료로 생성하여 시간을 절약하세요!',
+        phrase: `
+            전문적인 제품 제안 생성기로 영업 프로세스를 간소화하세요.
+            세부 정보를 입력하면 나머지는 빠르고 정확하며 전문적으로 처리해 드립니다.
+        `,
+        buttonGetStarted: '지금 시작하세요!',
+        buttonLearnMore: '자세히 알아보기!'
     }
 
 }

@@ -19,7 +19,8 @@ export class LanguageService {
     isSpanish = computed(() => this.selectedLanguage() === 'spanish');
     isFrench = computed(() => this.selectedLanguage() === 'french');
     isItalian = computed(() => this.selectedLanguage() === 'italian');
-    // isRussian = computed(() => this.selectedLanguage() === 'russian');
+    isRussian = computed(() => this.selectedLanguage() === 'russian');
+    isKorean = computed(() => this.selectedLanguage() === 'korean');
 
     private getInitialLanguage(): Language {
         const storedLanguage: Language | null = localStorage.getItem(this.key) as Language | null;
@@ -35,8 +36,8 @@ export class LanguageService {
     selectedLanguage = this.language.asReadonly();
 
     constructor() {
-        effect(() => 
-            localStorage.setItem(this.key, this.language())
+        effect(
+            () => localStorage.setItem(this.key, this.language())
         );
     }
 

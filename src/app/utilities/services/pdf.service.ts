@@ -8,10 +8,11 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
 import { type PDF } from '../tools/pdf.model';
-
-import * as font from '../tools/custom-font.json';
-import { LanguageService } from './language.service';
 import { type ColourOption } from '../tools/types';
+
+import { LanguageService } from './language.service';
+import * as font from '../tools/custom-font.json';
+import * as fontKR from '../tools/noto-sans-kr.json';
 
 @Injectable({
     providedIn: 'root'
@@ -42,9 +43,23 @@ export class PdfService {
         }
 
         //* FONT =========================================================================
-        doc.addFileToVFS('InterFont.ttf', (font as any).file.data);
-        doc.addFont('InterFont.ttf', 'InterFont', 'normal');
-        doc.setFont('InterFont');
+
+        const checkActiveLanguageAndEnableTheCorrectFont = () => {
+
+            if (this.languageService.isKorean()) {
+                doc.addFileToVFS('NotoSansKR.ttf', (fontKR as any).file.data);
+                doc.addFont('NotoSansKR.ttf', 'NotoSansKR', 'normal');
+                doc.setFont('NotoSansKR');
+            }
+    
+            else {   
+                doc.addFileToVFS('InterFont.ttf', (font as any).file.data);
+                doc.addFont('InterFont.ttf', 'InterFont', 'normal');
+                doc.setFont('InterFont');
+            }
+        }
+
+        checkActiveLanguageAndEnableTheCorrectFont();
 
         const textWidth = ( text: string ): number => {
             return doc.getTextDimensions(text).w;
@@ -86,8 +101,11 @@ export class PdfService {
         else if (this.languageService.isItalian())
             doc.text('Offerta al cliente:', 10, 45);
 
-        else
+        else if (this.languageService.isRussian())
             doc.text('Предложение клиенту:', 10, 45);
+
+        else
+            doc.text('클라이언트에게 제안', 10, 45);
 
 
         //* CUSTOMER INFORMATION =========================================================
@@ -124,8 +142,11 @@ export class PdfService {
             else if (this.languageService.isItalian())
                 doc.text(`Scade il: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
 
-            else
+            else if (this.languageService.isRussian())
                 doc.text(`Срок действия до: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 33, 45);
+
+            else
+                doc.text(`만료일: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
 
         }
 
@@ -154,8 +175,11 @@ export class PdfService {
             else if (this.languageService.isItalian())
                 doc.text('Note:', 10, 83);
 
-            else
+            else if (this.languageService.isRussian())
                 doc.text('Примечание:', 10, 83);
+
+            else
+                doc.text('비고:', 10, 83);
 
             doc.setFontSize(8);
             doc.text(wrappedText, 10, 87);
@@ -186,8 +210,11 @@ export class PdfService {
 
           : this.languageService.isItalian()
           ? ['Nr.', 'Titolo del Prodotto', 'Prezzo unitario €', 'Quantità', 'Prezzo totale €']
-
-          : ['№', 'Заголовок Продукта', 'Цена за единицу ₽', 'Количество', 'Общая стоимость ₽']
+          
+          : this.languageService.isRussian()
+          ? ['№', 'Заголовок Продукта', 'Цена за единицу ₽', 'Количество', 'Общая стоимость ₽']
+          
+          : ['번호', '제품 제목', '단가 ₩', '수량', '총 가격 ₩']
         ];
 
         const footer = [
@@ -202,7 +229,11 @@ export class PdfService {
             : this.languageService.isItalian()
             ? ['', 'Totale', '', pdf.productsQuantity, pdf.subtotal]
 
-            : ['', 'Итого', '', pdf.productsQuantity, pdf.subtotal]
+            : this.languageService.isRussian()
+            ? ['', 'Итого', '', pdf.productsQuantity, pdf.subtotal]
+
+            : ['', '총액', '', pdf.productsQuantity, pdf.subtotal]
+
         ];
 
         const tableStartingPosition: number = pdf.notes ? 98 : 85;
@@ -214,7 +245,8 @@ export class PdfService {
             foot: footer,
             startY: tableStartingPosition,
             styles: {
-                font: 'InterFont',
+                // font: this.languageService.isKorean() ? 'NotoSansKR' : 'InterFont',
+                font: checkActiveLanguageAndEnableTheCorrectFont() !, //both options will work here.
                 fontSize: 10,
                 lineColor: '#ffffff',
                 lineWidth: 0.2,
@@ -263,6 +295,9 @@ export class PdfService {
         const yPosition = (pdfHeight - bottomMargin) + 7;
         doc.setFontSize(6);
 
+        //* The font must be reset here for some reason.
+        checkActiveLanguageAndEnableTheCorrectFont();
+
         const getCreditsText = (): string => {
             return (
               this.languageService.isGreek() 
@@ -280,8 +315,10 @@ export class PdfService {
             : this.languageService.isItalian()
             ? `Questo documento è stato generato utilizzando l'applicazione web "Product Offer to .pdf" realizzata da Nick Polizogopoulos.  Per maggiori informazioni, visita: https://product-offer-to-pdf.web.app`
 
-            : `Документ создан с использованием веб-приложения "Product Offer to .pdf" от Nick Polizogopoulos. Подробнее: https://product-offer-to-pdf.web.app`
+            : this.languageService.isItalian()
+            ? `Документ создан с использованием веб-приложения "Product Offer to .pdf" от Nick Polizogopoulos. Подробнее: https://product-offer-to-pdf.web.app`
 
+            : `이 문서는 Nick Polizogopoulos 가 만든 "Product Offer to .pdf" 웹 애플리케이션을 사용하여 생성되었습니다. 자세한 정보는 다음을 방문하세요: https://product-offer-to-pdf.web.app`
 
             );
         }
@@ -317,7 +354,10 @@ export class PdfService {
               : this.languageService.isItalian()
               ? `offerta-a`
 
-              : `предложение-к`
+              : this.languageService.isRussian()
+              ? `предложение-к`
+              
+              : `제안서`
               );
         }
 

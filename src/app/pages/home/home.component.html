@@ -11,6 +11,7 @@
                 french="Informations sur l'entreprise"
                 italian="Informazioni Aziendali"
                 russian="Информация о Компании"
+                korean="회사 정보"
             /></h3>
         <section class="info-block">
             <div class="input-50">
@@ -23,6 +24,7 @@
                             french="Nom de l'entreprise"
                             italian="Nome dell'Azienda"
                             russian="Название Компании"
+                            korean="회사명"
                         />
                     </mat-label>
                     <input matInput formControlName="companyName">
@@ -36,6 +38,7 @@
                         french="Veuillez entrer le nom de votre entreprise."
                         italian="Per favore, inserisci il nome della tua azienda."
                         russian="Пожалуйста, введите название вашей компании."
+                        korean="회사명을 입력하세요."
                     ></span>
                 }
             </div>
@@ -49,6 +52,7 @@
                             french="Sous-titre de l'entreprise (facultatif)"
                             italian="Sottotitolo dell'Azienda (facoltativo)"
                             russian="Подзаголовок компании (необязательно)"
+                            korean="회사 부제 (선택 사항)"
                         />
                     </mat-label>
                     <input matInput formControlName="companySubtitle">
@@ -66,6 +70,7 @@
                             french="Téléphone"
                             italian="Telefono"
                             russian="Телефон"
+                            korean="전화번호"
                         />
                     </mat-label>
                     <input matInput formControlName="companyPhone">
@@ -79,6 +84,7 @@
                         french="Veuillez entrer un numéro de téléphone."
                         italian="Si prega di inserire un numero di telefono."
                         russian="Пожалуйста, введите номер телефона."
+                        korean="전화번호를 입력하세요."
                     ></span>
                 }
             </div>
@@ -92,6 +98,7 @@
                             french="Adresse e-mail"
                             italian="Indirizzo email"
                             russian="Электронная почта"
+                            korean="이메일 주소"
                         />
                     </mat-label>
                     <input matInput formControlName="companyEmail" email>
@@ -105,6 +112,7 @@
                         french="Veuillez entrer une adresse e-mail valide."
                         italian="Si prega di inserire un indirizzo email valido."
                         russian="Пожалуйста, введите правильный адрес электронной почты."
+                        korean="유효한 이메일 주소를 입력하세요."
                     ></span>
                 }
             </div>
@@ -118,6 +126,7 @@
                             french="Adresse"
                             italian="Indirizzo"
                             russian="Адрес Компании"
+                            korean="위치"
                         />
                     </mat-label>
                     <input matInput formControlName="companyLocation">
@@ -131,6 +140,7 @@
                         french="Veuillez entrer l'adresse de votre entreprise."
                         italian="Si prega di inserire l'indirizzo della vostra azienda."
                         russian="Пожалуйста, введите адрес вашей компании."
+                        korean="회사의 위치를 입력하세요."
                     ></span>
                 }
             </div>
@@ -159,6 +169,7 @@
                 french="Informations sur le client"
                 italian="Informazioni del Cliente"
                 russian="Информация о Клиенте"
+                korean="클라이언트 정보"
             /></h3>
         <section class="info-block" formGroupName="customer">
             <div class="input-50">
@@ -171,6 +182,7 @@
                             french="Nom du client"
                             italian="Nome del cliente"
                             russian="Имя Клиента"
+                            korean="클라이언트 이름"
                         />
                     </mat-label>
                     <input matInput formControlName="customerName">
@@ -179,11 +191,12 @@
                     <span ErrorMessage 
                         classes="error-message"
                         greek="Παρακαλώ, εισάγετε όνομα / επωνυμία πελάτη."
-                        english="Please, enter your customer's name."
+                        english="Please, enter your client's name."
                         spanish="Por favor, ingrese el nombre de su cliente."
                         french="Veuillez entrer le nom de votre client."
                         italian="Si prega di inserire il nome del cliente."
                         russian="Пожалуйста, введите имя вашего клиента."
+                        korean="클라이언트 이름을 입력하세요."
                     ></span>
                 }
             </div>
@@ -197,6 +210,7 @@
                             french="Téléphone"
                             italian="Telefono"
                             russian="Телефон"
+                            korean="전화번호"
                         />
                     </mat-label>
                     <input matInput formControlName="customerPhone">
@@ -210,6 +224,7 @@
                         french="Veuillez entrer un numéro de téléphone."
                         italian="Si prega di inserire un numero di telefono."
                         russian="Пожалуйста, введите номер телефона."
+                        korean="전화번호를 입력하세요."
                     ></span>
                 }
             </div>
@@ -223,6 +238,7 @@
                             french="Adresse e-mail"
                             italian="Indirizzo email"
                             russian="Электронная почта"
+                            korean="이메일 주소"
                         />
                     </mat-label>
                     <input matInput formControlName="customerEmail">
@@ -236,6 +252,7 @@
                         french="Veuillez entrer une adresse e-mail valide."
                         italian="Si prega di inserire un indirizzo email valido."
                         russian="Пожалуйста, введите правильный адрес электронной почты."
+                        korean="유효한 이메일 주소를 입력하세요."
                     ></span>
                 }
             </div>
@@ -250,6 +267,7 @@
                 french="Paramètres de l'offre"
                 italian="Impostazioni dell'offerta"
                 russian="Настройки предложения"
+                korean="제안 설정"
             /></h3>
         <section class="settings-block">
             <mat-radio-group [value]="theOfferHasExpirationDate()" (change)="onExpirationChange($event.value)" aria-label="Select an option">
@@ -261,6 +279,7 @@
                         french="L'offre est valable de manière permanente"
                         italian="L'offerta è valida permanentemente"
                         russian="Предложение действительно бессрочно"
+                        korean="제안은 영구적으로 유효함"
                     />
                 </mat-radio-button>
                 <mat-radio-button value="expires">
@@ -271,6 +290,7 @@
                         french="Avec une date d'expiration"
                         italian="Con una data di scadenza"
                         russian="С датой истечения срока"
+                        korean="만료 날짜가 있음"
                     />
                 </mat-radio-button>
             </mat-radio-group>
@@ -285,6 +305,7 @@
                             french="Date d'expiration de l'offre"
                             italian="Data di scadenza dell'offerta"
                             russian="Дата истечения срока предложения"
+                            korean="제안 만료 날짜"
                         />
                     </mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="expirationDate">
@@ -300,6 +321,7 @@
                         french="Veuillez cliquer sur le bouton à côté du champ de saisie pour sélectionner une date."
                         italian="Fai clic sul pulsante accanto al campo di inserimento per selezionare una data."
                         russian="Пожалуйста, нажмите кнопку рядом с полем ввода, чтобы выбрать дату."
+                        korean="입력 필드 옆에 있는 버튼을 클릭하여 날짜를 선택하세요."
                     ></span>
                 }
             </div>
@@ -317,6 +339,7 @@
                         french="Ajouter des notes"
                         italian="Aggiungi note"
                         russian="Добавить заметки"
+                        korean="메모 추가"
                     />
                 }
                 @else {
@@ -327,6 +350,7 @@
                         french="Supprimer les notes"
                         italian="Elimina note"
                         russian="Удалить заметки"
+                        korean="메모 삭제"
                     />
                 }
             </button>
@@ -340,6 +364,7 @@
                             french="Notes (jusqu'à 200 caractères)"
                             italian="Note (fino a 200 caratteri)"
                             russian="Заметки (до 200 символов)"
+                            korean="메모 (최대 200자)"
                         />
                     </mat-label>
                     <textarea matInput maxlength="200" [rows]="textareaRows()" formControlName="notes"></textarea>
@@ -357,6 +382,7 @@
                     french="Liste des produits"
                     italian="Elenco dei prodotti"
                     russian="Список продуктов"
+                    korean="제품 목록"
             /></h3>
             <app-add-remove-button buttonType="add" (click)="onAddProduct()" />
         </section>
@@ -373,6 +399,7 @@
                                 french="Titre du produit"
                                 italian="Titolo del prodotto"
                                 russian="Заголовок Продукта"
+                                korean="제품 제목"
                             />
                         </mat-label>
                         <input matInput formControlName="name">
@@ -386,6 +413,7 @@
                             french="Veuillez entrer le titre du produit."
                             italian="Si prega di inserire il titolo del prodotto."
                             russian="Пожалуйста, введите заголовок продукта."
+                            korean="제품 제목을 입력하세요."
                         ></span>
                     }
                 </div>
@@ -399,6 +427,7 @@
                                 french="Quantité"
                                 italian="Quantità"
                                 russian="Количество"
+                                korean="수량"
                             />
                         </mat-label>
                         <mat-select formControlName="quantity" type="number">
@@ -416,6 +445,7 @@
                             french="Veuillez ajouter la quantité."
                             italian="Per favore, aggiungi la quantità."
                             russian="Пожалуйста, добавьте количество."
+                            korean="수량을 추가해 주세요."
                         ></span>
                     }
                 </div>
@@ -429,6 +459,7 @@
                                 french="Prix unitaire (€)"
                                 italian="Prezzo unitario €"
                                 russian="Цена за единицу ₽"
+                                korean="단가 ₩"
                             />
                         </mat-label>
                         <input matInput formControlName="price" type="number">
@@ -442,6 +473,7 @@
                             french="Veuillez ajouter le prix du produit."
                             italian="Per favore, aggiungi il prezzo del prodotto."
                             russian="Пожалуйста, добавьте цену продукта."
+                            korean="제품 가격을 추가해 주세요."
                         ></span>
                     }
                 </div>
@@ -458,6 +490,7 @@
                     french="Il n'y a pas de produits dans votre liste. Le fichier PDF ne peut pas être généré avec une liste de produits vide !"
                     italian="Non ci sono prodotti nella tua lista. Il file PDF non può essere generato con una lista di prodotti vuota!"
                     russian="В вашем списке нет товаров. Невозможно создать PDF-файл с пустым списком товаров!"
+                    korean="제품 목록에 제품이 없습니다. 빈 제품 목록으로 pdf 파일을 만들 수 없습니다!"
                 />
             </h6>
         }
@@ -470,7 +503,7 @@
                     french="Ajouter un produit"
                     italian="Aggiungi prodotto"
                     russian="Добавить продукт"
-
+                    korean="제품 추가"
             /></h5>
             <app-add-remove-button buttonType="add" (click)="onAddProduct()" />
         </section>
@@ -484,6 +517,7 @@
                     french="Imprimer le fichier pdf en couleur"
                     italian="Stampa pdf a colori"
                     russian="Печать цветного pdf файла"
+                    korean="컬러 pdf 파일 인쇄"
                 />
             </mat-radio-button>
             <mat-radio-button value="withoutColour">
@@ -494,6 +528,7 @@
                     french="Supprimer les couleurs (économise de l'encre)"
                     italian="Rimuovi i colori (risparmia inchiostro)"
                     russian="Удалить цвета (экономия чернил)"
+                    korean="색상 제거 (잉크 절약)"
                 />
             </mat-radio-button>
         </mat-radio-group>
@@ -508,6 +543,7 @@
                     french="La liste est vide."
                     italian="La lista è vuota."
                     russian="Список пуст."
+                    korean="목록이 비어 있습니다."
                 ></span>
             }
             @if (formIsInvalid) {
@@ -519,6 +555,7 @@
                     french="Veuillez vous assurer que tous les champs sont correctement remplis !"
                     italian="Assicurati che tutti i campi siano compilati correttamente!"
                     russian="Пожалуйста, убедитесь, что все поля заполнены правильно!"
+                    korean="모든 필드가 올바르게 입력되었는지 확인하세요!"
                 ></span>
             }
         </section>
@@ -530,6 +567,7 @@
                 french="Télécharger le fichier .pdf"
                 italian="Scarica il file .pdf"
                 russian="Скачать .pdf файл"
+                korean=".pdf 파일 다운로드"
             />
         </button>
     </section>

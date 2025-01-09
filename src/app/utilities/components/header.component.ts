@@ -248,7 +248,9 @@ export class HeaderComponent {
             ? 'Français'
             : this.languageService.isItalian()
             ? 'Italiano'
-            : 'Русский'
+            : this.languageService.isRussian()
+            ? 'Русский'
+            : '한국어'
         );
     }
 
@@ -292,6 +294,12 @@ export class HeaderComponent {
             alt: 'russian-flag',
             onSelect: 'russian',
             name: 'Русский',
+        },
+        {
+            imagePath:'/flags/korean.svg',
+            alt: 'korean-flag',
+            onSelect: 'korean',
+            name: '한국어',
         }
     ]
 

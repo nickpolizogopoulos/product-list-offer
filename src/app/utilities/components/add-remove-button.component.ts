@@ -22,6 +22,7 @@ type TippyContent = {
     french: string;
     italian: string;
     russian: string;
+    korean: string;
 }
 
 @Component({
@@ -62,9 +63,9 @@ export class AddRemoveButton {
     );
 
     constructor() {
-        effect(() => {
-            this.initializeTooltip();
-        });
+        effect(
+            () => this.initializeTooltip()
+        );
     }
 
     private tooltip = viewChild<ElementRef>('addProductTooltip');
@@ -88,7 +89,9 @@ export class AddRemoveButton {
             ? this.getContent('french')
             : this.languageService.isItalian()
             ? this.getContent('italian')
-            : this.getContent('russian');
+            : this.languageService.isRussian()
+            ? this.getContent('russian')
+            : this.getContent('korean')
 
         if (this.tooltip()) {
 
@@ -118,6 +121,7 @@ export class AddRemoveButton {
         spanish: 'Añadir un nuevo producto',
         french: 'Ajouter un nouveau produit',
         italian: 'Aggiungi un nuovo prodotto',
-        russian: 'Добавить новый продукт'
+        russian: 'Добавить новый продукт',
+        korean: '새 제품 추가'
     }
 }

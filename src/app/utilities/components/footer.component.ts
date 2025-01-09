@@ -32,7 +32,7 @@ type FooterContent = {
   },
   template: `
 
-    Product offer to <span>.</span>pdf 2024 - {{ date }}<span>.</span>
+    Product offer to <span class="monospace">.</span>pdf 2024 - {{ date }}<span class="monospace">.</span>
 
     <span [innerHTML]="content.text"></span>
 
@@ -118,7 +118,9 @@ export class FooterComponent {
       ? this.contentFr
       : this.languageService.isItalian()
       ? this.contentIt
-      : this.contentRu
+      : this.languageService.isRussian()
+      ? this.contentRu
+      : this.contentKr
     );
   }
 
@@ -144,6 +146,10 @@ export class FooterComponent {
 
   get contentRu(): FooterContent {
       return { ...this.footerContentRu };
+  }
+
+  get contentKr(): FooterContent {
+      return { ...this.footerContentKr };
   }
 
   private footerContentGr: FooterContent = {
@@ -258,7 +264,7 @@ export class FooterComponent {
 
   private footerContentRu: FooterContent = {
     text: ` 
-      Приложение Angular ${this.angularLink} от 
+      Приложение ${this.angularLink} от 
       <a href="https://nick-polizogopoulos.web.app/" class="link nodecor" target="_blank">
         Nick Polizogopoulos</a><span class="monospace">.</span>
     `,
@@ -273,6 +279,28 @@ export class FooterComponent {
       },
       {
         name: 'Конфиденциальность и условия',
+        path: 'privacy-terms'
+      }
+    ]
+  };
+
+  private footerContentKr: FooterContent = {
+    text: ` 
+      <a href="https://nick-polizogopoulos.web.app/" class="link nodecor" target="_blank">
+        Nick Polizogopoulos</a>
+         가 만든 ${this.angularLink} 애플리케이션<span class="monospace">.</span>
+    `,
+    links: [
+      {
+        name: '앱 소개',
+        path: 'about'
+      },
+      {
+        name: '웹 쿠키',
+        path: 'cookies'
+      },
+      {
+        name: '개인정보 보호 및 이용 약관',
         path: 'privacy-terms'
       }
     ]

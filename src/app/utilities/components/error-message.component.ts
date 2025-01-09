@@ -15,7 +15,7 @@ import { LanguageService } from "../services/language.service";
     template: `
 
         {{
-            languageService.isGreek()
+              languageService.isGreek()
             ? greek()
             : languageService.isEnglish()
             ? english()
@@ -25,7 +25,9 @@ import { LanguageService } from "../services/language.service";
             ? french()
             : this.languageService.isItalian()
             ? italian()
-            : russian()
+            : this.languageService.isRussian()
+            ? russian()
+            : korean()
         }}
     
     `
@@ -42,5 +44,6 @@ export class ErrorMessageComponent {
     french = input.required<string>();
     italian = input.required<string>();
     russian = input.required<string>();
+    korean = input.required<string>();
 
 }

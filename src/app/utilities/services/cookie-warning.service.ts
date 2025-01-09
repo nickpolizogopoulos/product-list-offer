@@ -87,7 +87,9 @@ export class CookieWarningService {
             ? this.contentFr
             : language === 'italian'
             ? this.contentIt
-            : this.contentRu
+            : language === 'russian'
+            ? this.contentRu
+            : this.contentKr
         );
     }
 
@@ -113,6 +115,10 @@ export class CookieWarningService {
 
     get contentRu(): SnackBarContent {
         return { ...this.snackbarContentRu }
+    }
+
+    get contentKr(): SnackBarContent {
+        return { ...this.snackbarContentKr }
     }
 
     private snackbarContentGr: SnackBarContent = {
@@ -143,6 +149,11 @@ export class CookieWarningService {
     private snackbarContentRu: SnackBarContent = {
         title: 'Это приложение использует куки для обеспечения наилучшего опыта!',
         action: 'Я понял!',
+    };
+
+    private snackbarContentKr: SnackBarContent = {
+        title: '이 애플리케이션은 최상의 사용자 경험을 제공하기 위해 쿠키를 사용합니다!',
+        action: '알겠습니다!',
     };
 
 }

@@ -13,6 +13,7 @@ import { contentEs } from './spanish';
 import { contentFr } from './french';
 import { contentIt } from './italian';
 import { contentRu } from './russian';
+import { contentKr } from './korean';
 
 
 @Component({
@@ -88,22 +89,23 @@ import { contentRu } from './russian';
 export class CookiesComponent {
 
     private languageService = inject(LanguageService);
-
-    get content(): CookiesContent {
-        return (
-              this.languageService.isGreek()
-            ? contentGr
-            : this.languageService.isEnglish()
-            ? contentEng
-            : this.languageService.isSpanish()
-            ? contentEs
-            : this.languageService.isFrench()
-            ? contentFr
-            : this.languageService.isItalian()
-            ? contentIt
-            : contentRu
-        );
-    }
   
+    get content(): CookiesContent {
+      return (
+            this.languageService.isGreek()
+          ? contentGr
+          : this.languageService.isEnglish()
+          ? contentEng
+          : this.languageService.isSpanish()
+          ? contentEs
+          : this.languageService.isFrench()
+          ? contentFr
+          : this.languageService.isItalian()
+          ? contentIt
+          : this.languageService.isRussian()
+          ? contentRu
+          : contentKr
+      );
+  }
 }
 
