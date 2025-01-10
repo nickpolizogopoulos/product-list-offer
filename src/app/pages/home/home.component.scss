@@ -1,0 +1,187 @@
+@use '../../utilities/styles/variables.scss' as *;
+@use '../../utilities/styles/placeholders.scss' as *;
+
+.information-headings {
+    h4,
+    h5,
+    h6 {
+        margin: .5rem;
+    }
+
+    h5 {
+        color: rgb(102, 102, 102);
+        font-style: italic;
+    }
+}
+
+.info-block {
+    @extend %flex-row;
+    gap: 10px;
+    align-items: baseline;
+    
+    .input-50,
+    .input-25 {
+        display: flex;
+        flex-direction: column;
+        height: 90px;
+        gap: 4px;
+    }
+
+    .input-50 {
+        width: 50%; 
+    }
+
+    .input-25 {
+        width: 25%; 
+    }
+
+    h5 {
+        font-size: 1.5rem;
+        min-width: 2.5rem;
+        span {
+            font-family: monospace;
+        }
+    }
+    
+    @media screen and (max-width: 991px) {
+        flex-direction: column;
+        display: inline;
+
+        .input-25,
+        .input-50 {
+            width: 100%;
+        }
+    }
+}
+
+.settings-block {
+    @extend %flex-row;
+    margin: 30px 0;
+    align-items: start;
+    gap: 80px;
+
+    .expiration-date-box {
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+        gap: 4px;
+        min-height: 92px;
+    }
+    
+    @media screen and (max-width: 991px) {
+        align-items: start;
+        flex-direction: column;
+        gap: 20px;
+        margin: 0 0 20px 0;
+
+        .expiration-date-box {
+            min-height: 76px;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+    }
+}
+
+.notes-block {
+    @extend %flex-row;
+    gap: 20px;
+    
+    button {
+        min-width: 260px;
+    }
+
+    mat-form-field {
+        width: 100%;
+    }
+
+    @media screen and (max-width: 991px) {
+        flex-direction: column;
+        
+        button {
+            max-width: 260px;
+        }
+    }
+}
+
+.products-header {
+    @extend %flex-row;
+    align-items: center;
+    gap: 20px;
+
+    button {
+        margin-bottom: 15px;
+    }
+}
+
+.products-header-mobile {
+    @extend .products-header;
+    gap: 10px;
+    
+    button {
+        margin: 0 0 18px 0 !important;
+    }
+
+    @media screen and (min-width: 992px) {
+        display: none !important;
+    }
+}
+
+.product-list-empty {
+    font-style: italic;
+    text-decoration: underline $blue;
+    color: rgb(75, 75, 75);
+    line-height: 1.7rem;
+}
+
+.submit-section {
+    margin: 20px 0 10px;
+}
+
+.form-error-message,
+.error-message {
+    font-style: italic;
+    color: $error-red;
+    user-select: none;
+}
+
+.form-error-message {
+    margin: 10px 0;
+}
+
+.error-message {
+    font-size: 13px;
+}
+
+
+.company-details {     
+    @extend %flex-row;
+    justify-content: space-between;
+    
+    article:last-of-type {
+        text-align: end;
+    }
+    
+    @media screen and (max-width: 800px) {
+        flex-direction: column;
+        gap: 30px;
+
+        article {
+            h4 {
+                font-size: 1.5rem;
+            }
+            
+            h5 {
+                font-size: 1.15rem;
+            }
+            
+            h6 {
+                font-size: 1rem;
+            }
+        }
+
+        article:last-of-type {
+            text-align: start;
+        }
+    }
+}
