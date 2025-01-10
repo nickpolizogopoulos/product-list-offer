@@ -4,14 +4,10 @@ This project is a powerful example of utilizing [Angular](https://github.com/ang
 
 Launch the project [[ Here ]](https://product-offer-to-pdf.web.app/).  
  
-It is an Angular 18 application that dynamically renders content in Greek, English, Spanish, French and Italian based on the user's selection.  
-The language can be changed from the nav bar button.  
+It is an Angular 19 Application that dynamically renders content in Greek, English, Spanish, French, Italian, Russian and Korean languages based on the user's selection from the nav bar button.  
 
-## Advanced Development  
-With Angular Signals, the app offers dynamic updates for form data and interactive elements.  
-
-## Zoneless Environment  
-With the adoption of "Angular Zoneless", the app ensures improved performance and reduced complexity  
+## Signals & Zoneless Angular Development  
+With Angular Signals enabling dynamic updates for form data and interactive elements, and the adoption of Angular Zoneless ensuring improved performance and reduced complexity, the app delivers a highly responsive and efficient user experience.  
 
 ## Angular Material & SASS  
 The elegant and flexible Angular Material, combined with SASS, offers a clean and modern design  
