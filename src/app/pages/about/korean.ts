@@ -31,7 +31,7 @@ export const contentKr: AboutContent = {
             `
         },
         {
-            name: '다국어 PDF',
+            name: '다국어 pdf',
             information: `
                 pdf 는 애플리케이션 상단에서 사용자가 선택한 언어로 생성됩니다.
             `
