@@ -384,7 +384,7 @@
                     russian="Список продуктов"
                     korean="제품 목록"
             /></h3>
-            <app-add-remove-button buttonType="add" (click)="onAddProduct()" />
+            <app-product-list-action-button buttonType="add" (click)="onAddProduct()" />
         </section>
         @for (product of allProducts; track product) {
             <section class="info-block" [formGroupName]="$index">
@@ -477,7 +477,7 @@
                         ></span>
                     }
                 </div>
-                <app-add-remove-button buttonType="delete" (click)="onDeleteProduct($index)" />
+                <app-product-list-action-button buttonType="delete" (click)="onDeleteProduct($index)" />
             </section>
             <mat-divider class="product-divider" />
         }
@@ -505,7 +505,7 @@
                     russian="Добавить продукт"
                     korean="제품 추가"
             /></h5>
-            <app-add-remove-button buttonType="add" (click)="onAddProduct()" />
+            <app-product-list-action-button buttonType="add" (click)="onAddProduct()" />
         </section>
 
         <mat-radio-group [value]="printOption()" (change)="onColouredPdfOptionChange($event.value)" aria-label="Select an option">

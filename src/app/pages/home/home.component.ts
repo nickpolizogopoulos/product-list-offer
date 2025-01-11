@@ -26,13 +26,13 @@ import {
 } from "@angular/material/core";
 
 import {
-  localStorageItemData,
   initialCompanyNameValue,
   initialCompanySubtitleValue,
   initialCompanyPhoneValue,
   initialCompanyEmailValue,
-  mustContainPeriod,
   initialCompanyLocationValue,
+  localStorageItemData,
+  mustContainPeriod,
   required
 } from "../../utilities/tools/form-tools";
 
@@ -40,10 +40,10 @@ import { PDF } from "../../utilities/tools/pdf.model";
 import { Product } from "../../utilities/tools/product.model";
 import { PdfService } from "../../utilities/services/pdf.service";
 import { MaterialComponents } from "../../utilities/tools/material-components";
-import { AddRemoveButton } from "../../utilities/components/add-remove-button.component";
+import { ProductListActionButtonComponent } from "../../utilities/components/product-list-action-button.component";
 import { ErrorMessageComponent } from "../../utilities/components/error-message.component";
 import { LanguageSwitchComponent } from "../../utilities/components/language-switch.component";
-import { HeroSectionComponent } from "../../utilities/components/hero-section.component";
+import { HeroSectionComponent } from "../../utilities/components/hero-section/hero-section.component";
 import { type ProductFormControl } from "../../utilities/tools/product-control";
 import { type ColourOption } from "../../utilities/tools/types";
 
@@ -58,12 +58,13 @@ import { type ColourOption } from "../../utilities/tools/types";
   imports: [
       ReactiveFormsModule,
       ErrorMessageComponent,
-      AddRemoveButton,
+      ProductListActionButtonComponent,
       LanguageSwitchComponent,
       MaterialComponents,
       HeroSectionComponent
   ],
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
 
@@ -105,20 +106,18 @@ export class HomeComponent implements OnInit {
         debounceTime(400),
         takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe({
-        next: value => {
-          window.localStorage.setItem(
-            localStorageItemData,
-            JSON.stringify({
-              name: value.companyName,
-              subtitle: value.companySubtitle,
-              phone: value.companyPhone,
-              email: value.companyEmail,
-              location: value.companyLocation,
-            })
-          );
-        }
-      });
+      .subscribe(value =>
+        window.localStorage.setItem(
+          localStorageItemData,
+          JSON.stringify({
+            name: value.companyName,
+            subtitle: value.companySubtitle,
+            phone: value.companyPhone,
+            email: value.companyEmail,
+            location: value.companyLocation,
+          })
+        )
+      );
   }
 
   private destroyRef = inject(DestroyRef);
@@ -133,8 +132,8 @@ export class HomeComponent implements OnInit {
   //* textarea more rows on mobile
   private windowWidth = signal<number>(window.outerWidth);
 
-  textareaRows = computed<number>(
-    () => this.windowWidth() < 800 ? 5 : 3
+  textareaRows = computed<number>(() =>
+    this.windowWidth() < 800 ? 5 : 3
   );
   
   printOption = signal<ColourOption>('withColour');

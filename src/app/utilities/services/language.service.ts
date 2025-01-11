@@ -12,8 +12,12 @@ import { type Language } from '../tools/types';
 })
 export class LanguageService {
 
-    private key: string = 'product-offer-to-pdf-language';
+    private localStorageKey: string = 'product-offer-to-pdf-language';
+    private language = signal<Language>(this.getInitialLanguage());
 
+    selectedLanguage = this.language.asReadonly();
+
+    // TODO computed
     isGreek = computed(() => this.selectedLanguage() === 'greek');
     isEnglish = computed(() => this.selectedLanguage() === 'english');
     isSpanish = computed(() => this.selectedLanguage() === 'spanish');
@@ -23,7 +27,7 @@ export class LanguageService {
     isKorean = computed(() => this.selectedLanguage() === 'korean');
 
     private getInitialLanguage(): Language {
-        const storedLanguage: Language | null = localStorage.getItem(this.key) as Language | null;
+        const storedLanguage: Language | null = localStorage.getItem(this.localStorageKey) as Language | null;
         return (
               storedLanguage
             ? storedLanguage 
@@ -31,13 +35,9 @@ export class LanguageService {
         );
     }
 
-    private language = signal<Language>(this.getInitialLanguage());
-
-    selectedLanguage = this.language.asReadonly();
-
     constructor() {
-        effect(
-            () => localStorage.setItem(this.key, this.language())
+        effect(() => 
+            localStorage.setItem(this.localStorageKey, this.language())
         );
     }
 

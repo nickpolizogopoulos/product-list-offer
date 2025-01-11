@@ -72,16 +72,10 @@ import { contentKr } from './korean';
     }
 
     ul {
-      padding-left: 1rem;
-      list-style-type: circle;
-
-      &:first-of-type {
-        margin-bottom: 1.7rem;
+      margin-bottom: 1.7rem; 
+      li {
+        margin: 1rem .7rem;
       }
-    }
-    
-    li {
-      margin: 1rem .7rem;
     }
   
   `
@@ -91,21 +85,16 @@ export class CookiesComponent {
     private languageService = inject(LanguageService);
   
     get content(): CookiesContent {
-      return (
-            this.languageService.isGreek()
-          ? contentGr
-          : this.languageService.isEnglish()
-          ? contentEng
-          : this.languageService.isSpanish()
-          ? contentEs
-          : this.languageService.isFrench()
-          ? contentFr
-          : this.languageService.isItalian()
-          ? contentIt
-          : this.languageService.isRussian()
-          ? contentRu
-          : contentKr
-      );
-  }
+        const language = this.languageService;
+        return (
+              language.isGreek()   ? contentGr
+            : language.isEnglish() ? contentEng
+            : language.isSpanish() ? contentEs
+            : language.isFrench()  ? contentFr
+            : language.isItalian() ? contentIt
+            : language.isRussian() ? contentRu
+            : contentKr
+        );
+    }
+    
 }
-

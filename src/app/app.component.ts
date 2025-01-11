@@ -5,10 +5,10 @@ import {
 } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 
-import { FooterComponent } from "./utilities/components/footer.component";
-import { HeaderComponent } from "./utilities/components/header.component";
+import { FooterComponent } from "./utilities/components/footer/footer.component";
+import { HeaderComponent } from "./utilities/components/header/header.component";
 import { BackToTopComponent } from "./utilities/components/back-to-top.component";
-import { CookieWarningService } from "./utilities/services/cookie-warning.service";
+import { CookieWarningService } from "./utilities/services/cookie-warning/cookie-warning.service";
 
 @Component({
   selector: 'app-root',

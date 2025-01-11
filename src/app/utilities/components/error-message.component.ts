@@ -14,19 +14,15 @@ import { LanguageService } from "../services/language.service";
     },
     template: `
 
+        @let language = this.languageService;
+
         {{
-              languageService.isGreek()
-            ? greek()
-            : languageService.isEnglish()
-            ? english()
-            : languageService.isSpanish()
-            ? spanish()
-            : languageService.isFrench()
-            ? french()
-            : this.languageService.isItalian()
-            ? italian()
-            : this.languageService.isRussian()
-            ? russian()
+              language.isGreek()   ? greek()
+            : language.isEnglish() ? english()
+            : language.isSpanish() ? spanish()
+            : language.isFrench()  ? french()
+            : language.isItalian() ? italian()
+            : language.isRussian() ? russian()
             : korean()
         }}
     

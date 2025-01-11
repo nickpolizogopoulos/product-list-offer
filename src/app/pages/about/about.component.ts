@@ -32,7 +32,7 @@ import { contentKr } from "./korean";
             <p [innerHTML]="content.appDescription"></p>
             
             <h5>{{ content.keyFeaturesHeader }}</h5>
-            <ul class="features">
+            <ul>
                 @for (feature of content.features; track $index) {
                     <li>
                         <strong [innerHTML]="feature.name"></strong>
@@ -57,6 +57,8 @@ import { contentKr } from "./korean";
 
     `,
     styles: `
+
+        @use '../../utilities/styles/placeholders.scss' as *;
     
         h5 {
             margin: 2rem 0 1.4rem;
@@ -65,23 +67,22 @@ import { contentKr } from "./korean";
         p {
             margin: 0;
             line-height: 1.8;
+
+            &:last-of-type {
+            margin: 1rem 0 1rem 0;
+        }
         }
         
-        .features {
-            padding-left: 0;
-            list-style-position: inside;
-            list-style-type: circle;
-            li {
+        li {
                 margin: .7rem;
-            }
         }
 
         .credits {
+            @extend %flex-row;
+            justify-content: end;
             color: rgb(71, 71, 71);
             font-size: 13px;
             font-style: italic;
-            display: flex;
-            justify-content: end;
             
             @media screen and (max-width: 790px) {
                 display: block;
@@ -89,12 +90,9 @@ import { contentKr } from "./korean";
         }
         
         button {
-            margin-top: 20px;
-        }
-        
-
-        p:last-of-type {
-            margin: 2rem 0 2rem 0;
+            @media screen and (max-width: 1080px) {
+                margin-top: 20px;
+            }
         }
     
     `
@@ -104,19 +102,14 @@ export class AboutComponent {
     private languageService = inject(LanguageService);
       
     get content(): AboutContent {
+        const language = this.languageService;
         return (
-              this.languageService.isGreek()
-            ? contentGr
-            : this.languageService.isEnglish()
-            ? contentEng
-            : this.languageService.isSpanish()
-            ? contentEs
-            : this.languageService.isFrench()
-            ? contentFr
-            : this.languageService.isItalian()
-            ? contentIt
-            : this.languageService.isRussian()
-            ? contentRu
+              language.isGreek()   ? contentGr
+            : language.isEnglish() ? contentEng
+            : language.isSpanish() ? contentEs
+            : language.isFrench()  ? contentFr
+            : language.isItalian() ? contentIt
+            : language.isRussian() ? contentRu
             : contentKr
         );
     }

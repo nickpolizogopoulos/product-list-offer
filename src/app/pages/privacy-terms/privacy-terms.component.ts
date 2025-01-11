@@ -1,7 +1,6 @@
 import {
   Component,
-  inject,
-  computed
+  inject
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
@@ -60,8 +59,7 @@ import { contentKr } from './korean';
       </div>
 
       <button mat-raised-button routerLink="/">{{ content.buttonText }}</button>
-
-
+      
     </div>
   
   `,
@@ -69,19 +67,14 @@ import { contentKr } from './korean';
 
     ol {
       margin-bottom: 2.5rem;
-    }
-
-    li {
-      margin-bottom: 1rem;
-
-      ul {
-        margin-top: 0.5rem;
-        margin-bottom: 1rem
+      
+      li {
+        margin-bottom: 1rem;
+        
+        ul {
+          margin-top: 0.5rem;
+        }
       }
-    }
-
-    button {
-      margin-top: 1rem;
     }
 
     .content-box {
@@ -99,21 +92,16 @@ export class PrivacyTermsComponent {
     private languageService = inject(LanguageService);
 
     get content(): PrivacyTermsContentType {
-      return (
-          this.languageService.isGreek()
-        ? contentGr
-        : this.languageService.isEnglish()
-        ? contentEng
-        : this.languageService.isSpanish()
-        ? contentEs
-        : this.languageService.isFrench()
-        ? contentFr
-        : this.languageService.isItalian()
-        ? contentIt
-        : this.languageService.isRussian()
-        ? contentRu
-        : contentKr
-      );
+        const language = this.languageService;
+        return (
+              language.isGreek()   ? contentGr
+            : language.isEnglish() ? contentEng
+            : language.isSpanish() ? contentEs
+            : language.isFrench()  ? contentFr
+            : language.isItalian() ? contentIt
+            : language.isRussian() ? contentRu
+            : contentKr
+        );
     }
 
 }

@@ -29,6 +29,7 @@ export class PdfService {
 
     generatePDF( pdf: PDF ): void {
 
+        const language = this.languageService;
         const doc = new jsPDF();
 
         //* PDF PAPER SETTINGS ===========================================================
@@ -44,9 +45,9 @@ export class PdfService {
 
         //* FONT =========================================================================
 
-        const checkActiveLanguageAndEnableTheCorrectFont = () => {
+        const checkWhichLanguageIsActiveAndEnableTheCorrectFont = () => {
 
-            if (this.languageService.isKorean()) {
+            if (language.isKorean()) {
                 doc.addFileToVFS('NotoSansKR.ttf', (fontKR as any).file.data);
                 doc.addFont('NotoSansKR.ttf', 'NotoSansKR', 'normal');
                 doc.setFont('NotoSansKR');
@@ -59,7 +60,7 @@ export class PdfService {
             }
         }
 
-        checkActiveLanguageAndEnableTheCorrectFont();
+        checkWhichLanguageIsActiveAndEnableTheCorrectFont();
 
         const textWidth = ( text: string ): number => {
             return doc.getTextDimensions(text).w;
@@ -86,26 +87,26 @@ export class PdfService {
 
         //* OFFER TITLE ==================================================================
         doc.setFontSize(15);
-        if (this.languageService.isGreek())
+        if (language.isGreek())
             doc.text('Προσφορά προς πελάτη:', 10, 45);
 
-        else if (this.languageService.selectedLanguage() === 'english')
+        else if (language.isEnglish())
             doc.text('Offer to client:', 10, 45);
 
-        else if (this.languageService.isSpanish())
+        else if (language.isSpanish())
             doc.text('Oferta al cliente:', 10, 45);
 
-        else if (this.languageService.isFrench())
+        else if (language.isFrench())
             doc.text('Offre au client :', 10, 45);
 
-        else if (this.languageService.isItalian())
+        else if (language.isItalian())
             doc.text('Offerta al cliente:', 10, 45);
 
-        else if (this.languageService.isRussian())
+        else if (language.isRussian())
             doc.text('Предложение клиенту:', 10, 45);
 
         else
-            doc.text('클라이언트에게 제안', 10, 45);
+            doc.text('클라이언트에게 제안:', 10, 45);
 
 
         //* CUSTOMER INFORMATION =========================================================
@@ -127,22 +128,22 @@ export class PdfService {
         if (expirationDate) {
             doc.setFontSize(10);
 
-            if (this.languageService.isGreek())
+            if (language.isGreek())
                 doc.text(`Λήγει στις: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 22, 45);
             
-            else if (this.languageService.selectedLanguage() === 'english')
+            else if (language.isEnglish())
                 doc.text(`Expires on: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
 
-            else if (this.languageService.isSpanish())
+            else if (language.isSpanish())
                 doc.text(`Caduca el: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
             
-            else if (this.languageService.isFrench())
+            else if (language.isFrench())
                 doc.text(`Expire le : ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
 
-            else if (this.languageService.isItalian())
+            else if (language.isItalian())
                 doc.text(`Scade il: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 21, 45);
 
-            else if (this.languageService.isRussian())
+            else if (language.isRussian())
                 doc.text(`Срок действия до: ${dateRefactored}`, pdfWidth - textWidth(pdf.companyPhone) - 33, 45);
 
             else
@@ -160,22 +161,22 @@ export class PdfService {
         if (pdf.notes) {
             doc.setFontSize(10);
 
-            if (this.languageService.isGreek())
+            if (language.isGreek())
                 doc.text('Σημείωση:', 10, 83);
 
-            else if (this.languageService.selectedLanguage() === 'english')
+            else if (language.selectedLanguage() === 'english')
                 doc.text('Note:', 10, 83);
 
-            else if (this.languageService.isSpanish())
+            else if (language.isSpanish())
                 doc.text('Nota:', 10, 83);
 
-            else if (this.languageService.isFrench())
+            else if (language.isFrench())
                 doc.text('Notes :', 10, 83);
 
-            else if (this.languageService.isItalian())
+            else if (language.isItalian())
                 doc.text('Note:', 10, 83);
 
-            else if (this.languageService.isRussian())
+            else if (language.isRussian())
                 doc.text('Примечание:', 10, 83);
 
             else
@@ -196,40 +197,40 @@ export class PdfService {
             
         //* PRODUCT TABLE ================================================================
         const header = [
-            this.languageService.isGreek()
+            language.isGreek()
           ? ['No.', 'Τίτλος προϊόντος', 'Τιμή μονάδας €', 'Ποσότητα', 'Σύνολο €']
 
-          : this.languageService.isEnglish()
+          : language.isEnglish()
           ? ['No.', 'Product Title', 'Unit Price €', 'Quantity', 'Total Price €']
 
-          : this.languageService.isSpanish()
+          : language.isSpanish()
           ? ['No.', 'Título del Producto', 'Precio unitario €', 'Cantidad', 'Precio total €']
 
-          : this.languageService.isFrench()
+          : language.isFrench()
           ? ['N°', 'Titre du produit', 'Prix unitaire (€)', 'Quantité', 'Prix total €']
 
-          : this.languageService.isItalian()
+          : language.isItalian()
           ? ['Nr.', 'Titolo del Prodotto', 'Prezzo unitario €', 'Quantità', 'Prezzo totale €']
           
-          : this.languageService.isRussian()
+          : language.isRussian()
           ? ['№', 'Заголовок Продукта', 'Цена за единицу ₽', 'Количество', 'Общая стоимость ₽']
           
           : ['번호', '제품 제목', '단가 ₩', '수량', '총 가격 ₩']
         ];
 
         const footer = [
-              this.languageService.isGreek()
+              language.isGreek()
             ? ['', 'Σύνολο', '', pdf.productsQuantity, pdf.subtotal]
 
-            : this.languageService.isEnglish() || 
-              this.languageService.isSpanish() || 
-              this.languageService.isFrench()
+            : language.isEnglish() || 
+              language.isSpanish() || 
+              language.isFrench()
             ? ['', 'Total', '', pdf.productsQuantity, pdf.subtotal]
             
-            : this.languageService.isItalian()
+            : language.isItalian()
             ? ['', 'Totale', '', pdf.productsQuantity, pdf.subtotal]
 
-            : this.languageService.isRussian()
+            : language.isRussian()
             ? ['', 'Итого', '', pdf.productsQuantity, pdf.subtotal]
 
             : ['', '총액', '', pdf.productsQuantity, pdf.subtotal]
@@ -246,7 +247,7 @@ export class PdfService {
             startY: tableStartingPosition,
             styles: {
                 // font: this.languageService.isKorean() ? 'NotoSansKR' : 'InterFont',
-                font: checkActiveLanguageAndEnableTheCorrectFont() !, //both options will work here.
+                font: checkWhichLanguageIsActiveAndEnableTheCorrectFont() !, //both options will work here.
                 fontSize: 10,
                 lineColor: '#ffffff',
                 lineWidth: 0.2,
@@ -296,26 +297,26 @@ export class PdfService {
         doc.setFontSize(6);
 
         //* The font must be reset here for some reason.
-        checkActiveLanguageAndEnableTheCorrectFont();
+        checkWhichLanguageIsActiveAndEnableTheCorrectFont();
 
         const getCreditsText = (): string => {
             return (
-              this.languageService.isGreek() 
+              language.isGreek() 
             ? `Το έγγραφο δημιουργήθηκε μέσω της εφαρμογής «Product Offer to .pdf» του Νίκου Πολυζωγόπουλου. Για περισσότερες πληροφορίες, επισκεφτείτε: https://product-offer-to-pdf.web.app`
 
-            : this.languageService.isEnglish()
+            : language.isEnglish()
             ? `This document was generated using the "Product Offer to .pdf" Web Application made by Nick Polizogopoulos.  For more information, visit: https://product-offer-to-pdf.web.app`
 
-            : this.languageService.isSpanish()
+            : language.isSpanish()
             ? `Este documento fue generado utilizando la aplicación web "Product Offer to .pdf" creada por Nick Polizogopoulos.  Para más información, visita: https://product-offer-to-pdf.web.app`
 
-            : this.languageService.isFrench()
+            : language.isFrench()
             ? `Ce document a été généré à l'aide de l'application Web "Product Offer to .pdf" créée par Nick Polizogopoulos.  Pour plus d'informations, visitez : https://product-offer-to-pdf.web.app`
 
-            : this.languageService.isItalian()
+            : language.isItalian()
             ? `Questo documento è stato generato utilizzando l'applicazione web "Product Offer to .pdf" realizzata da Nick Polizogopoulos.  Per maggiori informazioni, visita: https://product-offer-to-pdf.web.app`
 
-            : this.languageService.isItalian()
+            : language.isItalian()
             ? `Документ создан с использованием веб-приложения "Product Offer to .pdf" от Nick Polizogopoulos. Подробнее: https://product-offer-to-pdf.web.app`
 
             : `이 문서는 Nick Polizogopoulos 가 만든 "Product Offer to .pdf" 웹 애플리케이션을 사용하여 생성되었습니다. 자세한 정보는 다음을 방문하세요: https://product-offer-to-pdf.web.app`
@@ -339,24 +340,12 @@ export class PdfService {
 
         const getFileNameTranslation = (): string => {
             return (
-                this.languageService.isGreek()
-              ? `prosfora-se`
-  
-              : this.languageService.isEnglish()
-              ? `offer-to`
-  
-              : this.languageService.isSpanish()
-              ? `oferta-a`
-  
-              : this.languageService.isFrench()
-              ? `offre-à`
-  
-              : this.languageService.isItalian()
-              ? `offerta-a`
-
-              : this.languageService.isRussian()
-              ? `предложение-к`
-              
+                language.isGreek()   ? `prosfora-se`
+              : language.isEnglish() ? `offer-to`
+              : language.isSpanish() ? `oferta-a`
+              : language.isFrench()  ? `offre-à`
+              : language.isItalian() ? `offerta-a`
+              : language.isRussian() ? `предложение-к`
               : `제안서`
               );
         }
