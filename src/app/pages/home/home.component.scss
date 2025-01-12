@@ -1,19 +1,6 @@
 @use '../../utilities/styles/variables.scss' as *;
 @use '../../utilities/styles/placeholders.scss' as *;
 
-.information-headings {
-    h4,
-    h5,
-    h6 {
-        margin: .5rem;
-    }
-
-    h5 {
-        color: rgb(102, 102, 102);
-        font-style: italic;
-    }
-}
-
 .info-block {
     @extend %flex-row;
     gap: 10px;
@@ -151,37 +138,4 @@
 
 .error-message {
     font-size: 13px;
-}
-
-
-.company-details {     
-    @extend %flex-row;
-    justify-content: space-between;
-    
-    article:last-of-type {
-        text-align: end;
-    }
-    
-    @media screen and (max-width: 800px) {
-        flex-direction: column;
-        gap: 30px;
-
-        article {
-            h4 {
-                font-size: 1.5rem;
-            }
-            
-            h5 {
-                font-size: 1.15rem;
-            }
-            
-            h6 {
-                font-size: 1rem;
-            }
-        }
-
-        article:last-of-type {
-            text-align: start;
-        }
-    }
 }

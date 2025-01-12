@@ -3,58 +3,20 @@
     <app-hero-section (getStarted)="onGetStarted()" />
     
     <section class="container" id="get-started">
-        <h3>
-            <app-language-switch
-                greek="Πληροφορίες Εταιρείας"
-                english="Company Information"
-                spanish="Información de la Empresa"
-                french="Informations sur l'entreprise"
-                italian="Informazioni Aziendali"
-                russian="Информация о Компании"
-                korean="회사 정보"
-            /></h3>
+        <h3>{{ content.company.sectionTitle }}</h3>
         <section class="info-block">
             <div class="input-50">
                 <mat-form-field>
-                    <mat-label>
-                        <app-language-switch
-                            greek="Όνομα Εταιρείας"
-                            english="Company Name"
-                            spanish="Nombre de la Empresa"
-                            french="Nom de l'entreprise"
-                            italian="Nome dell'Azienda"
-                            russian="Название Компании"
-                            korean="회사명"
-                        />
-                    </mat-label>
+                    <mat-label>{{ content.company.name.label }}</mat-label>
                     <input matInput formControlName="companyName">
                 </mat-form-field>
                 @if (companyNameIsInvalid) {
-                    <span ErrorMessage 
-                        classes="error-message"
-                        greek="Παρακαλώ, εισάγετε όνομα εταιρείας / επωνυμία."
-                        english="Please, enter your company name."
-                        spanish="Por favor, ingrese el nombre de su empresa."
-                        french="Veuillez entrer le nom de votre entreprise."
-                        italian="Per favore, inserisci il nome della tua azienda."
-                        russian="Пожалуйста, введите название вашей компании."
-                        korean="회사명을 입력하세요."
-                    ></span>
+                    <span class="error-message">{{ content.company.name.errorMessage }}</span>
                 }
             </div>
             <div class="input-50">
                 <mat-form-field>
-                    <mat-label>
-                        <app-language-switch
-                            greek="Υπότιτλος Εταιρείας (προαιρετικό)"
-                            english="Company Subtitle (optional)"
-                            spanish="Subtítulo de la Empresa (opcional)"
-                            french="Sous-titre de l'entreprise (facultatif)"
-                            italian="Sottotitolo dell'Azienda (facoltativo)"
-                            russian="Подзаголовок компании (необязательно)"
-                            korean="회사 부제 (선택 사항)"
-                        />
-                    </mat-label>
+                    <mat-label>{{ content.company.subtitle.label }}</mat-label>
                     <input matInput formControlName="companySubtitle">
                 </mat-form-field>
             </div>
@@ -62,328 +24,107 @@
         <section class="info-block">
             <div class="input-25">
                 <mat-form-field>
-                    <mat-label>
-                        <app-language-switch
-                            greek="Τηλέφωνο"
-                            english="Phone"
-                            spanish="Teléfono"
-                            french="Téléphone"
-                            italian="Telefono"
-                            russian="Телефон"
-                            korean="전화번호"
-                        />
-                    </mat-label>
+                    <mat-label>{{ content.company.phone.label }}</mat-label>
                     <input matInput formControlName="companyPhone">
                 </mat-form-field>
                 @if (companyPhoneIsInvalid) {
-                    <span ErrorMessage 
-                        classes="error-message"
-                        greek="Παρακαλώ, εισάγετε αριθμό τηλεφώνου."
-                        english="Please, enter a phone number."
-                        spanish="Por favor, ingrese un número de teléfono."
-                        french="Veuillez entrer un numéro de téléphone."
-                        italian="Si prega di inserire un numero di telefono."
-                        russian="Пожалуйста, введите номер телефона."
-                        korean="전화번호를 입력하세요."
-                    ></span>
+                    <span class="error-message">{{ content.company.phone.errorMessage }}</span>
                 }
             </div>
             <div class="input-25">
                 <mat-form-field>
-                    <mat-label>
-                        <app-language-switch
-                            greek="Διευθ. Ηλ. Ταχυδρομείου"
-                            english="Email"
-                            spanish="Correo Electrónico"
-                            french="Adresse e-mail"
-                            italian="Indirizzo email"
-                            russian="Электронная почта"
-                            korean="이메일 주소"
-                        />
-                    </mat-label>
+                    <mat-label>{{ content.company.email.label }}</mat-label>
                     <input matInput formControlName="companyEmail" email>
                 </mat-form-field>
                 @if (companyEmailIsInvalid) {
-                    <span ErrorMessage 
-                        classes="error-message"
-                        greek="Παρακαλώ, εισάγετε σωστό email."
-                        english="Please, enter a valid email."
-                        spanish="Por favor, ingrese un correo electrónico válido."
-                        french="Veuillez entrer une adresse e-mail valide."
-                        italian="Si prega di inserire un indirizzo email valido."
-                        russian="Пожалуйста, введите правильный адрес электронной почты."
-                        korean="유효한 이메일 주소를 입력하세요."
-                    ></span>
+                    <span class="error-message">{{ content.company.email.errorMessage }}</span>
                 }
             </div>
             <div class="input-50">
                 <mat-form-field>
-                    <mat-label>
-                        <app-language-switch
-                            greek="Τοποθεσία"
-                            english="Location"
-                            spanish="Ubicación"
-                            french="Adresse"
-                            italian="Indirizzo"
-                            russian="Адрес Компании"
-                            korean="위치"
-                        />
-                    </mat-label>
+                    <mat-label>{{ content.company.location.label }}</mat-label>
                     <input matInput formControlName="companyLocation">
                 </mat-form-field>
                 @if (companyLocationIsInvalid) {
-                    <span ErrorMessage 
-                        classes="error-message"
-                        greek="Παρακαλώ, εισάγετε τοποθεσία εταιρείας."
-                        english="Please, enter your company location."
-                        spanish="Por favor, ingrese la ubicación de su empresa."
-                        french="Veuillez entrer l'adresse de votre entreprise."
-                        italian="Si prega di inserire l'indirizzo della vostra azienda."
-                        russian="Пожалуйста, введите адрес вашей компании."
-                        korean="회사의 위치를 입력하세요."
-                    ></span>
+                    <span class="error-message">{{ content.company.location.errorMessage }}</span>
                 }
             </div>
         </section>
-        <section class="company-details information-headings">
-            <article>
-                <h4>{{ form.controls.companyName.value }}</h4>
-                <h5>{{ form.controls.companySubtitle.value }}</h5>
-                <h6>{{ form.controls.companyPhone.value }}</h6>
-                <h6>{{ form.controls.companyEmail.value }}</h6>
-                <h6>{{ form.controls.companyLocation.value }}</h6>
-            </article>
-            <article>
-                <h4>{{ form.controls.customer.controls.customerName.value }}</h4>
-                <h6>{{ form.controls.customer.controls.customerPhone.value }}</h6>
-                <h6>{{ form.controls.customer.controls.customerEmail.value }}</h6>
-            </article>
-        </section>
     </section>
-
     <section class="container">
-        <h3><app-language-switch
-                greek="Πληροφορίες Πελάτη"
-                english="Client Information"
-                spanish="Información del Cliente"
-                french="Informations sur le client"
-                italian="Informazioni del Cliente"
-                russian="Информация о Клиенте"
-                korean="클라이언트 정보"
-            /></h3>
+        <h3>{{ content.client.sectionTitle }}</h3>
         <section class="info-block" formGroupName="customer">
             <div class="input-50">
                 <mat-form-field>
-                    <mat-label>
-                        <app-language-switch
-                            greek="Όνομα Πελάτη"
-                            english="Client Name"
-                            spanish="Nombre del Cliente"
-                            french="Nom du client"
-                            italian="Nome del cliente"
-                            russian="Имя Клиента"
-                            korean="클라이언트 이름"
-                        />
-                    </mat-label>
+                    <mat-label>{{ content.client.name.label }}</mat-label>
                     <input matInput formControlName="customerName">
                 </mat-form-field>
                 @if (customerNameIsInvalid) {
-                    <span ErrorMessage 
-                        classes="error-message"
-                        greek="Παρακαλώ, εισάγετε όνομα / επωνυμία πελάτη."
-                        english="Please, enter your client's name."
-                        spanish="Por favor, ingrese el nombre de su cliente."
-                        french="Veuillez entrer le nom de votre client."
-                        italian="Si prega di inserire il nome del cliente."
-                        russian="Пожалуйста, введите имя вашего клиента."
-                        korean="클라이언트 이름을 입력하세요."
-                    ></span>
+                    <span class="error-message">{{ content.client.name.errorMessage }}</span>
                 }
             </div>
             <div class="input-25">
                 <mat-form-field>
-                    <mat-label>
-                        <app-language-switch
-                            greek="Τηλέφωνο"
-                            english="Phone"
-                            spanish="Teléfono"
-                            french="Téléphone"
-                            italian="Telefono"
-                            russian="Телефон"
-                            korean="전화번호"
-                        />
-                    </mat-label>
+                    <mat-label>{{ content.client.phone.label }}</mat-label>
                     <input matInput formControlName="customerPhone">
                 </mat-form-field>
                 @if (customerPhoneIsInvalid) {
-                    <span ErrorMessage 
-                        classes="error-message"
-                        greek="Παρακαλώ, εισάγετε αριθμό τηλεφώνου."
-                        english="Please, enter a phone number."
-                        spanish="Por favor, ingrese un número de teléfono."
-                        french="Veuillez entrer un numéro de téléphone."
-                        italian="Si prega di inserire un numero di telefono."
-                        russian="Пожалуйста, введите номер телефона."
-                        korean="전화번호를 입력하세요."
-                    ></span>
+                    <span class="error-message">{{ content.client.phone.errorMessage }}</span>
                 }
             </div>
             <div class="input-25">
                 <mat-form-field>
-                    <mat-label>
-                        <app-language-switch
-                            greek="Διευθ. Ηλ. Ταχυδρομείου"
-                            english="Email"
-                            spanish="Correo Electrónico"
-                            french="Adresse e-mail"
-                            italian="Indirizzo email"
-                            russian="Электронная почта"
-                            korean="이메일 주소"
-                        />
-                    </mat-label>
+                    <mat-label>{{ content.client.email.label }}</mat-label>
                     <input matInput formControlName="customerEmail">
                 </mat-form-field>
                 @if (customerEmailIsInvalid) {
-                    <span ErrorMessage 
-                        classes="error-message"
-                        greek="Παρακαλώ, εισάγετε σωστό email."
-                        english="Please, enter a valid email."
-                        spanish="Por favor, ingrese un correo electrónico válido."
-                        french="Veuillez entrer une adresse e-mail valide."
-                        italian="Si prega di inserire un indirizzo email valido."
-                        russian="Пожалуйста, введите правильный адрес электронной почты."
-                        korean="유효한 이메일 주소를 입력하세요."
-                    ></span>
+                    <span class="error-message">{{ content.client.email.errorMessage }}</span>
                 }
             </div>
         </section>
     </section>
-
     <section class="container">
-        <h3><app-language-switch
-                greek="Ρυθμίσεις προσφοράς"
-                english="Offer settings"
-                spanish="Configuración de la oferta"
-                french="Paramètres de l'offre"
-                italian="Impostazioni dell'offerta"
-                russian="Настройки предложения"
-                korean="제안 설정"
-            /></h3>
+        <h3>{{ content.settings.sectionTitle }}</h3>
         <section class="settings-block">
             <mat-radio-group [value]="theOfferHasExpirationDate()" (change)="onExpirationChange($event.value)" aria-label="Select an option">
-                <mat-radio-button value="permanent">
-                    <app-language-switch
-                        greek="Η προσφορά είναι μόνιμη"
-                        english="The offer is valid permanently"
-                        spanish="La oferta es válida permanentemente"
-                        french="L'offre est valable de manière permanente"
-                        italian="L'offerta è valida permanentemente"
-                        russian="Предложение действительно бессрочно"
-                        korean="제안은 영구적으로 유효함"
-                    />
-                </mat-radio-button>
-                <mat-radio-button value="expires">
-                    <app-language-switch
-                        greek="Με ημερομηνία λήξης"
-                        english="With an expiration date"
-                        spanish="Con fecha de vencimiento"
-                        french="Avec une date d'expiration"
-                        italian="Con una data di scadenza"
-                        russian="С датой истечения срока"
-                        korean="만료 날짜가 있음"
-                    />
-                </mat-radio-button>
+                <mat-radio-button value="permanent">{{ content.settings.radio1 }}</mat-radio-button>
+                <mat-radio-button value="expires">{{ content.settings.radio2 }}</mat-radio-button>
             </mat-radio-group>
 
             <div class="expiration-date-box">
                 <mat-form-field>
-                    <mat-label>
-                        <app-language-switch
-                            greek="Ημ/νία λήξης προσφοράς"
-                            english="Offer expiration date"
-                            spanish="Fecha de vencimiento de la oferta"
-                            french="Date d'expiration de l'offre"
-                            italian="Data di scadenza dell'offerta"
-                            russian="Дата истечения срока предложения"
-                            korean="제안 만료 날짜"
-                        />
-                    </mat-label>
+                    <mat-label>{{ content.settings.input.label }}</mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="expirationDate">
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
                 @if (dateIsInvalid) {
-                    <span ErrorMessage 
-                        classes="error-message"
-                        greek="Παρακαλώ κάντε κλικ στο κουμπί δίπλα από το πεδίο εισαγωγής για να επιλέξετε μια ημερομηνία."
-                        english="Please click the button next to the input field to select a date."
-                        spanish="Por favor, haga clic en el botón junto al campo de entrada para seleccionar una fecha."
-                        french="Veuillez cliquer sur le bouton à côté du champ de saisie pour sélectionner une date."
-                        italian="Fai clic sul pulsante accanto al campo di inserimento per selezionare una data."
-                        russian="Пожалуйста, нажмите кнопку рядом с полем ввода, чтобы выбрать дату."
-                        korean="입력 필드 옆에 있는 버튼을 클릭하여 날짜를 선택하세요."
-                    ></span>
+                    <span class="error-message">{{ content.settings.input.errorMessage }}</span>
                 }
             </div>
 
         </section>
-
         <section class="notes-block">
-            <button (click)="onNotesSelected()" [color]="!notesEnabled() ? 'primary' : 'warn'" mat-raised-button type="button">
+            <button (click)="onNotesSelected()" mat-raised-button type="button">
                 <mat-icon>{{ !notesEnabled() ? 'add' : 'remove' }}</mat-icon>
                 @if (!notesEnabled()) {
-                    <app-language-switch
-                        greek="Προσθήκη σημειώσεων"
-                        english="Add notes"
-                        spanish="Añadir notas"
-                        french="Ajouter des notes"
-                        italian="Aggiungi note"
-                        russian="Добавить заметки"
-                        korean="메모 추가"
-                    />
+                    {{ content.settings.button.add }}
                 }
                 @else {
-                    <app-language-switch
-                        greek="Διαγραφή σημειώσεων"
-                        english="Delete notes"
-                        spanish="Eliminar notas"
-                        french="Supprimer les notes"
-                        italian="Elimina note"
-                        russian="Удалить заметки"
-                        korean="메모 삭제"
-                    />
+                    {{ content.settings.button.delete }}
                 }
             </button>
             @if (notesEnabled()) {
                 <mat-form-field class="example-full-width" app>
-                    <mat-label>
-                        <app-language-switch
-                            greek="Σημειώσεις (έως 200 χαρακτήρες)"
-                            english="Notes (up to 200 characters)"
-                            spanish="Notas (hasta 200 caracteres)"
-                            french="Notes (jusqu'à 200 caractères)"
-                            italian="Note (fino a 200 caratteri)"
-                            russian="Заметки (до 200 символов)"
-                            korean="메모 (최대 200자)"
-                        />
-                    </mat-label>
+                    <mat-label>{{ content.settings.textAreaLabel }}</mat-label>
                     <textarea matInput maxlength="200" [rows]="textareaRows()" formControlName="notes"></textarea>
                 </mat-form-field>
             }
         </section>
     </section>
-
     <section class="container" formArrayName="products">
         <section class="products-header">
-            <h3><app-language-switch
-                    greek="Λίστα προϊόντων"
-                    english="Product list"
-                    spanish="Lista de productos"
-                    french="Liste des produits"
-                    italian="Elenco dei prodotti"
-                    russian="Список продуктов"
-                    korean="제품 목록"
-            /></h3>
+            <h3>{{ content.products.sectionTitle }}</h3>
             <app-product-list-action-button buttonType="add" (click)="onAddProduct()" />
         </section>
         @for (product of allProducts; track product) {
@@ -391,45 +132,16 @@
                 <h5>{{ $index + 1 }}<span>.</span></h5>
                 <div class="input-50">
                     <mat-form-field>
-                        <mat-label>
-                            <app-language-switch
-                                greek="Τίτλος Προϊόντος"
-                                english="Product Title"
-                                spanish="Título del Producto"
-                                french="Titre du produit"
-                                italian="Titolo del prodotto"
-                                russian="Заголовок Продукта"
-                                korean="제품 제목"
-                            />
-                        </mat-label>
+                        <mat-label>{{ content.products.product.title.label }}</mat-label>
                         <input matInput formControlName="name">
                     </mat-form-field>
                     @if (product.controls.name.invalid && product.controls.name.touched) {
-                        <span ErrorMessage 
-                            classes="error-message"
-                            greek="Παρακαλώ, εισάγετε τίτλο προϊόντος."
-                            english="Please, enter product title."
-                            spanish="Por favor, ingrese el título del producto."
-                            french="Veuillez entrer le titre du produit."
-                            italian="Si prega di inserire il titolo del prodotto."
-                            russian="Пожалуйста, введите заголовок продукта."
-                            korean="제품 제목을 입력하세요."
-                        ></span>
+                        <span class="error-message">{{ content.products.product.title.errorMessage }}</span>
                     }
                 </div>
                 <div class="input-25">
                     <mat-form-field>
-                        <mat-label>
-                            <app-language-switch
-                                greek="Ποσότητα"
-                                english="Quantity"
-                                spanish="Cantidad"
-                                french="Quantité"
-                                italian="Quantità"
-                                russian="Количество"
-                                korean="수량"
-                            />
-                        </mat-label>
+                        <mat-label>{{ content.products.product.quantity.label }}</mat-label>
                         <mat-select formControlName="quantity" type="number">
                             @for ( option of qtyOptions; track $index ) {
                                 <mat-option [value]="option">{{ option }}</mat-option>
@@ -437,44 +149,16 @@
                         </mat-select>
                     </mat-form-field>
                     @if (product.controls.quantity.invalid && product.controls.quantity.touched) {
-                        <span ErrorMessage 
-                            classes="error-message"
-                            greek="Παρακαλώ, εισάγετε ποσότητα."
-                            english="Please, add quantity."
-                            spanish="Por favor, ingrese la cantidad."
-                            french="Veuillez ajouter la quantité."
-                            italian="Per favore, aggiungi la quantità."
-                            russian="Пожалуйста, добавьте количество."
-                            korean="수량을 추가해 주세요."
-                        ></span>
+                        <span class="error-message">{{ content.products.product.quantity.errorMessage }}</span>
                     }
                 </div>
                 <div class="input-25">
                     <mat-form-field>
-                        <mat-label>
-                            <app-language-switch
-                                greek="Τιμή Μονάδας €"
-                                english="Unit Price €"
-                                spanish="Precio Unitario €"
-                                french="Prix unitaire (€)"
-                                italian="Prezzo unitario €"
-                                russian="Цена за единицу ₽"
-                                korean="단가 ₩"
-                            />
-                        </mat-label>
+                        <mat-label>{{ content.products.product.unitPrice.label }}</mat-label>
                         <input matInput formControlName="price" type="number">
                     </mat-form-field>
                     @if (product.controls.price.invalid && product.controls.price.touched) {
-                        <span ErrorMessage 
-                            classes="error-message"
-                            greek="Παρακαλώ εισάγετε τιμή προϊόντος."
-                            english="Please, add product price."
-                            spanish="Por favor, ingrese el precio del producto."
-                            french="Veuillez ajouter le prix du produit."
-                            italian="Per favore, aggiungi il prezzo del prodotto."
-                            russian="Пожалуйста, добавьте цену продукта."
-                            korean="제품 가격을 추가해 주세요."
-                        ></span>
+                        <span class="error-message">{{ content.products.product.unitPrice.errorMessage }}</span>
                     }
                 </div>
                 <app-product-list-action-button buttonType="delete" (click)="onDeleteProduct($index)" />
@@ -482,94 +166,25 @@
             <mat-divider class="product-divider" />
         }
         @empty {
-            <h6 class="product-list-empty">
-                <app-language-switch
-                    greek="Δεν υπάρχουν προϊόντα στη λίστα σας. Το αρχείο PDF δεν μπορεί να δημιουργηθεί με άδεια λίστα προϊόντων!"
-                    english="There are no products in your list. The PDF file cannot be generated with an empty product list!"
-                    spanish="No hay productos en su lista. ¡No se puede generar el archivo PDF con una lista de productos vacía!"
-                    french="Il n'y a pas de produits dans votre liste. Le fichier PDF ne peut pas être généré avec une liste de produits vide !"
-                    italian="Non ci sono prodotti nella tua lista. Il file PDF non può essere generato con una lista di prodotti vuota!"
-                    russian="В вашем списке нет товаров. Невозможно создать PDF-файл с пустым списком товаров!"
-                    korean="제품 목록에 제품이 없습니다. 빈 제품 목록으로 pdf 파일을 만들 수 없습니다!"
-                />
-            </h6>
+            <h6 class="product-list-empty">{{ content.products.listIsEmpty }}</h6>
         }
-
         <section class="products-header products-header-mobile">
-            <h5><app-language-switch
-                    greek="Προσθήκη προϊόντος"
-                    english="Add Product"
-                    spanish="Añadir Producto"
-                    french="Ajouter un produit"
-                    italian="Aggiungi prodotto"
-                    russian="Добавить продукт"
-                    korean="제품 추가"
-            /></h5>
+            <h5>{{ content.products.mobileHeader }}</h5>
             <app-product-list-action-button buttonType="add" (click)="onAddProduct()" />
         </section>
-
         <mat-radio-group [value]="printOption()" (change)="onColouredPdfOptionChange($event.value)" aria-label="Select an option">
-            <mat-radio-button value="withColour">
-                <app-language-switch
-                    greek="Εκτύπωση αρχείου pdf με χρώμα"
-                    english="Print coloured pdf file"
-                    spanish="Imprimir archivo pdf a color"
-                    french="Imprimer le fichier pdf en couleur"
-                    italian="Stampa pdf a colori"
-                    russian="Печать цветного pdf файла"
-                    korean="컬러 pdf 파일 인쇄"
-                />
-            </mat-radio-button>
-            <mat-radio-button value="withoutColour">
-                <app-language-switch
-                    greek="Αφαίρεση χρωμάτων (εξοικονόμηση μελανιού)"
-                    english="Remove colours (saves ink)"
-                    spanish="Eliminar colores (ahorra tinta)"
-                    french="Supprimer les couleurs (économise de l'encre)"
-                    italian="Rimuovi i colori (risparmia inchiostro)"
-                    russian="Удалить цвета (экономия чернил)"
-                    korean="색상 제거 (잉크 절약)"
-                />
-            </mat-radio-button>
+            <mat-radio-button value="withColour">{{ content.colourOptions.coloured }}</mat-radio-button>
+            <mat-radio-button value="withoutColour">{{ content.colourOptions.withoutColour }}</mat-radio-button>
         </mat-radio-group>
-        
         <section class="submit-section">
             @if (theListIsEmpty()) {
-                <span ErrorMessage 
-                    classes="form-error-message"
-                    greek="Η λίστα είναι άδεια."
-                    english="The list is empty."
-                    spanish="La lista está vacía."
-                    french="La liste est vide."
-                    italian="La lista è vuota."
-                    russian="Список пуст."
-                    korean="목록이 비어 있습니다."
-                ></span>
+                <span class="form-error-message">{{ content.submit.listEmptyMessage }}</span>
+                
             }
             @if (formIsInvalid) {
-                <span ErrorMessage 
-                    classes="form-error-message"
-                    greek="Παρακαλώ, βεβαιωθείτε ότι όλα τα πεδία είναι συμπληρωμένα σωστά!"
-                    english="Please make sure all fields are filled correctly!"
-                    spanish="¡Por favor, asegúrese de que todos los campos estén completados correctamente!"
-                    french="Veuillez vous assurer que tous les champs sont correctement remplis !"
-                    italian="Assicurati che tutti i campi siano compilati correttamente!"
-                    russian="Пожалуйста, убедитесь, что все поля заполнены правильно!"
-                    korean="모든 필드가 올바르게 입력되었는지 확인하세요!"
-                ></span>
+                <span class="form-error-message">{{ content.submit.formErrorMessage }}</span>
             }
         </section>
-        <button type="submit" mat-raised-button>
-            <app-language-switch
-                greek="Λήψη αρχείου .pdf"
-                english="Download .pdf file"
-                spanish="Descargar archivo .pdf"
-                french="Télécharger le fichier .pdf"
-                italian="Scarica il file .pdf"
-                russian="Скачать .pdf файл"
-                korean=".pdf 파일 다운로드"
-            />
-        </button>
+        <button type="submit" mat-raised-button>{{ content.submit.button }}</button>
     </section>
-
 </form>

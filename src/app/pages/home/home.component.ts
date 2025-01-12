@@ -38,16 +38,23 @@ import {
   loadProducts,
   type ProductFormControl
 } from "../../utilities/tools/form-tools";
-
 import { PDF } from "../../utilities/tools/pdf.model";
 import { Product } from "../../utilities/tools/product.model";
 import { PdfService } from "../../utilities/services/pdf.service";
 import { MaterialComponents } from "../../utilities/tools/material-components";
 import { ProductListActionButtonComponent } from "../../utilities/components/product-list-action-button.component";
-import { ErrorMessageComponent } from "../../utilities/components/error-message.component";
-import { LanguageSwitchComponent } from "../../utilities/components/language-switch.component";
 import { HeroSectionComponent } from "../../utilities/components/hero-section/hero-section.component";
 import { type ColourOption } from "../../utilities/tools/types";
+
+import { LanguageService } from "../../utilities/services/language.service";
+import { type HomeContent } from "./content/types";
+import { contentGr } from "./content/greek";
+import { contentEng } from "./content/english";
+import { contentEs } from "./content/spanish";
+import { contentFr } from "./content/french";
+import { contentIt } from "./content/italian";
+import { contentRu } from "./content/russian";
+import { contentKr } from "./content/korean";
 
 @Component({
   selector: 'app-home',
@@ -58,9 +65,7 @@ import { type ColourOption } from "../../utilities/tools/types";
   ],
   imports: [
       ReactiveFormsModule,
-      ErrorMessageComponent,
       ProductListActionButtonComponent,
-      LanguageSwitchComponent,
       MaterialComponents,
       HeroSectionComponent
   ],
@@ -68,6 +73,21 @@ import { type ColourOption } from "../../utilities/tools/types";
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
+
+  private languageService = inject(LanguageService);
+
+  get content(): HomeContent {
+      const language = this.languageService;
+      return (
+            language.isGreek()   ? { ...contentGr }
+          : language.isEnglish() ? { ...contentEng }
+          : language.isSpanish() ? { ...contentEs }
+          : language.isFrench()  ? { ...contentFr }
+          : language.isItalian() ? { ...contentIt }
+          : language.isRussian() ? { ...contentRu }
+          : { ...contentKr }
+      );
+  }
 
   constructor() {
 
