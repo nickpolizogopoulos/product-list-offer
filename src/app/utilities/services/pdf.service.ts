@@ -1,4 +1,5 @@
 import {
+    computed,
     inject,
     Injectable,
     signal
@@ -11,8 +12,11 @@ import { type PDF } from '../tools/pdf.model';
 import { type ColourOption } from '../tools/types';
 
 import { LanguageService } from './language.service';
-import * as font from '../tools/custom-font.json';
-import * as fontKR from '../tools/noto-sans-kr.json';
+
+import * as Inter from '../fonts/inter.json';
+import * as NotoSansKR from '../fonts/noto-sans-kr.json';
+import * as tableWidth from '../tools/pdf-table-cell-with';
+
 
 @Injectable({
     providedIn: 'root'
@@ -22,6 +26,8 @@ export class PdfService {
     private languageService = inject(LanguageService);
 
     private printOption = signal<ColourOption>('withColour');
+    private withColour = computed(() => this.printOption() === 'withColour');
+    private withoutColour = computed(() => this.printOption() === 'withoutColour');
 
     setPrintOption(option: ColourOption): void {
         this.printOption.set(option);
@@ -37,7 +43,7 @@ export class PdfService {
         const pdfHeight = doc.internal.pageSize.getHeight();
 
         //* HEADER =======================================================================
-        if (this.printOption() === 'withColour') {
+        if (this.withColour()) {
             doc.setFillColor(202, 218, 232);
             //* Rectangle (x, y, width, height, radiusX, radiusY, style) 'F' = filled.
             doc.roundedRect(5, 5, 200, 22, 2, 2, 'F');
@@ -48,15 +54,15 @@ export class PdfService {
         const checkWhichLanguageIsActiveAndEnableTheCorrectFont = () => {
 
             if (language.isKorean()) {
-                doc.addFileToVFS('NotoSansKR.ttf', (fontKR as any).file.data);
+                doc.addFileToVFS('NotoSansKR.ttf', (NotoSansKR as any).file.data);
                 doc.addFont('NotoSansKR.ttf', 'NotoSansKR', 'normal');
                 doc.setFont('NotoSansKR');
             }
     
             else {   
-                doc.addFileToVFS('InterFont.ttf', (font as any).file.data);
-                doc.addFont('InterFont.ttf', 'InterFont', 'normal');
-                doc.setFont('InterFont');
+                doc.addFileToVFS('Inter.ttf', (Inter as any).file.data);
+                doc.addFont('Inter.ttf', 'Inter', 'normal');
+                doc.setFont('Inter');
             }
         }
 
@@ -81,7 +87,7 @@ export class PdfService {
         doc.text(pdf.companyLocation, pdfWidth - textWidth(pdf.companyLocation) - 10, 22);
 
         //* FIRST HORIZONTAL LINE ========================================================
-        if (this.printOption() === 'withColour') {            
+        if (this.withColour()) {            
             doc.line(x1, 34, x2, 34);
         }
 
@@ -152,7 +158,7 @@ export class PdfService {
         }
 
         //* SECOND HORIZONTAL LINE =======================================================
-        if (this.printOption() === 'withColour') {
+        if (this.withColour()) {
             doc.line(x1, 75, x2, 75);
         }
 
@@ -238,23 +244,42 @@ export class PdfService {
         ];
 
         const tableStartingPosition: number = pdf.notes ? 98 : 85;
+
+        const getColumnWidth = () => {
+            return (
+                  language.isGreek()   ? tableWidth.greek
+                : language.isEnglish() ? tableWidth.english
+                : language.isSpanish() ? tableWidth.spanish
+                : language.isFrench()  ? tableWidth.french
+                : language.isItalian() ? tableWidth.italian
+                : language.isRussian() ? tableWidth.russian
+                : tableWidth.korean
+            );
+        };
         
-        doc.setFont('InterFont', 'normal');
+        doc.setFont('Inter', 'normal');
         autoTable(doc, {
             head: header,
             body: products,
             foot: footer,
             startY: tableStartingPosition,
             styles: {
-                // font: this.languageService.isKorean() ? 'NotoSansKR' : 'InterFont',
-                font: checkWhichLanguageIsActiveAndEnableTheCorrectFont() !, //both options will work here.
+                //* both options for the table font will work here.
+                //* loading the Noto Sans KR for the Korean language. (Inter doesn't support Korean).
+                // font: this.languageService.isKorean() ? 'NotoSansKR' : 'Inter',
+                font: checkWhichLanguageIsActiveAndEnableTheCorrectFont() !,
                 fontSize: 10,
                 lineColor: '#ffffff',
                 lineWidth: 0.2,
             },
+            tableWidth: 'auto',
+            margin: { 
+                left: 8,
+                right: 8 
+            },
             //* Removes the colours from the table if printOption is 'withoutColor'.
             didParseCell: data => {
-                if (this.printOption() === 'withoutColour')
+                if (this.withoutColour())
                     data.cell.styles.fillColor = 'white';
                 else
                     return;
@@ -271,22 +296,7 @@ export class PdfService {
                 textColor: '#000000',
             },
             //* width 182
-            columnStyles: {
-                //* 0. No.
-                0: { cellWidth: 10 },
-
-                //* 1. Product.
-                1: { cellWidth: 92 },
-
-                //* 2. Unit Price .
-                2: { cellWidth: 32 },
-
-                //* 3. Quantity.
-                3: { cellWidth: 21 },
-
-                //* 4. Total Price .
-                4: { cellWidth: 27 }
-            }
+            columnStyles: getColumnWidth()
         });
         
         //* CREDITS ======================================================================
@@ -305,18 +315,18 @@ export class PdfService {
             ? `Το έγγραφο δημιουργήθηκε μέσω της εφαρμογής «Product Offer to .pdf» του Νίκου Πολυζωγόπουλου. Για περισσότερες πληροφορίες, επισκεφτείτε: https://product-offer-to-pdf.web.app`
 
             : language.isEnglish()
-            ? `This document was generated using the "Product Offer to .pdf" Web Application made by Nick Polizogopoulos.  For more information, visit: https://product-offer-to-pdf.web.app`
+            ? `This document was generated using the "Product Offer to .pdf" Web Application made by Nick Polizogopoulos. For more information, visit: https://product-offer-to-pdf.web.app`
 
             : language.isSpanish()
-            ? `Este documento fue generado utilizando la aplicación web "Product Offer to .pdf" creada por Nick Polizogopoulos.  Para más información, visita: https://product-offer-to-pdf.web.app`
+            ? `Este documento fue generado utilizando la aplicación web "Product Offer to .pdf" creada por Nick Polizogopoulos. Para más información, visita: https://product-offer-to-pdf.web.app`
 
             : language.isFrench()
-            ? `Ce document a été généré à l'aide de l'application Web "Product Offer to .pdf" créée par Nick Polizogopoulos.  Pour plus d'informations, visitez : https://product-offer-to-pdf.web.app`
+            ? `Ce document a été généré à l'aide de l'application Web "Product Offer to .pdf" créée par Nick Polizogopoulos. Pour plus d'informations, visitez : https://product-offer-to-pdf.web.app`
 
             : language.isItalian()
-            ? `Questo documento è stato generato utilizzando l'applicazione web "Product Offer to .pdf" realizzata da Nick Polizogopoulos.  Per maggiori informazioni, visita: https://product-offer-to-pdf.web.app`
+            ? `Questo documento è stato generato utilizzando l'applicazione web "Product Offer to .pdf" realizzata da Nick Polizogopoulos. Per maggiori informazioni, visita: https://product-offer-to-pdf.web.app`
 
-            : language.isItalian()
+            : language.isRussian()
             ? `Документ создан с использованием веб-приложения "Product Offer to .pdf" от Nick Polizogopoulos. Подробнее: https://product-offer-to-pdf.web.app`
 
             : `이 문서는 Nick Polizogopoulos 가 만든 "Product Offer to .pdf" 웹 애플리케이션을 사용하여 생성되었습니다. 자세한 정보는 다음을 방문하세요: https://product-offer-to-pdf.web.app`
@@ -340,13 +350,13 @@ export class PdfService {
 
         const getFileNameTranslation = (): string => {
             return (
-                language.isGreek()   ? `prosfora-se`
-              : language.isEnglish() ? `offer-to`
-              : language.isSpanish() ? `oferta-a`
-              : language.isFrench()  ? `offre-à`
-              : language.isItalian() ? `offerta-a`
-              : language.isRussian() ? `предложение-к`
-              : `제안서`
+                language.isGreek()   ? 'prosfora-se'
+              : language.isEnglish() ? 'offer-to'
+              : language.isSpanish() ? 'oferta-a'
+              : language.isFrench()  ? 'offre-à'
+              : language.isItalian() ? 'offerta-a'
+              : language.isRussian() ? 'предложение-к'
+              : '제안서'
               );
         }
 

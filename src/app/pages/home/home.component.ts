@@ -33,7 +33,10 @@ import {
   initialCompanyLocationValue,
   localStorageItemData,
   mustContainPeriod,
-  required
+  required,
+  loadClientFormValues,
+  loadProducts,
+  type ProductFormControl
 } from "../../utilities/tools/form-tools";
 
 import { PDF } from "../../utilities/tools/pdf.model";
@@ -44,9 +47,7 @@ import { ProductListActionButtonComponent } from "../../utilities/components/pro
 import { ErrorMessageComponent } from "../../utilities/components/error-message.component";
 import { LanguageSwitchComponent } from "../../utilities/components/language-switch.component";
 import { HeroSectionComponent } from "../../utilities/components/hero-section/hero-section.component";
-import { type ProductFormControl } from "../../utilities/tools/product-control";
 import { type ColourOption } from "../../utilities/tools/types";
-
 
 @Component({
   selector: 'app-home',
@@ -170,34 +171,19 @@ export class HomeComponent implements OnInit {
     companyEmail: new FormControl(initialCompanyEmailValue, { validators: [Validators.required, mustContainPeriod] }),
     companyLocation: new FormControl(initialCompanyLocationValue, required),
 
-    customer: new FormGroup({
-      customerName: new FormControl('', required),
-      customerPhone: new FormControl('', required),
-      customerEmail: new FormControl('', { validators: [ Validators.required, mustContainPeriod ] }),
-    }),
+    customer: loadClientFormValues(),
 
     expirationDate: new FormControl<Date | null>(null),
     notes: new FormControl(''),
     
-    products: new FormArray([
-      new FormGroup({
-        name: new FormControl('', required),
-        quantity: new FormControl('', required),
-        price: new FormControl(null, required)
-      }),
-      new FormGroup({
-        name: new FormControl('', required),
-        quantity: new FormControl('', required),
-        price: new FormControl(null, required)
-      })
-    ])
+    products: new FormArray( loadProducts() )
   });
 
-  get qtyOptions(): string[] {
-    const options: string[] = [];
+  get qtyOptions() {
+    const options = [];
 
     for (let i = 1; i <= 50; i++)
-      options.push(i.toString());
+      options.push(i);
 
     return options;
   }
@@ -282,7 +268,7 @@ export class HomeComponent implements OnInit {
       price: new FormControl(null, required)
     });
     const products = this.form.controls.products;
-    products.push(productGroup);
+    products.push(productGroup as FormGroup);
   }
 
   onDeleteProduct( index: number ): void {

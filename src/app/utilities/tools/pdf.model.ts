@@ -18,4 +18,4 @@ export class PDF {
         public expirationDate?: Date,
     ) {}
 
-}
+};
