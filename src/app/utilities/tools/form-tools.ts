@@ -75,7 +75,7 @@ export const loadProducts = () => {
   const developmentProducts = [];
   const productionProducts = [];
 
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < 10; i++) {
     const developmentProduct = 
       new FormGroup<ProductFormControl>({
           name: new FormControl(`This is the Product Title for product #${i + 1}`, required),

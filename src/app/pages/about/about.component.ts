@@ -104,13 +104,13 @@ export class AboutComponent {
     get content(): AboutContent {
         const language = this.languageService;
         return (
-              language.isGreek()   ? contentGr
-            : language.isEnglish() ? contentEng
-            : language.isSpanish() ? contentEs
-            : language.isFrench()  ? contentFr
-            : language.isItalian() ? contentIt
-            : language.isRussian() ? contentRu
-            : contentKr
+              language.isGreek()   ? { ...contentGr }
+            : language.isEnglish() ? { ...contentEng }
+            : language.isSpanish() ? { ...contentEs }
+            : language.isFrench()  ? { ...contentFr }
+            : language.isItalian() ? { ...contentIt }
+            : language.isRussian() ? { ...contentRu }
+            : { ...contentKr }
         );
     }
 
