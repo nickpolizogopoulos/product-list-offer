@@ -1,6 +1,6 @@
 import { AboutContent } from "./about-types";
 
-export const contentIt: AboutContent = {
+export const italian: AboutContent = {
     pageHeader: 'Informazioni su questa applicazione',
     appDescription: `
         Questa applicazione <strong><u>gratuita e open source</u></strong>, sviluppata con gli strumenti più recenti, 

@@ -1,6 +1,6 @@
 import { AboutContent } from "./about-types";
 
-export const contentKr: AboutContent = {
+export const korean: AboutContent = {
     pageHeader: '이 애플리케이션에 대하여',
     appDescription: `
         이 <strong><u>무료 오픈 소스</u></strong> 애플리케이션은 최신 도구들로 개발되었으며, 

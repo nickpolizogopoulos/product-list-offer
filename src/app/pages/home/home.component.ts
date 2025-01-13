@@ -44,17 +44,17 @@ import { PdfService } from "../../utilities/services/pdf.service";
 import { MaterialComponents } from "../../utilities/tools/material-components";
 import { ProductListActionButtonComponent } from "../../utilities/components/product-list-action-button.component";
 import { HeroSectionComponent } from "../../utilities/components/hero-section/hero-section.component";
-import { type ColourOption } from "../../utilities/tools/types";
+import { type ColourOption } from "../../utilities/services/language/types";
 
-import { LanguageService } from "../../utilities/services/language.service";
+import { LanguageService } from "../../utilities/services/language/language.service";
 import { type HomeContent } from "./content/types";
-import { contentGr } from "./content/greek";
-import { contentEng } from "./content/english";
-import { contentEs } from "./content/spanish";
-import { contentFr } from "./content/french";
-import { contentIt } from "./content/italian";
-import { contentRu } from "./content/russian";
-import { contentKr } from "./content/korean";
+import { greek } from "./content/greek";
+import { english } from "./content/english";
+import { spanish } from "./content/spanish";
+import { french } from "./content/french";
+import { italian } from "./content/italian";
+import { russian } from "./content/russian";
+import { korean } from "./content/korean";
 
 @Component({
   selector: 'app-home',
@@ -79,13 +79,13 @@ export class HomeComponent implements OnInit {
   get content(): HomeContent {
       const language = this.languageService;
       return (
-            language.isGreek()   ? { ...contentGr }
-          : language.isEnglish() ? { ...contentEng }
-          : language.isSpanish() ? { ...contentEs }
-          : language.isFrench()  ? { ...contentFr }
-          : language.isItalian() ? { ...contentIt }
-          : language.isRussian() ? { ...contentRu }
-          : { ...contentKr }
+            language.isGreek()   ? { ...greek }
+          : language.isEnglish() ? { ...english }
+          : language.isSpanish() ? { ...spanish }
+          : language.isFrench()  ? { ...french }
+          : language.isItalian() ? { ...italian }
+          : language.isRussian() ? { ...russian }
+          : { ...korean }
       );
   }
 

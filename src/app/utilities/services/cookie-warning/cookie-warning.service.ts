@@ -6,15 +6,15 @@ import {
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { LanguageService } from '../language.service';
+import { LanguageService } from '../language/language.service';
 import {
-    snackbarContentEng, 
-    snackbarContentEs, 
-    snackbarContentFr, 
-    snackbarContentGr, 
-    snackbarContentIt, 
-    snackbarContentKr, 
-    snackbarContentRu,
+    english,
+    greek,
+    spanish,
+    french,
+    italian,
+    russian,
+    korean,
     type SnackBarContent
 } from './cookie-warning-tools';
 
@@ -79,13 +79,13 @@ export class CookieWarningService {
     private getContent(): SnackBarContent {
         const language = this.languageService;
         return (
-              language.isGreek()   ? { ...snackbarContentGr }
-            : language.isEnglish() ? { ...snackbarContentEng } 
-            : language.isSpanish() ? { ...snackbarContentEs }
-            : language.isFrench()  ? { ...snackbarContentFr }
-            : language.isItalian() ? { ...snackbarContentIt }
-            : language.isRussian() ? { ...snackbarContentRu }
-            : { ...snackbarContentKr }
+              language.isGreek()   ? { ...greek }
+            : language.isEnglish() ? { ...english } 
+            : language.isSpanish() ? { ...spanish }
+            : language.isFrench()  ? { ...french }
+            : language.isItalian() ? { ...italian }
+            : language.isRussian() ? { ...russian }
+            : { ...korean }
         );
     }
     

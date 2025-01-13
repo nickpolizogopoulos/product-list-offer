@@ -1,6 +1,6 @@
 import { AboutContent } from "./about-types";
 
-export const contentGr: AboutContent = {
+export const greek: AboutContent = {
     pageHeader: 'Σχετικά με την Εφαρμογή',
     appDescription: `
         Αυτή η <strong><u>δωρεάν και ανοιχτού κώδικα</u></strong> εφαρμογή, που αναπτύχθηκε με τα πιο σύγχρονα εργαλεία, 

@@ -4,11 +4,11 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { LanguageService } from '../../services/language.service';
+import { LanguageService } from '../../services/language/language.service';
 import { MaterialComponents } from '../../tools/material-components';
 import {
     type Language,
-} from '../../tools/types';
+} from '../../services/language/types';
 import {
     languages,
     social,

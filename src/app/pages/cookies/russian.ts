@@ -1,6 +1,6 @@
 import { CookiesContent } from "./cookies-types";
 
-export const contentRu: CookiesContent = {
+export const russian: CookiesContent = {
     pageTitle: 'Политика использования файлов cookie',
     introText: 'Этот веб-сайт использует файлы cookie, чтобы обеспечить вам лучший опыт при использовании приложения.',
     block: {

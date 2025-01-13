@@ -6,7 +6,7 @@ export type HeroContent = {
     buttonLearnMore: string;
 };
 
-export const heroContentGr: HeroContent = {
+export const greek: HeroContent = {
     title: 'Καλώς ήρθατε!',
     subtitle: 'Κερδίστε χρόνο δημιουργώντας την δική σας προσφορά προϊόντων άμεσα και δωρεάν!',
     phrase: `
@@ -17,7 +17,7 @@ export const heroContentGr: HeroContent = {
     buttonLearnMore: 'Μάθετε περισσότερα!'
 };
 
-export const heroContentEng: HeroContent = {
+export const english: HeroContent = {
     title: 'Welcome!',
     subtitle: 'Save time by creating your own product offer instantly and for free!',
     phrase: `
@@ -28,7 +28,7 @@ export const heroContentEng: HeroContent = {
     buttonLearnMore: 'Learn more!'
 };
 
-export const heroContentSp: HeroContent = {
+export const spanish: HeroContent = {
     title: '¡Bienvenidos!',
     subtitle: 'Ahorre tiempo creando su propia oferta de productos de forma instantánea y gratuita.',
     phrase: `
@@ -39,7 +39,7 @@ export const heroContentSp: HeroContent = {
     buttonLearnMore: '¡Aprende más!'
 };
 
-export const heroContentFr: HeroContent = {
+export const french: HeroContent = {
     title: 'Bienvenue !',
     subtitle: 'Gagnez du temps en créant votre propre offre de produits instantanément et gratuitement !',
     phrase: `
@@ -50,7 +50,7 @@ export const heroContentFr: HeroContent = {
     buttonLearnMore: 'En savoir plus !'
 };
 
-export const heroContentIt: HeroContent = {
+export const italian: HeroContent = {
     title: 'Benvenuti!',
     subtitle: 'Risparmia tempo creando subito e gratuitamente la tua offerta di prodotti!',
     phrase: `
@@ -61,7 +61,7 @@ export const heroContentIt: HeroContent = {
     buttonLearnMore: 'Scopri di Più!'
 };
 
-export const heroContentRu: HeroContent = {
+export const russian: HeroContent = {
     title: 'Добро пожаловать!',
     subtitle: 'Экономьте время, создавая собственное предложение продукта мгновенно и бесплатно!',
     phrase: `
@@ -72,7 +72,7 @@ export const heroContentRu: HeroContent = {
     buttonLearnMore: 'Узнать больше!'
 };
 
-export const heroContentKr: HeroContent = {
+export const korean: HeroContent = {
     title: '환영합니다!',
     subtitle: '직접 제품 제안을 즉시 무료로 생성하여 시간을 절약하세요!',
     phrase: `

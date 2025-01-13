@@ -1,6 +1,6 @@
 import { AboutContent } from "./about-types";
 
-export const contentRu: AboutContent = {
+export const russian: AboutContent = {
     pageHeader: 'О приложении',
     appDescription: `
         Это <strong><u>бесплатное и с открытым исходным кодом</u></strong> приложение, разработанное с использованием новейших технологий, 

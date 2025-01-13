@@ -1,6 +1,6 @@
 import { PrivacyTermsContentType } from "./terms-types";
 
-export const contentKr: PrivacyTermsContentType = {
+export const korean: PrivacyTermsContentType = {
     pageTitle: '개인정보 보호정책 및 이용약관',
     content: [
         {

@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { LanguageService } from '../../services/language.service';
+import { LanguageService } from '../../services/language/language.service';
 import { MaterialComponents } from '../../tools/material-components';
 import { 
   footerContentEng, 
@@ -32,7 +32,7 @@ import {
   },
   template: `
 
-    Product offer to <span class="monospace">.</span>pdf 2024 - {{ date }}<span class="monospace">.</span>
+    Product offer to <span class="monospace">.</span>pdf 2024 - 2025<span class="monospace">.</span>
 
     <span [innerHTML]="content.text"></span>
 
@@ -88,8 +88,6 @@ import {
   `
 })
 export class FooterComponent {
-
-  date = new Date().getFullYear();
 
   private languageService = inject(LanguageService);
 

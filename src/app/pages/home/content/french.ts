@@ -1,6 +1,6 @@
 import { HomeContent } from "./types";
 
-export const contentFr: HomeContent = {
+export const french: HomeContent = {
     company: {
         sectionTitle: `Informations sur l'entreprise`,
         name: {

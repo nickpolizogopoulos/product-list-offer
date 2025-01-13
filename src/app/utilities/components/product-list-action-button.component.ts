@@ -13,7 +13,7 @@ import
     { type Instance } 
 from "tippy.js";
 
-import { LanguageService } from "../services/language.service";
+import { LanguageService } from "../services/language/language.service";
 
 type ButtonType = 'add' | 'delete';
 

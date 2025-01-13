@@ -1,6 +1,6 @@
 import { CookiesContent } from "./cookies-types";
 
-export const contentEng: CookiesContent = {
+export const english: CookiesContent = {
     pageTitle: 'Cookies Policy',
     introText: 'This website uses cookies to ensure you get the best experience using the application.',
     block: {

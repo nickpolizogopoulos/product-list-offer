@@ -1,6 +1,6 @@
 import { CookiesContent } from "./cookies-types";
 
-export const contentKr: CookiesContent = {
+export const korean: CookiesContent = {
     pageTitle: '쿠키 정책',
     introText: '이 웹사이트는 애플리케이션 사용 시 최상의 경험을 제공하기 위해 쿠키를 사용합니다.',
     block: {

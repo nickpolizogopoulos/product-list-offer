@@ -9,9 +9,8 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
 import { type PDF } from '../tools/pdf.model';
-import { type ColourOption } from '../tools/types';
-
-import { LanguageService } from './language.service';
+import { type ColourOption } from './language/types';
+import { LanguageService } from './language/language.service';
 
 import * as Inter from '../fonts/inter.json';
 import * as NotoSansKR from '../fonts/noto-sans-kr.json';

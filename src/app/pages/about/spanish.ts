@@ -1,6 +1,6 @@
 import { AboutContent } from "./about-types";
 
-export const contentEs: AboutContent = {
+export const spanish: AboutContent = {
     pageHeader: 'Acerca de esta aplicación',
     appDescription: `
         Esta aplicación <strong><u>gratuita y de código abierto</u></strong>, desarrollada con las herramientas más modernas, 

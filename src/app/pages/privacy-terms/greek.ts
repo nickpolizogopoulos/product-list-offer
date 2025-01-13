@@ -1,6 +1,6 @@
 import { PrivacyTermsContentType } from "./terms-types";
 
-export const contentGr: PrivacyTermsContentType = {
+export const greek: PrivacyTermsContentType = {
     pageTitle: 'Πολιτική Απορρήτου & Όροι Χρήσης',
     content: [
         {

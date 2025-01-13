@@ -1,4 +1,4 @@
-import { Language } from "../../tools/types";
+import { Language } from "../../services/language/types";
 
 export type LanguageSelectionItem = {
     imagePath: string;

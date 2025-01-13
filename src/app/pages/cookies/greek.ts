@@ -1,6 +1,6 @@
 import { CookiesContent } from "./cookies-types";
 
-export const contentGr: CookiesContent = {
+export const greek: CookiesContent = {
     pageTitle: 'Πολιτική cookies',
     introText: 'Αυτός ο ιστότοπος χρησιμοποιεί cookies για να σας προσφέρει την καλύτερη δυνατή εμπειρία χρήσης της εφαρμογής.',
     block: {

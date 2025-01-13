@@ -5,7 +5,7 @@ import {
     computed
 } from '@angular/core';
 
-import { type Language } from '../tools/types';
+import { type Language } from './types';
 
 @Injectable({
     providedIn: 'root',

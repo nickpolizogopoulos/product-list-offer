@@ -6,16 +6,16 @@ import {
 import { RouterLink } from "@angular/router";
 
 import { MaterialComponents } from "../../tools/material-components";
-import { LanguageService } from "../../services/language.service";
+import { LanguageService } from "../../services/language/language.service";
 import {
     type HeroContent,
-    heroContentEng,
-    heroContentFr,
-    heroContentGr,
-    heroContentIt,
-    heroContentKr,
-    heroContentRu,
-    heroContentSp
+    greek,
+    english,
+    spanish,
+    french,
+    italian,
+    russian,
+    korean
 } from "./hero-tools";
 
 @Component({
@@ -136,13 +136,13 @@ export class HeroSectionComponent {
     get content(): HeroContent {
         const language = this.languageService;
         return (
-              language.isGreek()   ? { ...heroContentGr }
-            : language.isEnglish() ? { ...heroContentEng }
-            : language.isSpanish() ? { ...heroContentSp }
-            : language.isFrench()  ? { ...heroContentFr }
-            : language.isItalian() ? { ...heroContentIt }
-            : language.isRussian() ? { ...heroContentRu }
-            : { ...heroContentKr }
+              language.isGreek()   ? { ...greek }
+            : language.isEnglish() ? { ...english }
+            : language.isSpanish() ? { ...spanish }
+            : language.isFrench()  ? { ...french }
+            : language.isItalian() ? { ...italian }
+            : language.isRussian() ? { ...russian }
+            : { ...korean }
         );
     }
 

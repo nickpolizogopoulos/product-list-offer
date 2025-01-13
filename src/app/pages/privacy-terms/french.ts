@@ -1,6 +1,6 @@
 import { PrivacyTermsContentType } from "./terms-types";
 
-export const contentFr: PrivacyTermsContentType = {
+export const french: PrivacyTermsContentType = {
     pageTitle: 'Politique de Confidentialité & Conditions d\'Utilisation',
     content: [
         {

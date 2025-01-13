@@ -1,4 +1,5 @@
 
+
 export type Language =
     'greek'
   | 'english'
@@ -11,9 +12,3 @@ export type Language =
 export type ColourOption = 
     'withColour'
   | 'withoutColour';
-
-export type FooterLink = {
-  name: string;
-  path: string;
-};
-

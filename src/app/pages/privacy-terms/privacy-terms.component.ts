@@ -5,16 +5,16 @@ import {
 import { RouterLink } from '@angular/router';
 
 import { MaterialComponents } from '../../utilities/tools/material-components';
-import { LanguageService } from '../../utilities/services/language.service';
+import { LanguageService } from '../../utilities/services/language/language.service';
 import { PrivacyTermsContentType } from './terms-types';
 
-import { contentEng } from './english';
-import { contentGr } from './greek';
-import { contentEs } from './spanish';
-import { contentFr } from './french';
-import { contentIt } from './italian';
-import { contentRu } from './russian';
-import { contentKr } from './korean';
+import { greek } from "./greek";
+import { english } from "./english";
+import { spanish } from "./spanish";
+import { french } from "./french";
+import { italian } from "./italian";
+import { russian } from "./russian";
+import { korean } from "./korean";
 
 @Component({
   selector: 'app-privacy-terms',
@@ -94,14 +94,17 @@ export class PrivacyTermsComponent {
     get content(): PrivacyTermsContentType {
         const language = this.languageService;
         return (
-              language.isGreek()   ? { ...contentGr }
-            : language.isEnglish() ? { ...contentEng }
-            : language.isSpanish() ? { ...contentEs }
-            : language.isFrench()  ? { ...contentFr }
-            : language.isItalian() ? { ...contentIt }
-            : language.isRussian() ? { ...contentRu }
-            : { ...contentKr }
+              language.isGreek()   ? { ...greek }
+            : language.isEnglish() ? { ...english }
+            : language.isSpanish() ? { ...spanish }
+            : language.isFrench()  ? { ...french }
+            : language.isItalian() ? { ...italian }
+            : language.isRussian() ? { ...russian }
+            : { ...korean }
         );
     }
 
 }
+
+
+
