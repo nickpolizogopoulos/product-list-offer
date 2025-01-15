@@ -246,13 +246,13 @@ export class PdfService {
 
         const getColumnWidth = () => {
             return (
-                  language.isGreek()   ? tableWidth.greek
-                : language.isEnglish() ? tableWidth.english
-                : language.isSpanish() ? tableWidth.spanish
-                : language.isFrench()  ? tableWidth.french
-                : language.isItalian() ? tableWidth.italian
-                : language.isRussian() ? tableWidth.russian
-                : tableWidth.korean
+                  language.isGreek()   ? { ...tableWidth.greek }
+                : language.isEnglish() ? { ...tableWidth.english }
+                : language.isSpanish() ? { ...tableWidth.spanish }
+                : language.isFrench()  ? { ...tableWidth.french }
+                : language.isItalian() ? { ...tableWidth.italian }
+                : language.isRussian() ? { ...tableWidth.russian }
+                : { ...tableWidth.korean }
             );
         };
         
