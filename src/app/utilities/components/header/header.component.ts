@@ -88,7 +88,7 @@ import {
             height: 110px;
             justify-content: space-between;
 
-            @media screen and (max-width: 991px) {
+            @media screen and (max-width: 1050px) {
                 height: auto;
                 flex-direction: column;
                 padding: 1rem 0;
@@ -138,24 +138,6 @@ import {
 
             img {
                 width: 60px;
-            }
-
-            h2 {
-                margin: 0 !important;
-
-                @media screen and (max-width: 991px) {
-                    text-align: center;
-                    margin-bottom: 1rem;
-                    font-size: 2.6rem;
-                }
-                
-                @media screen and (max-width: 408px) {
-                    font-size: 2rem;
-                }
-
-                @media screen and (max-width: 315px) {
-                    font-size: 1.8rem;
-                }
             }
 
             @media screen and (max-width: 471px) {
