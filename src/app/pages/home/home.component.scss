@@ -20,6 +20,12 @@
 
     .input-25 {
         width: 25%; 
+
+        &.product-quantity-price {
+            @media screen and (min-width: 992px) and (max-width: 1200px) {
+                width: 18%;
+            }
+        }
     }
 
     h5 {
@@ -121,10 +127,6 @@
     line-height: 1.7rem;
 }
 
-.submit-section {
-    margin: 20px 0 10px;
-}
-
 .form-error-message,
 .error-message {
     font-style: italic;
@@ -133,7 +135,7 @@
 }
 
 .form-error-message {
-    margin: 10px 0;
+    margin: 10px 0 10px 16px;
 }
 
 .error-message {
