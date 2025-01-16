@@ -120,11 +120,8 @@
     }
 }
 
-.product-list-empty {
-    font-style: italic;
-    text-decoration: underline $blue;
-    color: rgb(75, 75, 75);
-    line-height: 1.7rem;
+.error-message {
+    font-size: 13px;
 }
 
 .form-error-message,
@@ -134,10 +131,17 @@
     user-select: none;
 }
 
-.form-error-message {
-    margin: 10px 0 10px 16px;
+.product-list-empty {
+    font-style: italic;
+    text-decoration: underline $blue;
+    color: rgb(75, 75, 75);
+    line-height: 1.7rem;
 }
 
-.error-message {
-    font-size: 13px;
+.submit-section {
+    margin: 1.2rem 0 .6rem;
+    
+    .form-error-message {
+        margin-left: .5rem;
+    }
 }
