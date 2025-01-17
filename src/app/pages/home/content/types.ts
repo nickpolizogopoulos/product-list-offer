@@ -3,6 +3,8 @@ type Input = {
     errorMessage: string;
 };
 
+export type Orientation = 'vertical' | 'horizontal';
+
 export type HomeContent = {
     company: {
         sectionTitle: string;
@@ -39,6 +41,10 @@ export type HomeContent = {
         listIsEmpty: string;
         mobileHeader: string;
     };
+    orientation: {
+        vertical: string;
+        horizontal: string;
+    }
     colourOptions: {
         coloured: string;
         withoutColour: string;

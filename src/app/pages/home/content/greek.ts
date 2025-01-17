@@ -72,6 +72,10 @@ export const greek: HomeContent = {
         listIsEmpty: 'Δεν υπάρχουν προϊόντα στη λίστα σας. Το αρχείο PDF δεν μπορεί να δημιουργηθεί με άδεια λίστα προϊόντων!',
         mobileHeader: 'Προσθήκη προϊόντος'
     },
+    orientation: {
+        vertical: 'Κάθετο .pdf',
+        horizontal: 'Οριζόντιο .pdf'
+    },
     colourOptions: {
         coloured: 'Εκτύπωση αρχείου .pdf με χρώμα',
         withoutColour: 'Αφαίρεση χρωμάτων (εξοικονόμηση μελανιού)'

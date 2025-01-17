@@ -47,7 +47,10 @@ import { HeroSectionComponent } from "../../utilities/components/hero-section/he
 import { type ColourOption } from "../../utilities/services/language/types";
 
 import { LanguageService } from "../../utilities/services/language/language.service";
-import { type HomeContent } from "./content/types";
+import {
+  type Orientation,
+  type HomeContent 
+} from "./content/types";
 import { greek } from "./content/greek";
 import { english } from "./content/english";
 import { spanish } from "./content/spanish";
@@ -70,7 +73,10 @@ import { korean } from "./content/korean";
       HeroSectionComponent
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
+  host: {
+    '(window: resize)': 'onWindowResize()'
+  }
 })
 export class HomeComponent implements OnInit {
 
@@ -91,6 +97,8 @@ export class HomeComponent implements OnInit {
 
   constructor() {
 
+    this.setButtonOrientation();
+
     //* for the textarea rows
     effect(() =>
       window.addEventListener(
@@ -101,6 +109,10 @@ export class HomeComponent implements OnInit {
         
     effect(() => 
       this.pdfService.setPrintOption( this.printOption() )
+  );
+  
+    effect(() => 
+      this.pdfService.setOrientation( this.selectedOrientation() )
     );
 
     //* enable - disable the expiration date input based on radio button selection.
@@ -158,9 +170,14 @@ export class HomeComponent implements OnInit {
   );
   
   printOption = signal<ColourOption>('withColour');
+  selectedOrientation = signal<Orientation>('vertical');
   
   onColouredPdfOptionChange(value: ColourOption) {
     this.printOption.set(value);
+  }
+
+  onOrientationChange(value: Orientation) {
+    this.selectedOrientation.set(value);
   }
   
   theOfferHasExpirationDate = signal<'expires' | 'permanent'>('permanent');
@@ -385,6 +402,18 @@ export class HomeComponent implements OnInit {
     );
 
     this.pdfService.generatePDF(pdf);
+  }
+
+
+
+  buttonsVertical = signal<boolean>(false);
+  private setButtonOrientation(): void {
+    const isMobile = this.windowWidth() < 660;
+    this.buttonsVertical.set(isMobile);
+  }
+  private onWindowResize(): void {
+    this.windowWidth.set(window.innerWidth);
+    this.setButtonOrientation();
   }
 
 }

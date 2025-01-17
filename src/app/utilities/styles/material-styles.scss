@@ -1,4 +1,5 @@
 @use './variables.scss' as *;
+@use './placeholders.scss' as *;
 
 mat-divider {
     margin: 20px 0 !important;
@@ -47,6 +48,10 @@ mat-radio-group {
     gap: 2rem !important;
     margin-bottom: 1.2rem;
     
+    .mdc-label {
+        cursor: pointer;
+    }
+
     @media screen and (max-width: 841px) {
         flex-direction: column !important;
         gap: 0 !important; 
@@ -116,4 +121,29 @@ simple-snack-bar {
     @media screen and (max-width: 1170px) {
         min-width: 100% !important;
     }
+}
+
+mat-button-toggle-group {
+    margin-bottom: 1.2rem;
+
+    @media screen and (max-width: 660px) {
+        border-radius: 14px !important;
+    }
+
+    mat-button-toggle {
+        padding: 0 1rem;
+    }
+
+    .mat-button-toggle-label-content {
+        @extend %flex-row;
+        gap: .7rem;
+        
+        @media screen and (max-width: 660px) {
+            img { margin-left: 10px; }
+        }
+    }
+}
+
+.mat-button-toggle-group {
+    background-color: rgba(255, 255, 255, 0.6) !important;
 }

@@ -72,6 +72,10 @@ export const italian: HomeContent = {
         listIsEmpty: 'Non ci sono prodotti nella tua lista. Il file PDF non può essere generato con una lista di prodotti vuota!',
         mobileHeader: 'Aggiungi prodotto'
     },
+    orientation: {
+        vertical: 'Verticale .pdf',
+        horizontal: 'Orizzontale .pdf'
+    },
     colourOptions: {
         coloured: 'Stampa .pdf a colori',
         withoutColour: 'Rimuovi i colori (risparmia inchiostro)'

@@ -72,6 +72,10 @@ export const french: HomeContent = {
         listIsEmpty: `Il n'y a pas de produits dans votre liste. Le fichier PDF ne peut pas être généré avec une liste de produits vide !`,
         mobileHeader: 'Ajouter un produit'
     },
+    orientation: {
+        vertical: 'Vertical .pdf',
+        horizontal: 'Horizontal .pdf'
+    },
     colourOptions: {
         coloured: 'Imprimer le fichier .pdf en couleur',
         withoutColour: `Supprimer les couleurs (économise de l'encre)`

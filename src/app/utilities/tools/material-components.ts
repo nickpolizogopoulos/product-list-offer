@@ -6,6 +6,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 export const MaterialComponents =
 [
@@ -16,5 +17,6 @@ export const MaterialComponents =
     MatRadioModule,
     MatMenuModule,
     MatIconModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatButtonToggleModule
 ];

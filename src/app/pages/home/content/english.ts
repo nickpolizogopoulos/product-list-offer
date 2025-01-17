@@ -72,6 +72,10 @@ export const english: HomeContent = {
         listIsEmpty: 'There are no products in your list. The PDF file cannot be generated with an empty product list!',
         mobileHeader: 'Add Product'
     },
+    orientation: {
+        vertical: 'Vertical .pdf',
+        horizontal: 'Horizontal .pdf'
+    },
     colourOptions: {
         coloured: 'Print coloured .pdf file',
         withoutColour: 'Remove colours (saves ink)'

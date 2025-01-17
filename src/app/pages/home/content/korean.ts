@@ -72,6 +72,10 @@ export const korean: HomeContent = {
         listIsEmpty: '제품 목록에 제품이 없습니다. 빈 제품 목록으로 pdf 파일을 만들 수 없습니다!',
         mobileHeader: '제품 추가'
     },
+    orientation: {
+        vertical: '세로 .pdf',
+        horizontal: '가로 .pdf'
+    },
     colourOptions: {
         coloured: '컬러 pdf 파일 인쇄',
         withoutColour: '색상 제거 (잉크 절약)'

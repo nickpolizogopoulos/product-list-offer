@@ -72,6 +72,10 @@ export const russian: HomeContent = {
         listIsEmpty: 'В вашем списке нет товаров. Невозможно создать PDF-файл с пустым списком товаров!',
         mobileHeader: 'Добавить продукт'
     },
+    orientation: {
+        vertical: 'Вертикальный .pdf',
+        horizontal: 'Горизонтальный .pdf'
+    },
     colourOptions: {
         coloured: 'Печать цветного .pdf файла',
         withoutColour: 'Удалить цвета (экономия чернил)'

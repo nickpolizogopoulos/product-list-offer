@@ -1,7 +1,5 @@
+<app-hero-section (getStarted)="onGetStarted()" />
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-
-    <app-hero-section (getStarted)="onGetStarted()" />
-    
     <section class="container" id="get-started">
         <h3>{{ content.company.sectionTitle }}</h3>
         <section class="info-block">
@@ -172,6 +170,10 @@
             <h5>{{ content.products.mobileHeader }}</h5>
             <app-product-list-action-button buttonType="add" (click)="onAddProduct()" />
         </section>
+        <mat-button-toggle-group [vertical]="buttonsVertical()" [value]="selectedOrientation()" (change)="onOrientationChange($event.value)" name="orientation" aria-label="PDF file orientation">
+            <mat-button-toggle value="vertical">{{ content.orientation.vertical }}<img src="orientation-icons/vertical.svg" alt="vertical"></mat-button-toggle>
+            <mat-button-toggle value="horizontal">{{ content.orientation.horizontal }}<img src="orientation-icons/horizontal.svg" alt="horizontal"></mat-button-toggle>
+        </mat-button-toggle-group>       
         <mat-radio-group [value]="printOption()" (change)="onColouredPdfOptionChange($event.value)" aria-label="Select an option">
             <mat-radio-button value="withColour">{{ content.colourOptions.coloured }}</mat-radio-button>
             <mat-radio-button value="withoutColour">{{ content.colourOptions.withoutColour }}</mat-radio-button>

@@ -1,5 +1,5 @@
 
-//*** TOTAL MUST BE 194 
+//*** VERTICAL TOTAL MUST BE 194 
 
 //* 0. No.
 //* 1. Product.
@@ -61,4 +61,22 @@ export const korean = {
     2: { cellWidth: 27 },
     3: { cellWidth: 15 },
     4: { cellWidth: 27 }
+};
+
+//*** HORIZONTAL TOTAL MUST BE 281
+
+export const horizontalPdfCellWidth = {
+    0: { cellWidth: 10 },
+    1: { cellWidth: 185 },
+    2: { cellWidth: 34 },
+    3: { cellWidth: 22 },
+    4: { cellWidth: 30 }
+};
+
+export const russianHorizontal = {
+    0: { cellWidth: 10 },
+    1: { cellWidth: 170 }, 
+    2: { cellWidth: 37 },
+    3: { cellWidth: 25 },
+    4: { cellWidth: 39 }
 };
