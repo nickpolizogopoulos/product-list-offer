@@ -17,7 +17,6 @@ export class LanguageService {
 
     selectedLanguage = this.language.asReadonly();
 
-    // TODO computed
     isGreek = computed(() => this.selectedLanguage() === 'greek');
     isEnglish = computed(() => this.selectedLanguage() === 'english');
     isSpanish = computed(() => this.selectedLanguage() === 'spanish');

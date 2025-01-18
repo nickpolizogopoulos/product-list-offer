@@ -305,31 +305,36 @@ export class PdfService {
 
         //* PAGE COUNT ===================================================================
         const pageCount: number = doc.getNumberOfPages();
+        const pageCountPositionY: number = pdfHeight - 3;
+
+        const pageCountPositionX = (position: number): number => {
+            return pdfWidth - position;
+        };
 
         for (let i = 1; i <= pageCount; i++) {
             doc.setPage(i);
             doc.setFontSize(6);
 
             if (language.isGreek())
-                doc.text(`Σελίδα ${i} από ${pageCount}`, pdfWidth - 20, pdfHeight - 3);
+                doc.text(`Σελίδα ${i} από ${pageCount}`, pageCountPositionX(20), pageCountPositionY);
 
             else if (language.isEnglish())
-                doc.text(`Page ${i} of ${pageCount}`, pdfWidth - 16, pdfHeight - 3);
+                doc.text(`Page ${i} of ${pageCount}`, pageCountPositionX(16), pageCountPositionY);
 
             else if (language.isSpanish())
-                doc.text(`Página ${i} de ${pageCount}`, pdfWidth - 18.5, pdfHeight - 3);
+                doc.text(`Página ${i} de ${pageCount}`, pageCountPositionX(18.5), pageCountPositionY);
             
             else if (language.isFrench())
-                doc.text(`Page ${i} sur ${pageCount}`, pdfWidth - 17.5, pdfHeight - 3);
+                doc.text(`Page ${i} sur ${pageCount}`, pageCountPositionX(17.5), pageCountPositionY);
 
             else if (language.isItalian())
-                doc.text(`Pagina ${i} di ${pageCount}`, pdfWidth - 17.7, pdfHeight - 3);
+                doc.text(`Pagina ${i} di ${pageCount}`, pageCountPositionX(17.7), pageCountPositionY);
 
             else if (language.isRussian())
-                doc.text(`Страница ${i} из ${pageCount}`, pdfWidth - 21, pdfHeight - 3);
+                doc.text(`Страница ${i} из ${pageCount}`, pageCountPositionX(21), pageCountPositionY);
 
             else
-                doc.text(`페이지 ${i} / ${pageCount}`, pdfWidth - 15.5, pdfHeight - 3);
+                doc.text(`페이지 ${i} / ${pageCount}`, pageCountPositionX(15.5), pageCountPositionY);
                 
         }
 
