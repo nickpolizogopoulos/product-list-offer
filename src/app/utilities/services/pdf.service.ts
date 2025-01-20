@@ -38,6 +38,16 @@ export class PdfService {
         this.orientation.set(orientation);
     }
 
+    private numberOfLinesInTextArea = signal<number | 1>(1);
+
+    updateTextareaLines(value: number): void {
+        this.numberOfLinesInTextArea.set(value);
+    }
+    
+    get textareaLines(): number {
+        return this.numberOfLinesInTextArea();
+    }
+
     generatePDF( pdf: PDF ): void {
 
         const language = this.languageService;
@@ -210,8 +220,6 @@ export class PdfService {
 
         ];
 
-        const tableStartingPosition: number = pdf.notes ? 98 : 85;
-
         const getColumnWidth = () => {
             return (
                 this.pdfIsVertical() 
@@ -230,12 +238,25 @@ export class PdfService {
                 )
             );
         };
+
+        //* The table starts at 85. If there are notes, increase by 3 for every line of notes.
+        const tableStartingPosition = 85;
+        const extraSpacePerNotesLine = tableStartingPosition + (this.textareaLines * 3.5);
+
+        const tablePosition = (): number => {
+            const someExtraSpaceForTheWin: number = 3;
+            return (
+                  pdf.notes
+                ? extraSpacePerNotesLine + someExtraSpaceForTheWin
+                : tableStartingPosition
+            );
+        };
         
         autoTable(doc, {
             head: tableHeader,
             body: products,
             foot: tableFooter,
-            startY: tableStartingPosition,
+            startY: tablePosition(),
             styles: {
                 //* both options for the table font will work here.
                 //* loading the Noto Sans KR for the Korean language. (Inter doesn't support Korean).

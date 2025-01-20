@@ -109,7 +109,7 @@ export class HomeComponent implements OnInit {
         
     effect(() => 
       this.pdfService.setPrintOption( this.printOption() )
-  );
+    );
   
     effect(() => 
       this.pdfService.setOrientation( this.selectedOrientation() )
@@ -198,6 +198,20 @@ export class HomeComponent implements OnInit {
       this.form.controls.notes.setValue(null);
     
     this.notesEnabled.set(!this.notesEnabled());
+  }
+
+  private howManyLinesInTextArea = signal<number>(1);
+
+  //* calculates the textarea textlines and stores the number in line 203;
+  trackTextareaLines(event: Event): void {
+    const textarea = event.target as HTMLTextAreaElement;
+
+    const lineHeight = parseInt(getComputedStyle(textarea).lineHeight, 10);
+    const scrollHeight = textarea.scrollHeight;
+
+    this.howManyLinesInTextArea.set(Math.ceil(scrollHeight / lineHeight));
+
+    this.pdfService.updateTextareaLines(this.howManyLinesInTextArea());
   }
 
   form = new FormGroup({
@@ -403,8 +417,6 @@ export class HomeComponent implements OnInit {
 
     this.pdfService.generatePDF(pdf);
   }
-
-
 
   buttonsVertical = signal<boolean>(false);
   private setButtonOrientation(): void {
