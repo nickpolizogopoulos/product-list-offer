@@ -1,5 +1,6 @@
 import {
     Component,
+    computed,
     inject
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -42,9 +43,14 @@ import {
                 @for (language of languages; track $index) {
                     <button (click)="onLanguageSelect(language.onSelect)" mat-menu-item>
                         <img [src]="language.imagePath" [alt]="language.alt">
-                        <span>
-                            {{ language.name }}
-                        </span>
+                        <div class="language-name-and-check-icon">
+                            <span>
+                                {{ language.name }}
+                            </span>
+                            @if (selectedLanguage() === language.onSelect) {
+                                <mat-icon>check</mat-icon>
+                            }
+                        </div>
                     </button>
                 }
             </mat-menu>
@@ -85,6 +91,10 @@ import {
 export class HeaderComponent {
 
     private languageService = inject(LanguageService);
+
+    selectedLanguage = computed(() => 
+        this.languageService.selectedLanguage()
+    );
 
     get loadLanguage(): string {
         const language = this.languageService;
