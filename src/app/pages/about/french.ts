@@ -45,6 +45,10 @@ export const french: AboutContent = {
             `
         },
         {
+            name: 'Orientation du Document',
+            information: 'Choisissez entre une mise en page PDF verticale ou horizontale.'
+        },
+        {
             name: 'PDF avec ou sans couleur',
             information: `
                 Choisissez si vous souhaitez que le PDF contienne des détails en couleur ou non.

@@ -45,6 +45,11 @@ export const english: AboutContent = {
             `
         },
         {
+            name: 'Document Orientation',
+            information: `Choose between vertical or horizontal PDF layout.`
+        },
+
+        {
             name: 'PDF with or without color',
             information: `
                 Choose whether you want the PDF to have color details or not.

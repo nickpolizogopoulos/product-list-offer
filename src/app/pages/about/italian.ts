@@ -45,6 +45,10 @@ export const italian: AboutContent = {
             `
         },
         {
+            name: 'Orientamento del Documento',
+            information: 'Scegli tra il layout PDF verticale o orizzontale.'
+        },
+        {
             name: 'PDF con o senza colore',
             information: `
                 Scegli se desideri che il PDF contenga dettagli colorati o meno.
