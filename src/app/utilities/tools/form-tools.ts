@@ -15,8 +15,8 @@ export const mustContainPeriod = (control: AbstractControl): ValidatorResult | n
     const value = control.value;
     return (
       typeof value === 'string' && value.includes('.')
-      ? null 
-      : { doesNotContainPeriod: true }
+        ? null 
+        : { doesNotContainPeriod: true }
     );
 };
 
@@ -61,7 +61,9 @@ export const loadClientFormValues = () => {
     customerEmail: new FormControl( '', { validators: [ Validators.required, mustContainPeriod ] } ),
   });
 
-  return environment.production ? procuctionClient : developmentClient;
+  return environment.production 
+    ? procuctionClient 
+    : developmentClient;
 };
 
 export type ProductFormControl = {
@@ -97,5 +99,7 @@ export const loadProducts = () => {
     developmentProducts.push(productionProduct);
   }
 
-  return environment.production ? developmentProducts : productionProducts;
+  return environment.production
+    ? developmentProducts
+    : productionProducts;
 };

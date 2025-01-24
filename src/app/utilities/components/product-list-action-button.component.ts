@@ -49,7 +49,9 @@ export class ProductListActionButtonComponent {
     buttonType = input.required<ButtonType>();
 
     buttonClass = computed<ButtonType>(() =>
-        this.buttonType() === 'add' ? 'add' : 'delete'
+        this.buttonType() === 'add' 
+            ? 'add' 
+            : 'delete'
     );
 
     constructor() {
@@ -92,7 +94,9 @@ export class ProductListActionButtonComponent {
             );
             
             //* Tippy might return an array of instances, we pick the first one - ensures single instance
-            this.currentTippyInstance = Array.isArray(tooltipInstance) ? tooltipInstance[0] : tooltipInstance;
+            this.currentTippyInstance = Array.isArray(tooltipInstance) 
+                ? tooltipInstance[0] 
+                : tooltipInstance;
         }
     }
 

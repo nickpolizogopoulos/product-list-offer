@@ -5,6 +5,8 @@ type Input = {
 
 export type Orientation = 'vertical' | 'horizontal';
 
+export type OfferExpirationOption = 'expires' | 'permanent';
+
 export type HomeContent = {
     company: {
         sectionTitle: string;

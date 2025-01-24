@@ -35,14 +35,15 @@ import {
     Product offer to <span class="monospace">.</span>pdf 2024 - 2025<span class="monospace">.</span>
 
     <span [innerHTML]="content.text"></span>
-
-    <ul>
+    <nav>
+      <ul>
         @for (link of content.links; track $index) {
           <li>
             <a class="link" [routerLink]="link.path">{{ link.name }}</a>
           </li>
         }
-    </ul>
+      </ul>
+    </nav>
   
   `,
   styles: `

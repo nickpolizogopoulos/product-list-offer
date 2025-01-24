@@ -49,7 +49,8 @@ import { type ColourOption } from "../../utilities/services/language/types";
 import { LanguageService } from "../../utilities/services/language/language.service";
 import {
   type Orientation,
-  type HomeContent 
+  type HomeContent, 
+  type OfferExpirationOption
 } from "./content/types";
 import { greek } from "./content/greek";
 import { english } from "./content/english";
@@ -80,20 +81,10 @@ import { korean } from "./content/korean";
 })
 export class HomeComponent implements OnInit {
 
-  private languageService = inject(LanguageService);
+  private destroyRef = inject(DestroyRef);
+  private router = inject(Router);
 
-  get content(): HomeContent {
-      const language = this.languageService;
-      return (
-            language.isGreek()   ? { ...greek }
-          : language.isEnglish() ? { ...english }
-          : language.isSpanish() ? { ...spanish }
-          : language.isFrench()  ? { ...french }
-          : language.isItalian() ? { ...italian }
-          : language.isRussian() ? { ...russian }
-          : { ...korean }
-      );
-  }
+  private languageService = inject(LanguageService);
 
   constructor() {
 
@@ -153,8 +144,18 @@ export class HomeComponent implements OnInit {
       );
   }
 
-  private destroyRef = inject(DestroyRef);
-  private router = inject(Router);
+  get content(): HomeContent {
+    const language = this.languageService;
+    return (
+          language.isGreek()   ? { ...greek }
+        : language.isEnglish() ? { ...english }
+        : language.isSpanish() ? { ...spanish }
+        : language.isFrench()  ? { ...french }
+        : language.isItalian() ? { ...italian }
+        : language.isRussian() ? { ...russian }
+        : { ...korean }
+    );
+  }
 
   onGetStarted(): void {
     this.router.navigateByUrl('#get-started')
@@ -180,9 +181,9 @@ export class HomeComponent implements OnInit {
     this.selectedOrientation.set(value);
   }
   
-  theOfferHasExpirationDate = signal<'expires' | 'permanent'>('permanent');
+  theOfferHasExpirationDate = signal<OfferExpirationOption>('permanent');
 
-  onExpirationChange(value: 'expires' | 'permanent'): void {
+  onExpirationChange(value: OfferExpirationOption): void {
 
     if (this.theOfferHasExpirationDate() === 'expires')
       this.form.controls.expirationDate.setValue(null);
@@ -194,7 +195,7 @@ export class HomeComponent implements OnInit {
   notesEnabled = signal<boolean>(false);
 
   onNotesSelected(): void {
-    if (this.notesEnabled() === true)
+    if (this.notesEnabled())
       this.form.controls.notes.setValue(null);
     
     this.notesEnabled.set(!this.notesEnabled());
@@ -225,7 +226,7 @@ export class HomeComponent implements OnInit {
     customer: loadClientFormValues(),
 
     expirationDate: new FormControl<Date | null>(null),
-    notes: new FormControl(''),
+    notes: new FormControl(null),
     
     products: new FormArray( loadProducts() )
   });
@@ -313,11 +314,13 @@ export class HomeComponent implements OnInit {
 
   onAddProduct(): void {
     this.theListIsEmpty.set(false);
+
     const productGroup = new FormGroup({
-      name: new FormControl('', required),
-      quantity: new FormControl('', required),
+      name: new FormControl(null, required),
+      quantity: new FormControl(null, required),
       price: new FormControl(null, required)
     });
+
     const products = this.form.controls.products;
     products.push(productGroup as FormGroup);
   }
@@ -370,6 +373,7 @@ export class HomeComponent implements OnInit {
           )
         );
       });
+
       return products;
     };
 
@@ -379,14 +383,15 @@ export class HomeComponent implements OnInit {
       return;
     }
 
-    const subtotal = (): number => {
-      let totalPrice = 0;
+    const total = (): number => {
+      let total = 0;
 
       productArray.forEach((productGroup: AbstractControl) => {
         const product = (productGroup as FormGroup).value;
-        totalPrice += product.price * product.quantity;
+        total += product.price * product.quantity;
       });
-      return totalPrice;
+
+      return total;
     };
 
     const productsQuantity = (): number => {
@@ -396,6 +401,7 @@ export class HomeComponent implements OnInit {
         const product = (productGroup as FormGroup).value;
         totalProductQuantity += +product.quantity;
       });
+
       return totalProductQuantity;
     }
 
@@ -410,7 +416,7 @@ export class HomeComponent implements OnInit {
       customerEmail,
       products(),
       productsQuantity(),
-      subtotal(),
+      total(),
       notes,
       expirationDate
     );
@@ -418,11 +424,14 @@ export class HomeComponent implements OnInit {
     this.pdfService.generatePDF(pdf);
   }
 
+  //* mat-button-toggle-group (document orientation) for smaller screens
   buttonsVertical = signal<boolean>(false);
+  
   private setButtonOrientation(): void {
     const isMobile = this.windowWidth() < 660;
     this.buttonsVertical.set(isMobile);
   }
+  
   private onWindowResize(): void {
     this.windowWidth.set(window.innerWidth);
     this.setButtonOrientation();

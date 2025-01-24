@@ -38,7 +38,7 @@ export class PdfService {
         this.orientation.set(orientation);
     }
 
-    private numberOfLinesInTextArea = signal<number | 1>(1);
+    private numberOfLinesInTextArea = signal<number>(1);
 
     updateTextareaLines(value: number): void {
         this.numberOfLinesInTextArea.set(value);
@@ -51,7 +51,10 @@ export class PdfService {
     generatePDF( pdf: PDF ): void {
 
         const language = this.languageService;
-        const orientation = this.pdfIsVertical() ? 'portrait' : 'landscape';
+        
+        const orientation = this.pdfIsVertical() 
+            ? 'portrait' 
+            : 'landscape';
 
         const doc = new jsPDF( {orientation: orientation} );
 
@@ -60,7 +63,7 @@ export class PdfService {
         const pdfHeight = doc.internal.pageSize.getHeight();
 
         //* FONT =========================================================================
-        const checkWhichLanguageIsActiveAndEnableTheCorrectFont = () => {
+        const checkWhichLanguageIsActiveAndEnableTheCorrectFont = (): void => {
 
             if (language.isKorean()) {
                 doc.addFileToVFS('NotoSansKR.ttf', (NotoSansKR as any).file.data);
@@ -82,7 +85,10 @@ export class PdfService {
         };
         
         //* HORIZONTAL LINE WIDTH SETTINGS ===============================================
-        const lineWidth = this.pdfIsVertical() ? 200 : 286;
+        const lineWidth = this.pdfIsVertical() 
+            ? 200 
+            : 286;
+
         const x1 = (pdfWidth - lineWidth) / 2;
         const x2 = x1 + lineWidth;
 
@@ -140,10 +146,11 @@ export class PdfService {
             doc.setFontSize(10);
 
             if (language.isGreek() || language.isEnglish())
-                doc.text(language.isGreek() 
-                    ? `Λήγει στις: ${dateRefactored}`
-                    : `Expires on: ${dateRefactored}`
-                    , pdfWidth - 46, 45
+                doc.text(
+                    language.isGreek() 
+                        ? `Λήγει στις: ${dateRefactored}`
+                        : `Expires on: ${dateRefactored}`,
+                    pdfWidth - 46, 45
                 );
 
             else if (language.isSpanish())
@@ -170,6 +177,7 @@ export class PdfService {
         //* NOTES ========================================================================
         const wrapLimit = this.pdfIsVertical() ? 237 : 346;
         const wrappedText = doc.splitTextToSize(pdf.notes!, wrapLimit);
+
         if (pdf.notes) {
             doc.setFontSize(10);
 
@@ -217,25 +225,25 @@ export class PdfService {
             : language.isItalian() ? ['', 'Totale', '', pdf.productsQuantity, pdf.subtotal]
             : language.isRussian() ? ['', 'Итого', '', pdf.productsQuantity, pdf.subtotal]
             : ['', '총액', '', pdf.productsQuantity, pdf.subtotal]
-
         ];
 
         const getColumnWidth = () => {
             return (
                 this.pdfIsVertical() 
-                ? (
-                      language.isGreek()   ? { ...tableWidth.greek }
-                    : language.isEnglish() ? { ...tableWidth.english }
-                    : language.isSpanish() ? { ...tableWidth.spanish }
-                    : language.isFrench()  ? { ...tableWidth.french }
-                    : language.isItalian() ? { ...tableWidth.italian }
-                    : language.isRussian() ? { ...tableWidth.russian }
-                    : { ...tableWidth.korean }
-                )
-                : (
-                      language.isRussian() ? { ...tableWidth.russianHorizontal }
-                    : { ...tableWidth.horizontalPdfCellWidth }
-                )
+                    ? (
+                          language.isGreek()   ? { ...tableWidth.greek }
+                        : language.isEnglish() ? { ...tableWidth.english }
+                        : language.isSpanish() ? { ...tableWidth.spanish }
+                        : language.isFrench()  ? { ...tableWidth.french }
+                        : language.isItalian() ? { ...tableWidth.italian }
+                        : language.isRussian() ? { ...tableWidth.russian }
+                        : { ...tableWidth.korean }
+                    )
+                    : (
+                        language.isRussian() 
+                            ? { ...tableWidth.russianHorizontal }
+                            : { ...tableWidth.horizontalPdfCellWidth }
+                    )
             );
         };
 
@@ -246,9 +254,9 @@ export class PdfService {
         const tablePosition = (): number => {
             const someExtraSpaceForTheWin: number = 3;
             return (
-                  pdf.notes
-                ? extraSpacePerNotesLine + someExtraSpaceForTheWin
-                : tableStartingPosition
+                pdf.notes
+                    ? extraSpacePerNotesLine + someExtraSpaceForTheWin
+                    : tableStartingPosition
             );
         };
         
@@ -259,7 +267,8 @@ export class PdfService {
             startY: tablePosition(),
             styles: {
                 //* both options for the table font will work here.
-                //* loading the Noto Sans KR for the Korean language. (Inter doesn't support Korean).
+                //* loading the Noto Sans KR for the Korean language. 
+                //* (Inter doesn't support Korean, Noto Sans doesn't support Greek).
                 // font: this.languageService.isKorean() ? 'NotoSansKR' : 'Inter',
                 font: checkWhichLanguageIsActiveAndEnableTheCorrectFont() !,
                 fontSize: 10,
@@ -275,8 +284,6 @@ export class PdfService {
             didParseCell: data => {
                 if (this.withoutColour())
                     data.cell.styles.fillColor = 'white';
-                else
-                    return;
             },
             //* tableLineColor is the table border.
             tableLineColor: '#969696',
@@ -294,28 +301,28 @@ export class PdfService {
 
             //* CREDITS ======================================================================
             //* it displays in all pages in case the table takes more than one.
-            didDrawPage: data => {
+            didDrawPage: () => {
                 doc.line(5, pdfHeight - 7, pdfWidth - 5, pdfHeight - 7);
             
                 doc.setFontSize(6);
                 doc.text(
-                      language.isGreek() 
-                    ? `Το έγγραφο δημιουργήθηκε μέσω της εφαρμογής «Product Offer to .pdf» του Νίκου Πολυζωγόπουλου. Περισσότερες πληροφορίες: https://product-offer-to-pdf.web.app`
+                    language.isGreek() 
+                        ? `Το έγγραφο δημιουργήθηκε μέσω της εφαρμογής «Product Offer to .pdf» του Νίκου Πολυζωγόπουλου. Περισσότερες πληροφορίες: https://product-offer-to-pdf.web.app`
     
                     : language.isEnglish()
-                    ? `This document was generated using the "Product Offer to .pdf" Web Application made by Nick Polizogopoulos. More information: https://product-offer-to-pdf.web.app`
+                        ? `This document was generated using the "Product Offer to .pdf" Web Application made by Nick Polizogopoulos. More information: https://product-offer-to-pdf.web.app`
     
                     : language.isSpanish()
-                    ? `Este documento fue generado utilizando la aplicación web "Product Offer to .pdf" creada por Nick Polizogopoulos. Más información: https://product-offer-to-pdf.web.app`
+                        ? `Este documento fue generado utilizando la aplicación web "Product Offer to .pdf" creada por Nick Polizogopoulos. Más información: https://product-offer-to-pdf.web.app`
     
                     : language.isFrench()
-                    ? `Ce document a été généré à l'aide de l'application Web "Product Offer to .pdf" créée par Nick Polizogopoulos. Plus d'informations : https://product-offer-to-pdf.web.app`
+                        ? `Ce document a été généré à l'aide de l'application Web "Product Offer to .pdf" créée par Nick Polizogopoulos. Plus d'informations : https://product-offer-to-pdf.web.app`
     
                     : language.isItalian()
-                    ? `Questo documento è stato creato con l'app "Product Offer to .pdf" di Nick Polizogopoulos. Per info: https://product-offer-to-pdf.web.app`
+                        ? `Questo documento è stato creato con l'app "Product Offer to .pdf" di Nick Polizogopoulos. Per info: https://product-offer-to-pdf.web.app`
     
                     : language.isRussian()
-                    ? `Документ создан с использованием веб-приложения "Product Offer to .pdf" от Nick Polizogopoulos. Больше информации: https://product-offer-to-pdf.web.app`
+                        ? `Документ создан с использованием веб-приложения "Product Offer to .pdf" от Nick Polizogopoulos. Больше информации: https://product-offer-to-pdf.web.app`
     
                     : `이 문서는 Nick Polizogopoulos 가 만든 "Product Offer to .pdf" 웹 애플리케이션을 사용하여 생성되었습니다. 추가 정보: https://product-offer-to-pdf.web.app`
 

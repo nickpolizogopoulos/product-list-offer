@@ -8,56 +8,56 @@
 //* 4. Total Price.
 
 export const greek = {
-    0: { cellWidth: 10 },
-    1: { cellWidth: 108 },
+    0: { cellWidth: 11 },
+    1: { cellWidth: 107 },
     2: { cellWidth: 32 },
     3: { cellWidth: 22 },
     4: { cellWidth: 22 }
 };
 
 export const english = {
-    0: { cellWidth: 10 },
-    1: { cellWidth: 112 },
+    0: { cellWidth: 11 },
+    1: { cellWidth: 111 },
     2: { cellWidth: 25 },
     3: { cellWidth: 20 },
     4: { cellWidth: 27 }
 };
 
 export const spanish = {
-    0: { cellWidth: 10 },
-    1: { cellWidth: 104 },
+    0: { cellWidth: 11 },
+    1: { cellWidth: 103 },
     2: { cellWidth: 32 },
     3: { cellWidth: 21 },
     4: { cellWidth: 27 }
 };
 
 export const french = {
-    0: { cellWidth: 10 },
-    1: { cellWidth: 108 },
+    0: { cellWidth: 11 },
+    1: { cellWidth: 107 },
     2: { cellWidth: 32 },
     3: { cellWidth: 20 },
     4: { cellWidth: 24 }
 };
 
 export const italian = {
-    0: { cellWidth: 10 },
-    1: { cellWidth: 100 },
+    0: { cellWidth: 11 },
+    1: { cellWidth: 99 },
     2: { cellWidth: 34 },
     3: { cellWidth: 20 },
     4: { cellWidth: 30 }
 };
 
 export const russian = {
-    0: { cellWidth: 10 },
-    1: { cellWidth: 83 }, 
+    0: { cellWidth: 11 },
+    1: { cellWidth: 82 }, 
     2: { cellWidth: 37 },
     3: { cellWidth: 25 },
     4: { cellWidth: 39 }
 };
 
 export const korean = {  
-    0: { cellWidth: 10 },
-    1: { cellWidth: 115 },
+    0: { cellWidth: 11 },
+    1: { cellWidth: 114 },
     2: { cellWidth: 27 },
     3: { cellWidth: 15 },
     4: { cellWidth: 27 }
@@ -66,16 +66,16 @@ export const korean = {
 //*** HORIZONTAL TOTAL MUST BE 281
 
 export const horizontalPdfCellWidth = {
-    0: { cellWidth: 10 },
-    1: { cellWidth: 185 },
+    0: { cellWidth: 11 },
+    1: { cellWidth: 184 },
     2: { cellWidth: 34 },
     3: { cellWidth: 22 },
     4: { cellWidth: 30 }
 };
 
 export const russianHorizontal = {
-    0: { cellWidth: 10 },
-    1: { cellWidth: 170 }, 
+    0: { cellWidth: 11 },
+    1: { cellWidth: 169 }, 
     2: { cellWidth: 37 },
     3: { cellWidth: 25 },
     4: { cellWidth: 39 }

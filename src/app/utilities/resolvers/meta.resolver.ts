@@ -10,25 +10,25 @@ import {
 
 export const metaResolver: ResolveFn<void> = ( route: ActivatedRouteSnapshot ): void => {
 
-  const titleService = inject(Title);
-  const metaService = inject(Meta);
+  const title = inject(Title);
+  const meta = inject(Meta);
 
-  const title = route.data['title'];
+  const routeTitle = route.data['title'];
   const description = route.data['description'];
 
-  titleService.setTitle(title);
+  title.setTitle(routeTitle);
 
-  metaService.updateTag({ 
+  meta.updateTag({ 
     name: 'description', 
     content: description
   });
 
-  metaService.updateTag({ 
+  meta.updateTag({ 
     property: 'og:title',
-    content: title 
+    content: routeTitle 
   });
 
-  metaService.updateTag({ 
+  meta.updateTag({ 
     property: 'og:description', 
     content: description
   });

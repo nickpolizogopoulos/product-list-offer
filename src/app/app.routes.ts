@@ -19,9 +19,9 @@ const getTitle = ( pageName?: string ): string => {
     const appTitle: string = 'Product offer to .pdf';
     
     return (
-          pageName
-        ? `${ appTitle } - ${ pageName }`
-        : appTitle
+        pageName
+            ? `${ appTitle } - ${ pageName }`
+            : appTitle
     );
 };
 

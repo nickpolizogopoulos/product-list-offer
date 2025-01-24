@@ -10,10 +10,10 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 export const MaterialComponents =
 [
-    MatInputModule,
-    MatSelectModule,
     MatButtonModule,
     MatDividerModule,
+    MatInputModule,
+    MatSelectModule,
     MatRadioModule,
     MatMenuModule,
     MatIconModule,

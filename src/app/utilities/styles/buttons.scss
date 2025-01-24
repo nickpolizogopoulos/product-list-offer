@@ -11,6 +11,8 @@ button {
 
 .products-icon-btn {
     @extend %flex-row;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
     height: 50px;
     width: 50px;
@@ -18,8 +20,6 @@ button {
     border: none;
     border-radius: 10px;
     margin-bottom: 20px;
-    justify-content: center;
-    align-items: center;
     transition: $transition;
 
     &:hover {
