@@ -6,18 +6,13 @@ import {
 } from "@angular/forms";
 import { environment } from "../../../environments/environment";
 
-type ValidatorResult = { doesNotContainPeriod: true };
-
-//* value = control.value; sto9res the control's value.
-//* typeof value === 'string' && value.includes('.') checks if it contains a period.
-
-export const mustContainPeriod = (control: AbstractControl): ValidatorResult | null => {
-    const value = control.value;
-    return (
-      typeof value === 'string' && value.includes('.')
-        ? null 
-        : { doesNotContainPeriod: true }
-    );
+//* value = control.value; stores the control's value.
+//* Validates email format: requires exactly one '@' with non-empty local and domain parts, 
+//* and at least one '.' in the domain part after '@'.
+export const emailFormatValidator = (control: AbstractControl): { emailIsInvalid: true } | null => {
+  const value = control.value;
+  const isValid = /^[^@]+@[^@]+\.[^@]+$/.test(value);
+  return isValid ? null : { emailIsInvalid: true };
 };
 
 export const required = { validators: [Validators.required] };
@@ -52,13 +47,13 @@ export const loadClientFormValues = () => {
   const developmentClient = new FormGroup({
     customerName: new FormControl( 'My Client', required ),
     customerPhone: new FormControl( '0000 000 000', required ),
-    customerEmail: new FormControl( 'email@email.com', { validators: [ Validators.required, mustContainPeriod ] } ),
+    customerEmail: new FormControl( 'email@email.com', { validators: [ Validators.required, emailFormatValidator ] } ),
   });
 
   const procuctionClient = new FormGroup({
     customerName: new FormControl( '', required ),
     customerPhone: new FormControl( '', required ),
-    customerEmail: new FormControl( '', { validators: [ Validators.required, mustContainPeriod ] } ),
+    customerEmail: new FormControl( '', { validators: [ Validators.required, emailFormatValidator ] } ),
   });
 
   return environment.production 

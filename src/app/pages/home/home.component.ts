@@ -32,7 +32,7 @@ import {
   initialCompanyEmailValue,
   initialCompanyLocationValue,
   localStorageItemData,
-  mustContainPeriod,
+  emailFormatValidator,
   required,
   loadClientFormValues,
   loadProducts,
@@ -220,7 +220,7 @@ export class HomeComponent implements OnInit {
     companyName: new FormControl(initialCompanyNameValue, required),
     companySubtitle: new FormControl(initialCompanySubtitleValue),
     companyPhone: new FormControl(initialCompanyPhoneValue, required),
-    companyEmail: new FormControl(initialCompanyEmailValue, { validators: [Validators.required, mustContainPeriod] }),
+    companyEmail: new FormControl(initialCompanyEmailValue, { validators: [Validators.required, emailFormatValidator] }),
     companyLocation: new FormControl(initialCompanyLocationValue, required),
 
     customer: loadClientFormValues(),

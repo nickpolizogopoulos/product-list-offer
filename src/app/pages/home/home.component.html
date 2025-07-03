@@ -32,7 +32,7 @@
             <div class="input-25">
                 <mat-form-field>
                     <mat-label>{{ content.company.email.label }}</mat-label>
-                    <input matInput formControlName="companyEmail" email>
+                    <input matInput formControlName="companyEmail">
                 </mat-form-field>
                 @if (companyEmailIsInvalid) {
                     <span class="error-message">{{ content.company.email.errorMessage }}</span>
