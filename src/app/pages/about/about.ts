@@ -5,7 +5,7 @@ import {
 import { RouterLink } from "@angular/router";
 
 import { MaterialComponents } from "../../utilities/tools/material-components";
-import { LanguageService } from "../../utilities/services/language/language.service";
+import { LanguageService } from "../../utilities/services/language/language-service";
 import { type AboutContent } from "./about-types";
 
 import { greek } from "./greek";
@@ -17,7 +17,6 @@ import { russian } from "./russian";
 import { korean } from "./korean";
 
 @Component({
-    selector: 'app-about',
     standalone: true,
     imports: [
         RouterLink,
@@ -97,7 +96,7 @@ import { korean } from "./korean";
     
     `
 })
-export class AboutComponent {
+export class About {
 
     private languageService = inject(LanguageService);
       

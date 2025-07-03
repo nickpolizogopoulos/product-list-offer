@@ -6,7 +6,7 @@ import {
 import { RouterLink } from "@angular/router";
 
 import { MaterialComponents } from "../../tools/material-components";
-import { LanguageService } from "../../services/language/language.service";
+import { LanguageService } from "../../services/language/language-service";
 import {
     type HeroContent,
     greek,

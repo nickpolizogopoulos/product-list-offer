@@ -40,13 +40,13 @@ import {
 } from "../../utilities/tools/form-tools";
 import { PDF } from "../../utilities/tools/pdf.model";
 import { Product } from "../../utilities/tools/product.model";
-import { PdfService } from "../../utilities/services/pdf.service";
+import { PdfService } from "../../utilities/services/pdf-service";
 import { MaterialComponents } from "../../utilities/tools/material-components";
-import { ProductListActionButtonComponent } from "../../utilities/components/product-list-action-button.component";
-import { HeroSectionComponent } from "../../utilities/components/hero-section/hero-section.component";
+import { ProductListActionButton } from "../../utilities/components/product-list-action-button";
+import { HeroSectionComponent } from "../../utilities/components/hero-section/hero-section";
 import { type ColourOption } from "../../utilities/services/language/types";
 
-import { LanguageService } from "../../utilities/services/language/language.service";
+import { LanguageService } from "../../utilities/services/language/language-service";
 import {
   type Orientation,
   type HomeContent, 
@@ -61,7 +61,6 @@ import { russian } from "./content/russian";
 import { korean } from "./content/korean";
 
 @Component({
-  selector: 'app-home',
   standalone: true,
   providers: [
       provideNativeDateAdapter(),
@@ -69,17 +68,17 @@ import { korean } from "./content/korean";
   ],
   imports: [
       ReactiveFormsModule,
-      ProductListActionButtonComponent,
+      ProductListActionButton,
       MaterialComponents,
       HeroSectionComponent
   ],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  templateUrl: './home.html',
+  styleUrl: './home.scss',
   host: {
     '(window: resize)': 'onWindowResize()'
   }
 })
-export class HomeComponent implements OnInit {
+export class Home implements OnInit {
 
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);

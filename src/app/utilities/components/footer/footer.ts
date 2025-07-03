@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { LanguageService } from '../../services/language/language.service';
+import { LanguageService } from '../../services/language/language-service';
 import { MaterialComponents } from '../../tools/material-components';
 import { 
   footerContentEng, 
@@ -88,7 +88,7 @@ import {
 
   `
 })
-export class FooterComponent {
+export class Footer {
 
   private readonly languageService = inject(LanguageService);
 

@@ -3,11 +3,11 @@ import {
     Routes
 } from '@angular/router';
 
-import { HomeComponent } from './pages//home/home.component';
-import { AboutComponent } from './pages/about/about.component';
-import { CookiesComponent } from './pages/cookies/cookies.component';
-import { PrivacyTermsComponent } from './pages/privacy-terms/privacy-terms.component';
-import { metaResolver } from './utilities/resolvers/meta.resolver';
+import { Home } from './pages/home/home';
+import { About } from './pages/about/about';
+import { Cookies } from './pages/cookies/cookies';
+import { PrivacyTerms } from './pages/privacy-terms/privacy-terms';
+import { metaResolver } from './utilities/resolvers/meta-resolver';
 
 export const extraOptions: ExtraOptions = {
     scrollPositionRestoration: 'enabled',
@@ -28,7 +28,7 @@ const getTitle = ( pageName?: string ): string => {
 export const routes: Routes = [
     {
         path: '',
-        component: HomeComponent,
+        component: Home,
         data: {
             title: getTitle(),
             description: `Export your product offer to .pdf, quicky and for free with the "Product Offer to .pdf" Application!`
@@ -37,7 +37,7 @@ export const routes: Routes = [
     },
     {
         path: 'about',
-        component: AboutComponent,
+        component: About,
         data: {
             title: getTitle('About'),
             description: `Learn more information about "Product Offer to .pdf" Application!`
@@ -46,7 +46,7 @@ export const routes: Routes = [
     },
     {
         path: 'cookies',
-        component: CookiesComponent,
+        component: Cookies,
         data: {
             title: getTitle('Cookies'),
             description: `Learn more about the Cookies "Product Offer to .pdf" Application uses.`
@@ -55,7 +55,7 @@ export const routes: Routes = [
     },
     {
         path: 'privacy-terms',
-        component: PrivacyTermsComponent,
+        component: PrivacyTerms,
         data: {
             title: getTitle('Privacy & Terms'),
             description: `Learn more about the Privacy Policy & Terms of Use of "Product Offer to .pdf" Application.`

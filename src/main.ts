@@ -14,7 +14,7 @@ import {
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 
-import { AppComponent } from './app/app.component';
+import { App } from './app/app';
 import { environment } from './environments/environment';
 import {
   extraOptions,
@@ -47,7 +47,7 @@ const app = initializeApp(environment.firebaseConfig);
 const analytics = getAnalytics(app);
 
 bootstrapApplication(
-  AppComponent,
+  App,
   appConfig
 )
 .catch( error => console.error(error) );

@@ -5,7 +5,7 @@ import {
 import { RouterLink } from '@angular/router';
 
 import { MaterialComponents } from '../../utilities/tools/material-components';
-import { LanguageService } from '../../utilities/services/language/language.service';
+import { LanguageService } from '../../utilities/services/language/language-service';
 import { PrivacyTermsContentType } from './terms-types';
 
 import { greek } from "./greek";
@@ -17,7 +17,6 @@ import { russian } from "./russian";
 import { korean } from "./korean";
 
 @Component({
-  selector: 'app-privacy-terms',
   standalone: true,
   imports: [
     RouterLink,
@@ -87,7 +86,7 @@ import { korean } from "./korean";
 
   `
 })
-export class PrivacyTermsComponent {
+export class PrivacyTerms {
 
     private languageService = inject(LanguageService);
 

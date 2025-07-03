@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { LanguageService } from '../../services/language/language.service';
+import { LanguageService } from '../../services/language/language-service';
 import { MaterialComponents } from '../../tools/material-components';
 import {
     type Language,
@@ -86,9 +86,9 @@ import {
         </section>
   
     `,
-    styleUrl: `./header.component.scss`
+    styleUrl: `./header.scss`
 })
-export class HeaderComponent {
+export class Header {
 
     private readonly languageService = inject(LanguageService);
 

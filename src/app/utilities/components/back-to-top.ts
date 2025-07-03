@@ -54,7 +54,7 @@ import {
     
     `
 })
-export class BackToTopComponent {
+export class BackToTop {
 
     private readonly isVisible = signal<boolean>(false);
     readonly visible = this.isVisible.asReadonly();

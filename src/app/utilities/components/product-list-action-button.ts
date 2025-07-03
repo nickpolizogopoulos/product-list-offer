@@ -13,7 +13,7 @@ import
     { type Instance } 
 from "tippy.js";
 
-import { LanguageService } from "../services/language/language.service";
+import { LanguageService } from "../services/language/language-service";
 
 type ButtonType = 'add' | 'delete';
 
@@ -42,7 +42,7 @@ type ButtonType = 'add' | 'delete';
 
     `
 })
-export class ProductListActionButtonComponent {
+export class ProductListActionButton {
 
     private readonly languageService = inject(LanguageService);
 
@@ -55,7 +55,7 @@ export class ProductListActionButtonComponent {
     );
 
     constructor() {
-        effect(() => this.initializeTooltip() );
+        effect(() => this.initializeTooltip());
     }
 
     private readonly tooltip = viewChild<ElementRef>('addProductTooltip');

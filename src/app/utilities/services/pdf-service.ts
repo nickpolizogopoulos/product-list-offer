@@ -8,7 +8,7 @@ import {
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
-import { LanguageService } from './language/language.service';
+import { LanguageService } from './language/language-service';
 
 import { type PDF } from '../tools/pdf.model';
 import { type ColourOption } from './language/types';

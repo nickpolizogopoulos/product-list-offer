@@ -6,7 +6,7 @@ import {
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { LanguageService } from '../language/language.service';
+import { LanguageService } from '../language/language-service';
 import {
     english,
     greek,

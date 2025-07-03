@@ -5,7 +5,7 @@ import {
 import { RouterLink } from '@angular/router';
 
 import { MaterialComponents } from '../../utilities/tools/material-components';
-import { LanguageService } from '../../utilities/services/language/language.service';
+import { LanguageService } from '../../utilities/services/language/language-service';
 import { type CookiesContent } from './cookies-types';
 import { greek } from './greek';
 import { english } from './english';
@@ -16,7 +16,6 @@ import { russian } from './russian';
 import { korean } from './korean';
 
 @Component({
-  selector: 'app-cookies',
   standalone: true,
   imports: [
     RouterLink,
@@ -79,7 +78,7 @@ import { korean } from './korean';
   
   `
 })
-export class CookiesComponent {
+export class Cookies {
 
     private languageService = inject(LanguageService);
   

@@ -1,23 +1,23 @@
 import {
   Component,
-  inject,
-  OnInit
+  inject
 } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 
-import { FooterComponent } from "./utilities/components/footer/footer.component";
-import { HeaderComponent } from "./utilities/components/header/header.component";
-import { BackToTopComponent } from "./utilities/components/back-to-top.component";
-import { CookieWarningService } from "./utilities/services/cookie-warning/cookie-warning.service";
+import { CookieWarningService } from "./utilities/services/cookie-warning/cookie-warning-service";
+
+import { BackToTop } from "./utilities/components/back-to-top";
+import { Footer } from "./utilities/components/footer/footer";
+import { Header } from "./utilities/components/header/header";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    HeaderComponent,
+    Header,
     RouterOutlet,
-    FooterComponent,
-    BackToTopComponent
+    Footer,
+    BackToTop
   ],
   template: `
   
@@ -28,7 +28,7 @@ import { CookieWarningService } from "./utilities/services/cookie-warning/cookie
   
   `
 })
-export class AppComponent {
+export class App {
 
   private cookieWarningService = inject(CookieWarningService);
 
