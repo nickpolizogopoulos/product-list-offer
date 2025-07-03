@@ -90,9 +90,9 @@ import {
 })
 export class HeaderComponent {
 
-    private languageService = inject(LanguageService);
+    private readonly languageService = inject(LanguageService);
 
-    selectedLanguage = computed(() => 
+    readonly selectedLanguage = computed(() => 
         this.languageService.selectedLanguage()
     );
 
@@ -117,8 +117,8 @@ export class HeaderComponent {
         return [ ...social ];
     }
 
-    onLanguageSelect(selection: Language): void {
-        this.languageService.setCurrentLanguage(selection);
+    onLanguageSelect(language: Language): void {
+        this.languageService.setCurrentLanguage(language);
     }
 
 }

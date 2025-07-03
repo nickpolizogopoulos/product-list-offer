@@ -23,11 +23,11 @@ import {
 })
 export class CookieWarningService {
 
-    private snackBar = inject(MatSnackBar);
-    private languageService = inject(LanguageService);
+    private readonly snackBar = inject(MatSnackBar);
+    private readonly languageService = inject(LanguageService);
 
-    private cookieExpirationDays: number = 30;
-    private key: string = 'product-offer-to-pdf-cookie-action';
+    private readonly cookieExpirationDays: number = 30;
+    private readonly key: string = 'product-offer-to-pdf-cookie-action';
     private currentContent: SnackBarContent | null = null;
 
     constructor() {
@@ -55,9 +55,7 @@ export class CookieWarningService {
             );
 
             snackBarRef.onAction()
-                .subscribe({
-                    next: () => this.setCookieConsent()
-                });
+                .subscribe(() => this.setCookieConsent());
         }
     }
 

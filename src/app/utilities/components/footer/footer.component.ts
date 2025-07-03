@@ -90,7 +90,7 @@ import {
 })
 export class FooterComponent {
 
-  private languageService = inject(LanguageService);
+  private readonly languageService = inject(LanguageService);
 
   get content(): FooterContent {
     const language = this.languageService;

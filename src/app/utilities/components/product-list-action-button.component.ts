@@ -44,23 +44,21 @@ type ButtonType = 'add' | 'delete';
 })
 export class ProductListActionButtonComponent {
 
-    private languageService = inject(LanguageService);
+    private readonly languageService = inject(LanguageService);
 
-    buttonType = input.required<ButtonType>();
+    readonly buttonType = input.required<ButtonType>();
 
-    buttonClass = computed<ButtonType>(() =>
+    readonly buttonClass = computed<ButtonType>(() =>
         this.buttonType() === 'add' 
             ? 'add' 
             : 'delete'
     );
 
     constructor() {
-        effect(() =>
-            this.initializeTooltip()
-        );
+        effect(() => this.initializeTooltip() );
     }
 
-    private tooltip = viewChild<ElementRef>('addProductTooltip');
+    private readonly tooltip = viewChild<ElementRef>('addProductTooltip');
     private currentTippyInstance: Instance | null = null;
     
     private initializeTooltip(): void {

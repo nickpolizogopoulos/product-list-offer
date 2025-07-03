@@ -12,32 +12,26 @@ import { type Language } from './types';
 })
 export class LanguageService {
 
-    private localStorageKey: string = 'product-offer-to-pdf-language';
-    private language = signal<Language>(this.getInitialLanguage());
+    private readonly localStorageKey: string = 'product-offer-to-pdf-language';
+    private readonly language = signal<Language>(this.getInitialLanguage());
 
-    selectedLanguage = this.language.asReadonly();
+    readonly selectedLanguage = this.language.asReadonly();
 
-    isGreek = computed(() => this.selectedLanguage() === 'greek');
-    isEnglish = computed(() => this.selectedLanguage() === 'english');
-    isSpanish = computed(() => this.selectedLanguage() === 'spanish');
-    isFrench = computed(() => this.selectedLanguage() === 'french');
-    isItalian = computed(() => this.selectedLanguage() === 'italian');
-    isRussian = computed(() => this.selectedLanguage() === 'russian');
-    isKorean = computed(() => this.selectedLanguage() === 'korean');
+    readonly isGreek = computed(() => this.selectedLanguage() === 'greek');
+    readonly isEnglish = computed(() => this.selectedLanguage() === 'english');
+    readonly isSpanish = computed(() => this.selectedLanguage() === 'spanish');
+    readonly isFrench = computed(() => this.selectedLanguage() === 'french');
+    readonly isItalian = computed(() => this.selectedLanguage() === 'italian');
+    readonly isRussian = computed(() => this.selectedLanguage() === 'russian');
+    readonly isKorean = computed(() => this.selectedLanguage() === 'korean');
 
     private getInitialLanguage(): Language {
         const storedLanguage: Language | null = localStorage.getItem(this.localStorageKey) as Language | null;
-        return (
-              storedLanguage
-            ? storedLanguage 
-            : 'english'
-        );
+        return storedLanguage ? storedLanguage : 'english';
     }
 
     constructor() {
-        effect(() => 
-            localStorage.setItem(this.localStorageKey, this.language())
-        );
+        effect(() => localStorage.setItem(this.localStorageKey, this.language()) );
     }
 
     setCurrentLanguage(selection: Language): void {

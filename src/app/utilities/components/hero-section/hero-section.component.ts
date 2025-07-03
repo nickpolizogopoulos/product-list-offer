@@ -125,9 +125,9 @@ import {
 })
 export class HeroSectionComponent {
 
-    private languageService = inject(LanguageService);
+    private readonly languageService = inject(LanguageService);
 
-    getStarted = output<void>();
+     readonly getStarted = output<void>();
 
     onGetStarted(): void {
         this.getStarted.emit();

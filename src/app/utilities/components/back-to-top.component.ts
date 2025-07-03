@@ -56,8 +56,8 @@ import {
 })
 export class BackToTopComponent {
 
-    private isVisible = signal<boolean>(false);
-    visible = this.isVisible.asReadonly();
+    private readonly isVisible = signal<boolean>(false);
+    readonly visible = this.isVisible.asReadonly();
 
     private onVisibilitySet(): void {
         this.isVisible.set(window.scrollY > 120);

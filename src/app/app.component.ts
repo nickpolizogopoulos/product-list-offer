@@ -28,7 +28,7 @@ import { CookieWarningService } from "./utilities/services/cookie-warning/cookie
   
   `
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
   private cookieWarningService = inject(CookieWarningService);
 
@@ -41,9 +41,6 @@ export class AppComponent implements OnInit {
         font-size: 21px;
       `
     );
-  }
-
-  ngOnInit(): void {
     this.cookieWarningService.displayCookieWarning();
   }
 
