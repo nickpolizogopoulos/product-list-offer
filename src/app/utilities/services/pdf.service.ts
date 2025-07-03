@@ -23,12 +23,12 @@ import * as tableWidth from '../tools/pdf-table-cell-with';
 })
 export class PdfService {
     
-    private languageService = inject(LanguageService);
-    private printOption = signal<ColourOption>('withColour');
-    private orientation = signal<Orientation>('vertical');
-    private withColour = computed(() => this.printOption() === 'withColour');
-    private withoutColour = computed(() => this.printOption() === 'withoutColour');
-    private pdfIsVertical = computed(() => this.orientation() === 'vertical');
+    private readonly languageService = inject(LanguageService);
+    private readonly printOption = signal<ColourOption>('withColour');
+    private readonly orientation = signal<Orientation>('vertical');
+    private readonly withColour = computed(() => this.printOption() === 'withColour');
+    private readonly withoutColour = computed(() => this.printOption() === 'withoutColour');
+    private readonly pdfIsVertical = computed(() => this.orientation() === 'vertical');
 
     setPrintOption(colourOption: ColourOption): void {
         this.printOption.set(colourOption);
@@ -38,7 +38,7 @@ export class PdfService {
         this.orientation.set(orientation);
     }
 
-    private numberOfLinesInTextArea = signal<number>(1);
+    private readonly numberOfLinesInTextArea = signal<number>(1);
 
     updateTextareaLines(value: number): void {
         this.numberOfLinesInTextArea.set(value);
@@ -89,8 +89,8 @@ export class PdfService {
             ? 200 
             : 286;
 
-        const x1 = (pdfWidth - lineWidth) / 2;
-        const x2 = x1 + lineWidth;
+        const lineStartCoordinate = (pdfWidth - lineWidth) / 2;
+        const lineEndCoordinate = lineStartCoordinate + lineWidth;
 
         //* HEADER =======================================================================
         if (this.withColour()) {
@@ -111,7 +111,7 @@ export class PdfService {
 
         //* FIRST HORIZONTAL LINE ========================================================
         if (this.withColour())
-            doc.line(x1, 34, x2, 34);
+            doc.line(lineStartCoordinate, 34, lineEndCoordinate, 34);
 
         //* OFFER TITLE ==================================================================
         doc.setFontSize(15);
@@ -172,7 +172,7 @@ export class PdfService {
 
         //* SECOND HORIZONTAL LINE =======================================================
         if (this.withColour())
-            doc.line(x1, 75, x2, 75);
+            doc.line(lineStartCoordinate, 75, lineEndCoordinate, 75);
 
         //* NOTES ========================================================================
         const wrapLimit = this.pdfIsVertical() ? 237 : 346;
