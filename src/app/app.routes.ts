@@ -14,15 +14,11 @@ export const extraOptions: ExtraOptions = {
     anchorScrolling: 'enabled'
 };
 
+// refactor(home): simplify form validation checks make properties readonly for improved clarity and immutability and siplify the route title logic.
+
 const getTitle = ( pageName?: string ): string => {
-    
     const appTitle: string = 'Product offer to .pdf';
-    
-    return (
-        pageName
-            ? `${ appTitle } - ${ pageName }`
-            : appTitle
-    );
+    return pageName ? `${ appTitle } - ${ pageName }` : appTitle;
 };
 
 export const routes: Routes = [

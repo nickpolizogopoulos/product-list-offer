@@ -80,34 +80,28 @@ import { korean } from "./content/korean";
 })
 export class Home implements OnInit {
 
-  private destroyRef = inject(DestroyRef);
-  private router = inject(Router);
-
-  private languageService = inject(LanguageService);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly router = inject(Router);
+  
+  private readonly languageService = inject(LanguageService);
 
   constructor() {
 
     this.setButtonOrientation();
 
     //* for the textarea rows
-    effect(() =>
+    effect(() => {
       window.addEventListener(
         'resize',
         () => this.windowWidth.set(window.outerWidth)
       )
-    );
-        
-    effect(() => 
-      this.pdfService.setPrintOption( this.printOption() )
-    );
-  
-    effect(() => 
-      this.pdfService.setOrientation( this.selectedOrientation() )
-    );
 
-    //* enable - disable the expiration date input based on radio button selection.
-    //* add validator required if the 'expires' radio is selected. 
-    effect(() => {
+      this.pdfService.setPrintOption(this.printOption())
+      this.pdfService.setOrientation(this.selectedOrientation())
+
+      //* enable - disable the expiration date input based on radio button selection.
+      //* add validator required if the 'expires' radio is selected. 
+      
       const expirationDateControl = this.form.get('expirationDate');
 
       if (this.theOfferHasExpirationDate() === 'expires') {
@@ -160,17 +154,17 @@ export class Home implements OnInit {
     this.router.navigateByUrl('#get-started')
   }
   
-  private pdfService = inject(PdfService);
+  private readonly pdfService = inject(PdfService);
 
   //* textarea more rows on mobile
   private windowWidth = signal<number>(window.outerWidth);
 
-  textareaRows = computed<number>(() =>
+  readonly textareaRows = computed<number>(() =>
     this.windowWidth() < 800 ? 5 : 3
   );
   
-  printOption = signal<ColourOption>('withColour');
-  selectedOrientation = signal<Orientation>('vertical');
+  readonly printOption = signal<ColourOption>('withColour');
+  readonly selectedOrientation = signal<Orientation>('vertical');
   
   onColouredPdfOptionChange(value: ColourOption) {
     this.printOption.set(value);
@@ -180,7 +174,7 @@ export class Home implements OnInit {
     this.selectedOrientation.set(value);
   }
   
-  theOfferHasExpirationDate = signal<OfferExpirationOption>('permanent');
+  readonly theOfferHasExpirationDate = signal<OfferExpirationOption>('permanent');
 
   onExpirationChange(value: OfferExpirationOption): void {
 
@@ -188,10 +182,9 @@ export class Home implements OnInit {
       this.form.controls.expirationDate.setValue(null);
 
     this.theOfferHasExpirationDate.set(value);
-
   }
 
-  notesEnabled = signal<boolean>(false);
+  readonly notesEnabled = signal<boolean>(false);
 
   onNotesSelected(): void {
     if (this.notesEnabled())
@@ -200,9 +193,9 @@ export class Home implements OnInit {
     this.notesEnabled.set(!this.notesEnabled());
   }
 
-  private howManyLinesInTextArea = signal<number>(1);
+  private readonly howManyLinesInTextArea = signal<number>(1);
 
-  //* calculates the textarea textlines and stores the number in line 203;
+  //* calculates the textarea textlines and stores the number above^
   trackTextareaLines(event: Event): void {
     const textarea = event.target as HTMLTextAreaElement;
 
@@ -215,19 +208,15 @@ export class Home implements OnInit {
   }
 
   form = new FormGroup({
-
     companyName: new FormControl(initialCompanyNameValue, required),
     companySubtitle: new FormControl(initialCompanySubtitleValue),
     companyPhone: new FormControl(initialCompanyPhoneValue, required),
     companyEmail: new FormControl(initialCompanyEmailValue, { validators: [Validators.required, emailFormatValidator] }),
     companyLocation: new FormControl(initialCompanyLocationValue, required),
-
     customer: loadClientFormValues(),
-
     expirationDate: new FormControl<Date | null>(null),
     notes: new FormControl(null),
-    
-    products: new FormArray( loadProducts() )
+    products: new FormArray(loadProducts())
   });
 
   get qtyOptions() {
@@ -239,36 +228,12 @@ export class Home implements OnInit {
     return options;
   }
 
-  //* COMPANY CHECKS
-  get companyNameIsInvalid(): boolean {
-    return (
-      this.form.controls.companyName.invalid &&
-      this.form.controls.companyName.touched
-    );
+  formControlIsInvalidAndTouched(controlName: keyof typeof this.form.controls): boolean {
+    const control = this.form.controls[controlName];
+    return control.invalid && control.touched;
   }
 
-  get companyPhoneIsInvalid(): boolean {
-    return (
-      this.form.controls.companyPhone.invalid &&
-      this.form.controls.companyPhone.touched
-    );
-  }
-
-  get companyEmailIsInvalid(): boolean {
-    return (
-      this.form.controls.companyEmail.invalid &&
-      this.form.controls.companyEmail.touched
-    );
-  }
-
-  get companyLocationIsInvalid(): boolean {
-    return (
-      this.form.controls.companyLocation.invalid &&
-      this.form.controls.companyLocation.touched
-    );
-  }
-
-  //* CUSTOMER CHECKS
+  //* CUSTOMER FIELDS VALIDITY
   get customerNameIsInvalid(): boolean {
     return (
       this.form.controls.customer.controls.customerName.invalid &&
@@ -290,15 +255,7 @@ export class Home implements OnInit {
     );
   }
 
-  //* DATE CHECK
-  get dateIsInvalid(): boolean {
-    return (
-      this.form.controls.expirationDate.invalid && 
-      this.form.controls.expirationDate.touched 
-    );
-  }
-
-  //* FORM CHECK
+  //* FORM VALIDITY CHECK
   get formIsInvalid(): boolean {
     return (
       this.form.invalid &&
@@ -329,7 +286,7 @@ export class Home implements OnInit {
     products.removeAt(index);
   }
 
-  theListIsEmpty = signal<boolean>(false);
+  readonly theListIsEmpty = signal<boolean>(false);
 
   onSubmit(): void {
 
@@ -424,7 +381,7 @@ export class Home implements OnInit {
   }
 
   //* mat-button-toggle-group (document orientation) for smaller screens
-  buttonsVertical = signal<boolean>(false);
+  readonly buttonsVertical = signal<boolean>(false);
   
   private setButtonOrientation(): void {
     const isMobile = this.windowWidth() < 660;
