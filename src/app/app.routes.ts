@@ -9,14 +9,17 @@ import { Cookies } from './pages/cookies/cookies';
 import { PrivacyTerms } from './pages/privacy-terms/privacy-terms';
 import { metaResolver } from './utilities/resolvers/meta-resolver';
 
+type PageName =
+    | 'About'
+    | 'Cookies'
+    | 'Privacy & Terms';
+
 export const extraOptions: ExtraOptions = {
     scrollPositionRestoration: 'enabled',
     anchorScrolling: 'enabled'
 };
 
-// refactor(home): simplify form validation checks make properties readonly for improved clarity and immutability and siplify the route title logic.
-
-const getTitle = ( pageName?: string ): string => {
+const getTitle = (pageName?: PageName): string => {
     const appTitle: string = 'Product offer to .pdf';
     return pageName ? `${ appTitle } - ${ pageName }` : appTitle;
 };
@@ -27,7 +30,7 @@ export const routes: Routes = [
         component: Home,
         data: {
             title: getTitle(),
-            description: `Export your product offer to .pdf, quicky and for free with the "Product Offer to .pdf" Application!`
+            description: `Export your product offer to .pdf, quickly and for free with the "Product Offer to .pdf" Application!`
         },
         resolve: { metaData: metaResolver }
     },
