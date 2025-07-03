@@ -1,7 +1,7 @@
 import {
   ApplicationConfig,
   enableProdMode,
-  provideExperimentalZonelessChangeDetection,
+  provideZonelessChangeDetection,
   isDevMode
 } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
@@ -24,7 +24,7 @@ import { provideServiceWorker } from '@angular/service-worker';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideExperimentalZonelessChangeDetection(),
+    provideZonelessChangeDetection(),
     provideRouter(
       routes, 
       withInMemoryScrolling(extraOptions)
